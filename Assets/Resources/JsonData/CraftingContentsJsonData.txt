@@ -1,0 +1,28 @@
+﻿[
+    {
+        "Type": [
+            {
+                "ItemName": "Foundation"
+            },
+            {
+                "ItemName": "wall"
+            },
+            {
+                "ItemName": "door"
+            },
+            {
+                "ItemName": "window"
+            }
+        ]
+    },
+	{
+        "Type": [
+            {
+                "ItemName": "arrow"
+            },
+            {
+                "ItemName": "spear"
+            }
+        ]
+    }
+]
