@@ -13,17 +13,24 @@ public class CraftingPanelController : MonoBehaviour {
 	private int tabsNum = 2;
 	private List<GameObject> tabsList;
 	private List<GameObject> contentsList;
-	// Use this for initialization
+
+	private int slotsNum = 25;
+	private List<GameObject> slotsList;
+
+	private int currentIndex = -1;
+
 	void Start () {
 		m_CraftingPanelView = gameObject.GetComponent<CraftingPanelView>();
 		m_CraftingPanelModel = gameObject.GetComponent<CraftingPanelModel>();
 		tabsList = new List<GameObject>();
 		contentsList = new List<GameObject>();
+		slotsList = new List<GameObject>();
 
 		CreateAlltabs();
 		CreateAllContents();
 
 		ResetTabsAndContents(0);
+		CreateAllSlots();
 	}
 	
 	private void CreateAlltabs(){
@@ -37,7 +44,7 @@ public class CraftingPanelController : MonoBehaviour {
 	}
 
 	private void CreateAllContents(){
-		List<List<string>> tempList = m_CraftingPanelModel.ByNameGetJsonData("CraftingContentsJsonData");
+		List<List<CraftingContentItem>> tempList = m_CraftingPanelModel.ByNameGetJsonData("CraftingContentsJsonData");
         for (int i = 0; i < tabsNum; i++){
 			GameObject go = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_Content, m_CraftingPanelView.Contents_Transform);
 			go.GetComponent<CraftingContentController>().InitContent(i, m_CraftingPanelView.Prefab_ContentItem, tempList[i]);
@@ -47,17 +54,25 @@ public class CraftingPanelController : MonoBehaviour {
 	}
 
 	private void ResetTabsAndContents(int index) {
+		if (currentIndex == index) return;
 		for(int i = 0; i < tabsList.Count ; i++){
 			tabsList[i].GetComponent<CraftingTabItemController>().NormalTab();
 			contentsList[i].SetActive(false);
 		}
 
-		Debug.Log("ResetTabsAndContents()" + index);
+		Debug.Log("ResetTabsAndContents():" + index);
 		tabsList[index].GetComponent<CraftingTabItemController>().ActiveTab();
 		contentsList[index].SetActive(true);
-
+		currentIndex = index;
 	}
 
+	private void CreateAllSlots(){
+        for (int i = 0; i < slotsNum; i++){
+			GameObject go =GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_Slot, m_CraftingPanelView.Center_Transform);
+			go.name = "Slot" + i;
+			slotsList.Add(go);
+        }
+    }
 
 
 }

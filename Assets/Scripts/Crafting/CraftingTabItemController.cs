@@ -43,7 +43,6 @@ public class CraftingTabItemController : MonoBehaviour {
 	}
 
 	private void ButtonOnClick(){
-		Debug.Log("ccc");
 		SendMessageUpwards("ResetTabsAndContents", index);
 	}
 

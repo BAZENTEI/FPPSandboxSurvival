@@ -2,15 +2,19 @@
     {
         "Type": [
             {
+                "ItemID":1,
                 "ItemName": "Foundation"
             },
             {
+                 "ItemID":2,
                 "ItemName": "wall"
             },
             {
+                "ItemID":3,
                 "ItemName": "door"
             },
             {
+                "ItemID":4,
                 "ItemName": "window"
             }
         ]
@@ -18,9 +22,11 @@
 	{
         "Type": [
             {
+                "ItemID":101,
                 "ItemName": "arrow"
             },
             {
+                "ItemID":102,
                 "ItemName": "spear"
             }
         ]

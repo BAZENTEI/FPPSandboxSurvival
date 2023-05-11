@@ -10,6 +10,9 @@ public class CraftingContentItemController : MonoBehaviour {
 	private Button m_Button;
 	private GameObject m_BG;
 
+	private int id;
+	private string m_name;
+
 	void Awake () {
 		m_Transform = gameObject.transform;
 		m_Text = m_Transform.Find("Text").GetComponent<Text>();
@@ -20,8 +23,12 @@ public class CraftingContentItemController : MonoBehaviour {
 		m_Button.onClick.AddListener(ItemButtonClick);
 	}
 
-	public void Init(string name){
-		m_Text.text = " " + name;
+	public void Init(CraftingContentItem item){
+
+		this.id = item.ItemID;
+		this.m_name = item.ItemName;
+		gameObject.name = "Item" + id;
+		m_Text.text = " " + m_name;
 
 	}
 
@@ -34,6 +41,7 @@ public class CraftingContentItemController : MonoBehaviour {
 	}
 
 	private void ItemButtonClick(){
+		
 		SendMessageUpwards("ResetItemState", this);
     }
 

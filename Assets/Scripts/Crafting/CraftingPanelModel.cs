@@ -19,18 +19,17 @@ public class CraftingPanelModel : MonoBehaviour {
 
 	}
 
-	public List<List<string>> ByNameGetJsonData(string fileName)
-	{
-		List<List<string>> temp = new List<List<string>>();
+	public List<List<CraftingContentItem>> ByNameGetJsonData(string fileName){
+		List<List<CraftingContentItem>> temp = new List<List<CraftingContentItem>>();
 		string jsonString = Resources.Load<TextAsset>("JsonData/" + fileName).text;
 		JsonData jsonData = JsonMapper.ToObject(jsonString);
         for (int i = 0; i < jsonData.Count; i++){
-			List<string> tempList = new List<string>();
+			List<CraftingContentItem> tempList = new List<CraftingContentItem>();
 			JsonData jd = jsonData[i]["Type"];
             for (int j = 0; j < jd.Count; j++){
-				
-				tempList.Add(jd[j]["ItemName"].ToString());
-            }
+				tempList.Add(JsonMapper.ToObject<CraftingContentItem>(jd[j].ToJson()));
+				//tempList.Add(jd[j]["ItemName"].ToString());
+			}
 			temp.Add(tempList);
         }
 
