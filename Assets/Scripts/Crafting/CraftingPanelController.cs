@@ -31,6 +31,11 @@ public class CraftingPanelController : MonoBehaviour {
 
 		ResetTabsAndContents(0);
 		CreateAllSlots();
+
+		List<CraftingMapItem> tempList = m_CraftingPanelModel.GetMapContents("CraftingMapJsonData");
+		for(int i = 0; i < tempList.Count; i++){
+			Debug.Log(tempList[i].ToString());
+		}
 	}
 	
 	private void CreateAlltabs(){

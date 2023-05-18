@@ -35,4 +35,25 @@ public class CraftingPanelModel : MonoBehaviour {
 
 		return temp;
     }
+
+	public List<CraftingMapItem> GetMapContents(string fileName){
+		List<CraftingMapItem> temp = new List<CraftingMapItem>();
+		string jsonString = Resources.Load<TextAsset>("JsonData/" + fileName).text;
+		JsonData jsonData = JsonMapper.ToObject(jsonString);
+
+		for (int i = 0; i < jsonData.Count; i++){
+			int mapId = int.Parse(jsonData[i]["MapId"].ToString());
+			string tempStr = jsonData[i]["MapContents"].ToString();
+			string[] mapContents = tempStr.Split(',');
+			string mapName = jsonData[i]["MapName"].ToString();
+			
+			CraftingMapItem item = new CraftingMapItem(mapId ,mapContents ,mapName);
+			temp.Add(item);
+		}
+		return temp;
+	}
+
+
+
+
 }
