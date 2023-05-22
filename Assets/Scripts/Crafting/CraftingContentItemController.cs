@@ -13,6 +13,7 @@ public class CraftingContentItemController : MonoBehaviour {
 	private int id;
 	private string m_name;
 
+	public int Id { get { return id; } }
 	void Awake () {
 		m_Transform = gameObject.transform;
 		m_Text = m_Transform.Find("Text").GetComponent<Text>();

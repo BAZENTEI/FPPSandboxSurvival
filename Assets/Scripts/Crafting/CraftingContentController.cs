@@ -32,12 +32,13 @@ public class CraftingContentController : MonoBehaviour {
 
 	private void ResetItemState(CraftingContentItemController item){
 		if (item == current) return;
-		Debug.Log(item.name);
+		Debug.Log(item.Id);
 		if(current != null){
 			current.NormalItem();
         }
 		item.ActiveItem();
 		current = item;
+		SendMessageUpwards("CreateSlotContents",item.Id);
 	}
 
 }

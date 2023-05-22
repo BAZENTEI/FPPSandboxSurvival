@@ -17,6 +17,8 @@ public class CraftingPanelView : MonoBehaviour {
 	private GameObject prefab_Slot;
 
 	private Dictionary<string, Sprite> tabIconDic;
+	private Dictionary<string,Sprite> materialIconDic;
+
 	public Transform M_Transform { get { return m_Transform; } }
 	public Transform Tabs_Transform { get { return tabs_Transform; } }
 	public Transform Contents_Transform { get { return contents_Transform; } }
@@ -40,8 +42,10 @@ public class CraftingPanelView : MonoBehaviour {
 		prefab_Slot = Resources.Load<GameObject>("CraftingSlot");
 
 		tabIconDic = new Dictionary<string, Sprite>();
+		materialIconDic = new Dictionary<string, Sprite>();
 
 		TabsIconLoad();
+		MaterialIconLoad();
 	}
 	
 	private void TabsIconLoad(){
@@ -57,6 +61,19 @@ public class CraftingPanelView : MonoBehaviour {
 		tabIconDic.TryGetValue(name,out temp);
 		return temp;
 
+	}
+
+	private void MaterialIconLoad(){
+		Sprite[] tempSprite = Resources.LoadAll<Sprite>("Material");
+		for (int i = 0; i < tempSprite.Length; i++){
+			materialIconDic.Add(tempSprite[i].name, tempSprite[i]);
+		}
+	}
+
+	public Sprite ByNameGetMaterialIconSprite(string name){
+		Sprite temp = null;
+		materialIconDic.TryGetValue(name,out temp);
+		return temp;
 	}
 
 

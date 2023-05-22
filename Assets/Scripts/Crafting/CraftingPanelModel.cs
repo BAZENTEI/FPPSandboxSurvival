@@ -8,15 +8,13 @@ using LitJson;
 /// </summary>
 public class CraftingPanelModel : MonoBehaviour {
 
-	// Use this for initialization
+	private Dictionary<int, CraftingMapItem> mapItemDic = null;
 	void Awake() {
-
+		mapItemDic = LoadMapContents("CraftingMapJsonData");
 	}
 
 	public string[] GetTabsIconName(){
-
 		return new string[] { "Icon_House", "Icon_Weapon" };
-
 	}
 
 	public List<List<CraftingContentItem>> ByNameGetJsonData(string fileName){
@@ -36,8 +34,8 @@ public class CraftingPanelModel : MonoBehaviour {
 		return temp;
     }
 
-	public List<CraftingMapItem> GetMapContents(string fileName){
-		List<CraftingMapItem> temp = new List<CraftingMapItem>();
+	private Dictionary<int, CraftingMapItem> LoadMapContents(string fileName){
+		Dictionary<int, CraftingMapItem> temp = new Dictionary<int, CraftingMapItem>();
 		string jsonString = Resources.Load<TextAsset>("JsonData/" + fileName).text;
 		JsonData jsonData = JsonMapper.ToObject(jsonString);
 
@@ -48,12 +46,16 @@ public class CraftingPanelModel : MonoBehaviour {
 			string mapName = jsonData[i]["MapName"].ToString();
 			
 			CraftingMapItem item = new CraftingMapItem(mapId ,mapContents ,mapName);
-			temp.Add(item);
+			temp.Add(mapId,item);
 		}
 		return temp;
 	}
 
+	public CraftingMapItem GetItemById(int id){
+		CraftingMapItem temp = null;
+		mapItemDic.TryGetValue(id, out temp);
+		return temp;
 
-
+	}
 
 }
