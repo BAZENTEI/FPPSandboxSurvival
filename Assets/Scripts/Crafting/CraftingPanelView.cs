@@ -49,31 +49,22 @@ public class CraftingPanelView : MonoBehaviour {
 	}
 	
 	private void TabsIconLoad(){
-		Sprite []tempSprite = Resources.LoadAll<Sprite>("TabIcon");
-        for (int i = 0; i < tempSprite.Length ; i++){
-			tabIconDic.Add(tempSprite[i].name, tempSprite[i]);
-
-		}
+		
+		ResourcesTools.LoadFolderAssets("TabIcon", tabIconDic);
     }
 
 	public Sprite ByNameGetSprite(string name){
-		Sprite temp = null;
-		tabIconDic.TryGetValue(name,out temp);
-		return temp;
+		
+		return ResourcesTools.GetAsset(name, tabIconDic);
 
 	}
 
 	private void MaterialIconLoad(){
-		Sprite[] tempSprite = Resources.LoadAll<Sprite>("Material");
-		for (int i = 0; i < tempSprite.Length; i++){
-			materialIconDic.Add(tempSprite[i].name, tempSprite[i]);
-		}
+		ResourcesTools.LoadFolderAssets("Material", materialIconDic);
 	}
 
 	public Sprite ByNameGetMaterialIconSprite(string name){
-		Sprite temp = null;
-		materialIconDic.TryGetValue(name,out temp);
-		return temp;
+		return ResourcesTools.GetAsset(name, materialIconDic);
 	}
 
 
