@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CraftingContentItem : MonoBehaviour {
+public class CraftingContentItem{
 
 	private int itemId;
 	private string itemName;

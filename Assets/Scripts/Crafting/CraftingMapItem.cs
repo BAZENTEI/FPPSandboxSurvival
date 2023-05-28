@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CraftingMapItem : MonoBehaviour {
+public class CraftingMapItem {
 	private int mapId;
 	private string[] mapContents;
 	private string mapName;

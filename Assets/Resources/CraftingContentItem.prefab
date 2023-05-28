@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 224974135801840324}
   - component: {fileID: 222433608609366426}
-  - component: {fileID: 114195920101493892}
   - component: {fileID: 114206384143909812}
+  - component: {fileID: 114195920101493892}
   - component: {fileID: 114235065363848794}
   m_Layer: 5
   m_Name: CraftingContentItem

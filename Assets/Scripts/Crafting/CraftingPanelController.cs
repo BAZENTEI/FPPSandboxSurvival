@@ -9,6 +9,7 @@ using UnityEngine;
 public class CraftingPanelController : MonoBehaviour {
 	private CraftingPanelView m_CraftingPanelView;
 	private CraftingPanelModel m_CraftingPanelModel;
+	private CraftingController m_CraftingController;
 
 	private int tabsNum = 2;
 	private List<GameObject> tabsList;
@@ -19,12 +20,10 @@ public class CraftingPanelController : MonoBehaviour {
 
 	private int currentIndex = -1;
 
+	private Transform m_Transform;
+
 	void Start () {
-		m_CraftingPanelView = gameObject.GetComponent<CraftingPanelView>();
-		m_CraftingPanelModel = gameObject.GetComponent<CraftingPanelModel>();
-		tabsList = new List<GameObject>();
-		contentsList = new List<GameObject>();
-		slotsList = new List<GameObject>();
+		Init();
 
 		CreateAlltabs();
 		CreateAllContents();
@@ -32,6 +31,17 @@ public class CraftingPanelController : MonoBehaviour {
 		ResetTabsAndContents(0);
 		CreateAllSlots();
 
+	}
+
+	private void Init(){
+		m_Transform = gameObject.transform;
+		m_CraftingPanelView = gameObject.GetComponent<CraftingPanelView>();
+		m_CraftingPanelModel = gameObject.GetComponent<CraftingPanelModel>();
+		m_CraftingController = m_Transform.Find("Right").GetComponent<CraftingController>();
+
+		tabsList = new List<GameObject>();
+		contentsList = new List<GameObject>();
+		slotsList = new List<GameObject>();
 	}
 	
 	private void CreateAlltabs(){
@@ -45,6 +55,7 @@ public class CraftingPanelController : MonoBehaviour {
 	}
 
 	private void CreateAllContents(){
+
 		List<List<CraftingContentItem>> tempList = m_CraftingPanelModel.ByNameGetJsonData("CraftingContentsJsonData");
         for (int i = 0; i < tabsNum; i++){
 			GameObject go = GameObject.Instantiate<GameObject>(m_CraftingPanelView.Prefab_Content, m_CraftingPanelView.Contents_Transform);
@@ -78,23 +89,21 @@ public class CraftingPanelController : MonoBehaviour {
     }
 
 	private void CreateSlotContents(int id){
-
 		CraftingMapItem temp = m_CraftingPanelModel.GetItemById(id);
-		if (temp){
+		if (temp != null){
 			ResetSlotContents();
 			for (int j = 0; j < temp.MapContents.Length; j++){
-				if (temp.MapContents[j] != "0")
-				{
+				if (temp.MapContents[j] != "0"){
 					Sprite sp = m_CraftingPanelView.ByNameGetMaterialIconSprite(temp.MapContents[j]);
 					slotsList[j].GetComponent<CraftingSlotController>().Init(sp);
 				}
-
+				//クラフトアイテムの表示
+				m_CraftingController.Init(temp.MapName);
 				//Debug.Log(tempList[i].ToString());
 			}
 		}
 		
 	}
-
 
 	private void ResetSlotContents(){
         for (int i = 0; i < slotsList.Count; i++){

@@ -22,11 +22,11 @@
 	{
         "Type": [
             {
-                "ItemID":101,
+                "ItemID":11,
                 "ItemName": "arrow"
             },
             {
-                "ItemID":102,
+                "ItemID":12,
                 "ItemName": "spear"
             }
         ]
