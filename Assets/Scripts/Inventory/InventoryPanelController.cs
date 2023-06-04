@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryPanelController : MonoBehaviour {
+
 	private InventoryPanelView m_InventoryPanelView;
 	private InventoryPanelModel m_InventoryPanelModel;
 	private int slotNum = 27;
@@ -21,6 +22,7 @@ public class InventoryPanelController : MonoBehaviour {
 	private void CreateSlotAll(){
 		for(int i = 0; i < slotNum; i++){
 			GameObject tempSlot = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Slot(), m_InventoryPanelView.GetGridTransform());
+			tempSlot.name = "InventorySlot" + i;
 			slotList.Add(tempSlot);
 		}
 	}
@@ -33,7 +35,7 @@ public class InventoryPanelController : MonoBehaviour {
 		for(int i = 0; i < tempList.Count ; i++){
 			
 			GameObject temp = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Item(), slotList[i].transform);
-			temp.GetComponent<InventoryItemController>().InitItem(tempList[i].ItemName, tempList[i].ItemNum);
+			temp.GetComponent<InventoryItemController>().InitItem(tempList[i].ItemId, tempList[i].ItemName, tempList[i].ItemNum);
 		}
 		
 

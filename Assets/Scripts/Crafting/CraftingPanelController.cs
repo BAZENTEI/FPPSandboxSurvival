@@ -95,7 +95,7 @@ public class CraftingPanelController : MonoBehaviour {
 			for (int j = 0; j < temp.MapContents.Length; j++){
 				if (temp.MapContents[j] != "0"){
 					Sprite sp = m_CraftingPanelView.ByNameGetMaterialIconSprite(temp.MapContents[j]);
-					slotsList[j].GetComponent<CraftingSlotController>().Init(sp);
+					slotsList[j].GetComponent<CraftingSlotController>().Init(sp, int.Parse(temp.MapContents[j]));
 				}
 				//クラフトアイテムの表示
 				m_CraftingController.Init(temp.MapName);

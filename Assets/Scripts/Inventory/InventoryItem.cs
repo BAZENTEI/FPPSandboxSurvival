@@ -3,8 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryItem {
+	private int itemId;
 	private string itemName;
 	private int itemNum;
+
+	public int ItemId
+	{
+		get { return itemId; }
+		set { itemId = value; }
+	}
 
 	public string ItemName{
 		get { return itemName; }
@@ -17,7 +24,8 @@ public class InventoryItem {
 	}
 
 	public InventoryItem(){}
-	public InventoryItem(string itemName,int itemNum){
+	public InventoryItem(int itemId, string itemName,int itemNum){
+		this.itemId = itemId;
 		this.ItemName = itemName;
 		this.itemNum = itemNum;
 

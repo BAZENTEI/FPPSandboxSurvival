@@ -26,7 +26,6 @@ public class CraftingContentController : MonoBehaviour {
 			GameObject go = GameObject.Instantiate<GameObject>(prefab, m_Transform);
 
 			go.GetComponent<CraftingContentItemController>().Init(strList[i]);
-
 		}
     }
 

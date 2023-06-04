@@ -8,6 +8,12 @@ public class CraftingSlotController : MonoBehaviour {
 	private Transform m_Transform;
 	private Image m_Image;
 
+	private bool isOpen = false;
+	public bool IsOpen { get { return isOpen; } } 
+
+	private int id = -1;    //スロットのid
+	public int Id { get { return id; } }
+
 	// Update is called once per frame
 	void Awake () {
 		m_Transform = gameObject.transform;
@@ -15,9 +21,14 @@ public class CraftingSlotController : MonoBehaviour {
 		m_Image.gameObject.SetActive(false);
 	}
 
-	public void Init(Sprite sprite){
+	public void Init(Sprite sprite, int id){
 		m_Image.gameObject.SetActive(true);
 		m_Image.sprite = sprite;
+		//
+		m_Image.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
+		//
+		isOpen = true;
+		this.id = id;
 	}
 
 	public void Reset(){
