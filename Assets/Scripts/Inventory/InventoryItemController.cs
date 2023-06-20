@@ -6,9 +6,26 @@ using UnityEngine.EventSystems;
 public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 	private RectTransform m_RectTransform;
 	private CanvasGroup m_CanvasGroup;
-	private Image m_Image;
-	private Text m_Text;
-	private int id;
+	private Image m_Image;  //アイコン
+	private Text m_Text;	//個数
+	private int id;			
+	private bool isDrag = false; //ドラッグ判定
+	private bool inInventory = true; //
+	private int num = 0;
+	public int Num {
+		get { return num; }
+		set { num = value;
+			  m_Text.text = num.ToString();	
+		}
+	}
+	public int Id { get { return id; } set { id = value; } }
+	public bool InInventory { get { return inInventory; }
+		set {
+			  inInventory = value;
+			  m_RectTransform.localPosition = Vector3.zero;
+			  ResetSpriteSize(m_RectTransform, 85, 85);
+		} 
+	}
 
 	private Transform parent;
 	private Transform self_parent;
@@ -23,18 +40,27 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 		parent = GameObject.Find("InventoryPanel").GetComponent<Transform>();
 	}
 	
+	void Update(){
+        if (Input.GetMouseButtonDown(1) && isDrag){
+			BreakMaterials();
+
+		}
+    }
+
 	// init item
 	public void InitItem(int id, string name, int num){
 		this.id = id;
 		m_Image.sprite = Resources.Load<Sprite>("Item/" + name);
 		m_Text.text = num.ToString();
+		this.num = num;
 	}
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData){
 		self_parent = m_RectTransform.parent;
 		m_RectTransform.SetParent(parent);
 		m_CanvasGroup.blocksRaycasts = false;
-    }
+		isDrag = true;
+	}
 
     void IDragHandler.OnDrag(PointerEventData eventData){
 		Vector3 pos;
@@ -51,6 +77,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 				Debug.Log(target.name);
 				m_RectTransform.SetParent(target.transform);
 				ResetSpriteSize(m_RectTransform, 85, 85);
+				inInventory = true;
 			} else{
 				//それ以外:位置リセット
 				m_RectTransform.SetParent(self_parent);
@@ -58,9 +85,23 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 			
 			//位置入れ替え
 			if (target.tag == "InventoryItem"){
-				m_RectTransform.SetParent(target.transform.parent);
-				target.transform.SetParent(self_parent);
-				target.transform.localPosition = Vector3.zero;
+                if (inInventory && target.GetComponent<InventoryItemController>().InInventory){
+					if(Id == target.GetComponent<InventoryItemController>().Id){
+						MergeMaterials(target.GetComponent<InventoryItemController>());		
+                    } 
+                    else{
+						m_RectTransform.SetParent(target.transform.parent);
+						target.transform.SetParent(self_parent);
+						target.transform.localPosition = Vector3.zero;
+					}
+					
+                }else{
+					if (Id == target.GetComponent<InventoryItemController>().Id && target.GetComponent<InventoryItemController>().InInventory)
+					{
+						MergeMaterials(target.GetComponent<InventoryItemController>());
+					}
+				}
+
 			}
 			//アイテムスロットエリア->クラフトリスト
 			if (target.tag == "CraftingSlot"){
@@ -70,6 +111,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
                     if (id == target.GetComponent<CraftingSlotController>().Id) {
 						m_RectTransform.SetParent(target.transform);
 						ResetSpriteSize(m_RectTransform, 70, 62);
+						inInventory = false;
 					}else {
 						//戻す
 						target.transform.SetParent(self_parent);
@@ -88,6 +130,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 		//リセット
 		m_CanvasGroup.blocksRaycasts = true;
 		m_RectTransform.localPosition = Vector3.zero;
+		isDrag = false;
 	}
 
 	//アイテムテクスチャーのサイズをリセット
@@ -96,4 +139,37 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 		rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, height);
 
 	}
+
+	/// <summary>
+	/// 
+	/// </summary>
+	private void BreakMaterials(){
+		Debug.Log("BreakMaterials");
+		GameObject temp = GameObject.Instantiate<GameObject>(gameObject);
+		RectTransform tempTransform = temp.GetComponent<RectTransform>();
+		//リセット
+		tempTransform.SetParent(self_parent);
+		tempTransform.localPosition = Vector3.zero;
+		tempTransform.localScale = Vector3.one;
+
+		//
+		int tempSum = num;  //合計
+		int tempNum = tempSum / 2;
+		int tempNumA = tempSum - tempNum;
+		//
+		temp.GetComponent<InventoryItemController>().Num = tempNum;
+		Num = tempNumA;
+		//
+		temp.GetComponent<CanvasGroup>().blocksRaycasts = true;
+		//
+		temp.GetComponent<InventoryItemController>().Id = Id;
+	}
+
+	//
+	private void MergeMaterials(InventoryItemController target) {
+		target.Num = target.Num + Num; //
+		GameObject.Destroy(gameObject);
+    }
+
+
 }

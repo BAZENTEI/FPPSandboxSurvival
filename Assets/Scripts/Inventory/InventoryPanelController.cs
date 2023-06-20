@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryPanelController : MonoBehaviour {
+	public static InventoryPanelController Instance;
 
 	private InventoryPanelView m_InventoryPanelView;
 	private InventoryPanelModel m_InventoryPanelModel;
 	private int slotNum = 27;
 	private List<GameObject> slotList = new List<GameObject>();
 
-	
+	void Awake()  {
+		Instance = this;
+    }
+
 	void Start () {
 		m_InventoryPanelView = gameObject.GetComponent<InventoryPanelView>();
 		m_InventoryPanelModel = gameObject.GetComponent<InventoryPanelModel>();
@@ -36,8 +40,18 @@ public class InventoryPanelController : MonoBehaviour {
 			
 			GameObject temp = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Item(), slotList[i].transform);
 			temp.GetComponent<InventoryItemController>().InitItem(tempList[i].ItemId, tempList[i].ItemName, tempList[i].ItemNum);
-		}
-		
-
+		}	
 	}
+
+	public void AddItems(List<GameObject> itemList){
+		int itemIndex = 0;
+		for (int i = 0; i < slotList.Count; i++){
+			if (slotList[i].transform.Find("InventoryItem") == null && itemIndex < itemList.Count){
+				itemList[itemIndex].transform.SetParent(slotList[i].transform);
+				itemList[itemIndex].GetComponent<InventoryItemController>().InInventory = true;
+				itemIndex++;
+			}
+		}	
+	}
+
 }

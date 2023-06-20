@@ -7,6 +7,7 @@ public class CraftingSlotController : MonoBehaviour {
 
 	private Transform m_Transform;
 	private Image m_Image;
+	private CanvasGroup m_CanvasGroup;
 
 	private bool isOpen = false;
 	public bool IsOpen { get { return isOpen; } } 
@@ -18,6 +19,7 @@ public class CraftingSlotController : MonoBehaviour {
 	void Awake () {
 		m_Transform = gameObject.transform;
 		m_Image = m_Transform.Find("Item").GetComponent<Image>();
+		m_CanvasGroup = m_Transform.Find("Item").GetComponent<CanvasGroup>();
 		m_Image.gameObject.SetActive(false);
 	}
 
@@ -25,7 +27,7 @@ public class CraftingSlotController : MonoBehaviour {
 		m_Image.gameObject.SetActive(true);
 		m_Image.sprite = sprite;
 		//
-		m_Image.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
+		m_CanvasGroup.blocksRaycasts = false;
 		//
 		isOpen = true;
 		this.id = id;
