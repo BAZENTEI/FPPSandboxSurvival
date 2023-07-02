@@ -5,44 +5,48 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
 	private Transform m_Transform;
-	private GameObject m_Blueprint;
-	private Animator m_Animator;
-	//
-	private bool isNormal = false;
+	private GameObject m_BuildingPlan;
+	private GameObject m_WoodenSpear;
 
-	void Start () {
+	private GameObject presentItem;   //今持っている道具
+	private GameObject targetItem;	//切り替える道具
+
+	void Start(){
 		m_Transform = gameObject.transform;
-		m_Blueprint = m_Transform.Find("CharacterCamera/Building Plan").gameObject;
-		m_Animator = m_Blueprint.GetComponent<Animator>();
+		m_BuildingPlan = m_Transform.Find("CharacterCamera/Building Plan").gameObject;
+		m_WoodenSpear = m_Transform.Find("CharacterCamera/Wooden Spear").gameObject;
+
+		m_WoodenSpear.SetActive(false);
+		presentItem = m_BuildingPlan;
+		targetItem = m_BuildingPlan;
 	}
 	
 	
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.M)){
-			Changed();
-        }
+        if (Input.GetKeyDown(KeyCode.G)){
+			targetItem = m_BuildingPlan;
+			SwitchItem();
 
+		}
 
+		if (Input.GetKeyDown(KeyCode.H)){
+			targetItem = m_WoodenSpear;
+			SwitchItem();
+		}
+	}
+	private void SwitchItem(){
+		presentItem.GetComponent<Animator>().SetTrigger("Holster");
+		StartCoroutine("DelayTime");
+		//presentItem.SetActive(false);
+		//targetItem.SetActive(true);
+		//presentItem = targetItem;
 	}
 
-	private void Changed(){
-        if (isNormal){
-			m_Blueprint.SetActive(true);
-			isNormal = false;
-
-		}
-		else
-		{
-			m_Animator.SetTrigger("Holster");
-			StartCoroutine("DelayTime");
-			isNormal = true;
-		}
-    }
-
-	IEnumerator DelayTime()
-    {
+	private IEnumerator DelayTime() {
 		yield return new WaitForSeconds(1);
-		m_Blueprint.SetActive(false);
 
+		presentItem.SetActive(false);
+		targetItem.SetActive(true);
+		presentItem = targetItem;
 	}
 }
