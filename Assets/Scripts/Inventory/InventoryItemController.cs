@@ -6,12 +6,18 @@ using UnityEngine.EventSystems;
 public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 	private RectTransform m_RectTransform;
 	private CanvasGroup m_CanvasGroup;
+
 	private Image m_Image;  //アイコン
 	private Text m_Text;	//個数
-	private int id;			
+	private int id;			//アイテムid
 	private bool isDrag = false; //ドラッグ判定
-	private bool inInventory = true; //
-	private int num = 0;
+	private bool inInventory = true; //true false
+	private int num = 0;             //アイテム数
+
+	private Transform parent;   //ドラッグ途中の親オブジェクト
+	private Transform self_parent;	//親オブジェクト
+
+
 	public int Num {
 		get { return num; }
 		set { num = value;
@@ -27,20 +33,22 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 		} 
 	}
 
-	private Transform parent;
-	private Transform self_parent;
-
 	void Awake(){
+		Init();
+	}
+	
+	private void Init() {
 		m_RectTransform = gameObject.GetComponent<RectTransform>();
 		m_CanvasGroup = gameObject.GetComponent<CanvasGroup>();
 		m_Image = gameObject.GetComponent<Image>();
 		m_Text = m_RectTransform.Find("Number").GetComponent<Text>();
 		gameObject.name = "InventoryItem";
 
-		parent = GameObject.Find("InventoryPanel").GetComponent<Transform>();
+		parent = GameObject.Find("Canvas").GetComponent<Transform>();
 	}
-	
+
 	void Update(){
+		//ドラッグ途中右クリック->ドロップ
         if (Input.GetMouseButtonDown(1) && isDrag){
 			BreakMaterials();
 
@@ -70,67 +78,78 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData){
 		GameObject target = eventData.pointerEnter;
-
-		if(target != null){
-			//アイテムの空きスロットへ
-			if (target.tag == "InventorySlot"){
-				Debug.Log(target.name);
-				m_RectTransform.SetParent(target.transform);
-				ResetSpriteSize(m_RectTransform, 85, 85);
-				inInventory = true;
-			} else{
-				//それ以外:位置リセット
-				m_RectTransform.SetParent(self_parent);
-			}
-			
-			//位置入れ替え
-			if (target.tag == "InventoryItem"){
-                if (inInventory && target.GetComponent<InventoryItemController>().InInventory){
-					if(Id == target.GetComponent<InventoryItemController>().Id){
-						MergeMaterials(target.GetComponent<InventoryItemController>());		
-                    } 
-                    else{
-						m_RectTransform.SetParent(target.transform.parent);
-						target.transform.SetParent(self_parent);
-						target.transform.localPosition = Vector3.zero;
-					}
-					
-                }else{
-					if (Id == target.GetComponent<InventoryItemController>().Id && target.GetComponent<InventoryItemController>().InInventory)
-					{
-						MergeMaterials(target.GetComponent<InventoryItemController>());
-					}
-				}
-
-			}
-			//アイテムスロットエリア->クラフトリスト
-			if (target.tag == "CraftingSlot"){
-				//アイテムが該当のスロットに移動できる
-				if(target.GetComponent<CraftingSlotController>().IsOpen){
-					//クラフトリストとアイテムが一致の場合
-                    if (id == target.GetComponent<CraftingSlotController>().Id) {
-						m_RectTransform.SetParent(target.transform);
-						ResetSpriteSize(m_RectTransform, 70, 62);
-						inInventory = false;
-					}else {
-						//戻す
-						target.transform.SetParent(self_parent);
-					}
-                } else{	
-					target.transform.SetParent(self_parent);
-				}
-			}
-		}
-        else{	
-			//UIエリア外:位置リセット
-			m_RectTransform.SetParent(self_parent);
-			//m_RectTransform.localPosition = Vector3.zero;
-		}
-
+		Drag(target);
 		//リセット
 		m_CanvasGroup.blocksRaycasts = true;
 		m_RectTransform.localPosition = Vector3.zero;
 		isDrag = false;
+	}
+
+	//ドラッグ＆ドロップ処理
+	private void Drag(GameObject target){
+		if (target != null)
+		{
+			#region 空きスロット&&それ以外
+			//アイテムの空きスロットへ
+			if (target.tag == "InventorySlot")
+			{
+				Debug.Log(target.name);
+				m_RectTransform.SetParent(target.transform);
+				ResetSpriteSize(m_RectTransform, 85, 85);
+				inInventory = true;
+			}
+			else
+			{
+				//それ以外:位置リセット
+				m_RectTransform.SetParent(self_parent);
+			}
+			#endregion
+
+			#region 位置入れ替え
+			if (target.tag == "InventoryItem"){
+				InventoryItemController inventoryItemController = target.GetComponent<InventoryItemController>();
+				if (inInventory && inventoryItemController.InInventory){
+					if (Id == inventoryItemController.Id){
+						MergeMaterials(inventoryItemController);
+					} else {
+						m_RectTransform.SetParent(target.transform.parent);
+						target.transform.SetParent(self_parent);
+						target.transform.localPosition = Vector3.zero;
+					}
+				} else {
+					if (Id == inventoryItemController.Id && inventoryItemController.InInventory){
+						MergeMaterials(inventoryItemController);
+					}
+				}
+			}
+			#endregion
+
+			#region アイテムスロットエリア->クラフトリスト
+			if (target.tag == "CraftingSlot"){
+				//アイテムが該当のスロットに移動できる
+				if (target.GetComponent<CraftingSlotController>().IsOpen){
+					//クラフトリストとアイテムが一致の場合
+					if (id == target.GetComponent<CraftingSlotController>().Id){
+						m_RectTransform.SetParent(target.transform);
+						ResetSpriteSize(m_RectTransform, 70, 62);
+						inInventory = false;
+					} else {
+						//戻す
+						target.transform.SetParent(self_parent);
+					}
+				} else {
+					target.transform.SetParent(self_parent);
+				}
+			}
+			#endregion
+		}
+		else {
+			//UIエリア外:位置リセット
+			m_RectTransform.SetParent(self_parent);
+			//m_RectTransform.localPosition = Vector3.zero;
+		}
+		
+
 	}
 
 	//アイテムテクスチャーのサイズをリセット
