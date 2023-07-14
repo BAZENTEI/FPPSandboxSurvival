@@ -8,7 +8,6 @@ public class GearBarController : MonoBehaviour {
 
 	private GearBarView m_GearBarView;
 	private GearBarModel m_GearBarModel;
-	private Button m_Button;
 	private GameObject currentHolding = null;	//手持ちの装備
 
 	void Start () {
@@ -39,9 +38,7 @@ public class GearBarController : MonoBehaviour {
 			currentHolding = null;
 		}
 
-
 		currentHolding = activeSlot;
-
 
     }
 }

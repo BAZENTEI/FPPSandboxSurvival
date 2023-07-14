@@ -11,16 +11,22 @@ public class AssaultRifleView : MonoBehaviour {
 	public Animator M_Animator { get { return m_Animator; } }
 	public Camera M_EnvCamera { get { return m_EnvCamera; } }
 
-	//照準のアニメーション
-	private Vector3 startPos;
+	private Vector3 startPos;   //照準のアニメーション
 	private Vector3 endPos;
 	private Vector3 startRot;
 	private Vector3 endRot;
 
-	private Transform weaponPoint;  //マズルの位置
-	private GameObject bullet;
-	public Transform WeaponPoint { get { return weaponPoint; } }    
-	public GameObject Bullet { get { return bullet; } }
+	private GameObject prefab_Bullet;	//弾
+	private Transform m_Crosshair;	//クロスヘア
+	private Transform muzzlePos;  //マズルの位置
+	private Transform ejectionPos; //エジェクションポートの位置
+	private GameObject prefab_Shell;    //薬莢
+
+	public GameObject Prefab_Bullet { get { return prefab_Bullet; } }
+	public Transform M_Crosshair { get { return m_Crosshair; } }
+	public Transform MuzzlePos { get { return muzzlePos; } }
+	public Transform M_EjectionPos { get { return ejectionPos; } }
+	public GameObject Prefab_Shell { get { return prefab_Shell; } }
 
 	void Awake(){
 		m_Animator = gameObject.GetComponent<Animator>();
@@ -31,9 +37,13 @@ public class AssaultRifleView : MonoBehaviour {
 		endPos = new Vector3(-0.065f, -1.85f, 0.25f);
 		endRot = new Vector3(2.8f, 1.3f, 0.08f);
 
-		weaponPoint = gameObject.transform.Find("Assault_Rifle/EffectPos_Muzzle");
+		//コンポーネントプロパティ
+		muzzlePos = gameObject.transform.Find("Assault_Rifle/Pos_Muzzle");
+		ejectionPos = gameObject.transform.Find("Assault_Rifle/Pos_Ejection");
+		m_Crosshair = GameObject.Find("Crosshair").gameObject.transform;
+		prefab_Bullet = Resources.Load<GameObject>("Bullet");
+		prefab_Shell = Resources.Load<GameObject>("Animation/Ejection/Shell");
 
-		bullet = Resources.Load<GameObject>("Bullet");
 	}
 
 	//照準のアニメーション
