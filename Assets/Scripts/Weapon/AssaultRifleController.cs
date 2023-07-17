@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
@@ -16,6 +16,7 @@ public class AssaultRifleController : MonoBehaviour {
 	private Ray ray;	//発射の射線
 	private RaycastHit hit; //目標物
 
+	private ObjectPool []objectPools;	//オブジェクトプール
 
 	#region
 	public int Id{
@@ -56,6 +57,7 @@ public class AssaultRifleController : MonoBehaviour {
 		m_AssaultRifleView = gameObject.GetComponent<AssaultRifleView>();
 		audioClip = Resources.Load<AudioClip>("Audio/Weapon/Drum_gun");
 		effect = Resources.Load<GameObject>("Effect/Muzzle/AssaultRifle_GunPoint_Effect");
+		objectPools = gameObject.GetComponents<ObjectPool>();
 
 	}
 
@@ -120,22 +122,55 @@ public class AssaultRifleController : MonoBehaviour {
 	}
 
 	//発射のエフェクト
+	//発射炎
 	private void PlayFireEffect(){
-		//発射炎
-		GameObject.Instantiate<GameObject>(effect, m_AssaultRifleView.MuzzlePos.position, Quaternion.identity)
-			.GetComponent<ParticleSystem>().Play();
+		GameObject fire = null;
 
+		if(objectPools[0].isEmpty()){
+			//非アクティブなオブジェクトがない場合新規生成
+			fire = GameObject.Instantiate<GameObject>(effect, m_AssaultRifleView.MuzzlePos.position, Quaternion.identity,m_AssaultRifleView.M_FiretParent);
+			fire.name = "Fire";
+		}else{
+			//オブジェクト再利用
+			fire = objectPools[0].GetObject();
+			fire.transform.position = m_AssaultRifleView.MuzzlePos.position; 
+		}
+	
+		fire.GetComponent<ParticleSystem>().Play();
+		StartCoroutine(Delay(objectPools[0], fire, 1.0f));
+		
 	}
 
 	//発射のアニメーション
 	private void PlayFireAnimation()
 	{
-		//エジェクションポートから空薬莢が弾き出される
-		Rigidbody shell = GameObject.Instantiate<GameObject>(m_AssaultRifleView.Prefab_Shell, m_AssaultRifleView.M_EjectionPos.position, Quaternion.identity)
-			.GetComponent<Rigidbody>();
-		shell.AddForce(m_AssaultRifleView.M_EjectionPos.up * 70);
+		GameObject shell = null;
+		if(objectPools[1].isEmpty()){
+			//非アクティブなオブジェクトがない場合新規生成
+			shell =  GameObject.Instantiate<GameObject>(m_AssaultRifleView.Prefab_Shell, m_AssaultRifleView.M_EjectionPos.position, Quaternion.identity, m_AssaultRifleView.M_ShellParent);
+			shell.name = "Shell";
+		}else{
+			//オブジェクト再利用
+			shell = objectPools[1].GetObject();
+			shell.GetComponent<Rigidbody>().isKinematic = true;
+			shell.transform.position = m_AssaultRifleView.M_EjectionPos.position; 
+			shell.GetComponent<Rigidbody>().isKinematic = false;
+		}
 
+		Rigidbody shellRigidbody = shell.GetComponent<Rigidbody>();
+		//エジェクションポートから空薬莢が弾き出される
+		shellRigidbody.AddForce(m_AssaultRifleView.M_EjectionPos.up * Random.Range(60, 70));
+		StartCoroutine(Delay(objectPools[1], shell, 3.0f));
 	}
+
+	//一定時間後にプールによって管理される
+	private IEnumerator Delay (ObjectPool objectPool, GameObject gameObject, float delayTime){
+		yield return new WaitForSeconds(delayTime);
+		objectPool.AddObject(gameObject);
+		
+	}
+
+
 
 
 }

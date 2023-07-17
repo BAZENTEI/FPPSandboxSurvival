@@ -28,6 +28,11 @@ public class AssaultRifleView : MonoBehaviour {
 	public Transform M_EjectionPos { get { return ejectionPos; } }
 	public GameObject Prefab_Shell { get { return prefab_Shell; } }
 
+	private Transform firetParent;	
+	private Transform shellParent;
+	public Transform M_FiretParent { get { return firetParent; } }
+	public Transform M_ShellParent { get { return shellParent; } }
+
 	void Awake(){
 		m_Animator = gameObject.GetComponent<Animator>();
 		m_EnvCamera = GameObject.Find("WorldCamera").GetComponent<Camera>();
@@ -44,6 +49,8 @@ public class AssaultRifleView : MonoBehaviour {
 		prefab_Bullet = Resources.Load<GameObject>("Bullet");
 		prefab_Shell = Resources.Load<GameObject>("Animation/Ejection/Shell");
 
+		firetParent = GameObject.Find("ObjectPool/Fire_Parent").transform;
+		shellParent = GameObject.Find("ObjectPool/Shell_Parent").transform;
 	}
 
 	//照準のアニメーション
