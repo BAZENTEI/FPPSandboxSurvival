@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GearBarController : MonoBehaviour {
 
 	private GearBarView m_GearBarView;
-	private GearBarModel m_GearBarModel;
+//	private GearBarModel m_GearBarModel;
 	private GameObject currentHolding = null;	//手持ちの装備
 
 	void Start () {
@@ -17,7 +17,7 @@ public class GearBarController : MonoBehaviour {
 	
 	private void Init() {
 		m_GearBarView = gameObject.GetComponent<GearBarView>();
-		m_GearBarModel = gameObject.GetComponent<GearBarModel>();
+//		m_GearBarModel = gameObject.GetComponent<GearBarModel>();
 
 	}
 
