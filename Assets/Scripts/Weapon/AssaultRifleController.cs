@@ -38,7 +38,7 @@ public class AssaultRifleController : WeaponControllerBase{
 
 		if(objectPools[0].isEmpty()){
 			//非アクティブなオブジェクトがない場合新規生成
-			fire = GameObject.Instantiate<GameObject>(Effect, m_AssaultRifleView.MuzzlePos.position, Quaternion.identity,m_AssaultRifleView.M_FiretParent);
+			fire = GameObject.Instantiate<GameObject>(Effect, m_AssaultRifleView.MuzzlePos.position, Quaternion.identity,m_AssaultRifleView.M_FireParent);
 			fire.name = "Fire";
 		}else{
 			//オブジェクト再利用

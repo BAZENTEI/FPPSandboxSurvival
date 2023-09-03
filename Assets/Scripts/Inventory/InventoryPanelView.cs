@@ -9,9 +9,7 @@ public class InventoryPanelView : MonoBehaviour {
 	private GameObject prefab_slot;
 	private GameObject prefab_item;
 
-// Use this for initialization
 	void Awake () {
-		Debug.Log("1");
 		m_Transform = gameObject.transform;
 		grid_transform = m_Transform.Find("Background/Grid").transform;
 		prefab_slot = Resources.Load<GameObject>("InventorySlot");

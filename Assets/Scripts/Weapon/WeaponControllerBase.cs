@@ -2,30 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-///
+
 public abstract class WeaponControllerBase : MonoBehaviour
 {
+    private WeaponViewBase m_WeaponViewBase;
+
+    private Ray ray;    //発射の射線
+    private RaycastHit hit; //目標物
+
+    private AudioClip audioClip;    //発射のサウンド
+    private GameObject effect;  //発射炎エフェクト
+
     [SerializeField] private int id;
+    [SerializeField] private WeaponType weaponType;  //銃の種類
     [SerializeField] private int damage;     //基礎攻撃力
     [SerializeField] private int durable;    //最大耐久値
-    [SerializeField] private WeaponType weaponType;  //銃の種類
+    
 
-    #region
-    public int Id
-    {
-        get { return id; }
-        set { id = value; }
-    }
-    public int Damage
-    {
-        get { return damage; }
-        set { damage = value; }
-    }
+    public WeaponViewBase M_WeaponViewBase { get { return m_WeaponViewBase; } set { m_WeaponViewBase = value; }}
 
-    public int Durable
-    {
+    public Ray MuzzleRay { get { return ray; } set { ray = value; }}
+    public RaycastHit Hit { get { return hit; } set { hit = value; }}
+
+    public AudioClip AudioClip { get { return audioClip; } set { audioClip = value; }}
+    public GameObject Effect { get { return effect; } set { effect = value; }}
+
+    public int Id{ get { return id; } set { id = value; }}
+    public WeaponType WeaponType { get { return weaponType; } set { weaponType = value; }}
+    public int Damage{ get { return damage; } set { damage = value; }}
+    public int Durable{
         get { return durable; }
-        set{
+        set {
             durable = value;
             if (durable < 0){
                 GameObject.Destroy(gameObject);
@@ -34,40 +41,6 @@ public abstract class WeaponControllerBase : MonoBehaviour
         }
     }
 
-    public WeaponType WeaponType
-    {
-        get { return weaponType; }
-        set { weaponType = value; }
-    }
-    #endregion
-
-    private WeaponViewBase m_WeaponViewBase;
-
-    public WeaponViewBase M_WeaponViewBase { get { return m_WeaponViewBase; } set { m_WeaponViewBase = value; } }
-
-    private AudioClip audioClip;    //発射のサウンド
-    private GameObject effect;  //発射炎エフェクト
-
-    #region
-
-    public AudioClip AudioClip
-    {
-        get { return audioClip; }
-        set { audioClip = value; }
-    }
-
-    public GameObject Effect
-    {
-        get { return effect; }
-        set { effect = value; }
-    }
-    #endregion
-
-    private Ray ray;    //発射の射線
-    private RaycastHit hit; //目標物
-
-    public Ray MuzzleRay { get { return ray; } set { ray = value; } }
-    public RaycastHit Hit { get { return hit; } set { hit = value; } }
 
     public virtual void Start(){
         m_WeaponViewBase = gameObject.GetComponent<WeaponViewBase>();
@@ -79,7 +52,6 @@ public abstract class WeaponControllerBase : MonoBehaviour
     void Update(){
         PreShoot();
         Controller();
-
     }
 
     //発射
@@ -115,8 +87,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
         //照準
         M_WeaponViewBase.M_Animator.SetBool("holdPose", true);
         M_WeaponViewBase.HoldPoseStart();
-        M_WeaponViewBase.M_Crosshair.gameObject.SetActive(false);
-        
+        M_WeaponViewBase.M_Crosshair.gameObject.SetActive(false);       
     }
 
     public void MouseButtonUpRight(){
@@ -137,17 +108,9 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
         if (Input.GetMouseButtonUp(1)){
             MouseButtonUpRight();
-
         }
 
     }
-
-    public abstract void LoadAsset();
-    public abstract void Shoot();
-    public abstract void PlayFireEffect();
-    public abstract void PlayFireAnimation();
-
-    public abstract void Init();
 
 
     //一定時間後にプールによって管理される
@@ -157,4 +120,15 @@ public abstract class WeaponControllerBase : MonoBehaviour
         objectPool.AddObject(gameObject);
 
     }
+
+    public abstract void Init();
+
+    public abstract void LoadAsset();
+
+    public abstract void Shoot();
+
+    public abstract void PlayFireEffect();
+
+    public abstract void PlayFireAnimation();
+
 }

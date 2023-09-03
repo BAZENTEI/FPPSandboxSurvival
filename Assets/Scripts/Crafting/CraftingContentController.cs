@@ -8,7 +8,6 @@ public class CraftingContentController : MonoBehaviour {
 	private int index = -1;
 	private CraftingContentItemController current = null;
 
-	// Use this for initialization
 	//start->awake
 	void Awake () {
 		m_Transform = gameObject.transform;

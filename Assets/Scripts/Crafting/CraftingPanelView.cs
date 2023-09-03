@@ -29,7 +29,6 @@ public class CraftingPanelView : MonoBehaviour {
 	public GameObject Prefab_ContentItem { get { return prefab_ContentItem; } }
 	public GameObject Prefab_Slot { get { return prefab_Slot; } }
 
-	// Use this for initialization
 	void Awake () {
 		m_Transform = gameObject.transform;
 		tabs_Transform = m_Transform.Find ("Left/Tabs").transform;

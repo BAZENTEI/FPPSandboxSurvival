@@ -14,7 +14,6 @@ public class CraftingTabItemController : MonoBehaviour {
 
 	private int index = -1;
 
-	// Use this for initialization
 	void Awake () {
 		m_Transform = gameObject.transform;
 		m_Button = gameObject.GetComponent<Button>();
