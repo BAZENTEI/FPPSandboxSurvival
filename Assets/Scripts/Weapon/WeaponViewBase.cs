@@ -31,7 +31,6 @@ public abstract class WeaponViewBase : MonoBehaviour {
 		m_Animator = gameObject.GetComponent<Animator>();
 		m_EnvCamera = GameObject.Find("WorldCamera").GetComponent<Camera>();
 
-        MuzzlePos = gameObject.transform.Find("Assault_Rifle/Pos_Muzzle");
         HoldPoseInit();
 		CrosshairInit();
         Init();

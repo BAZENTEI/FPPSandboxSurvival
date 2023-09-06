@@ -42,6 +42,8 @@ public abstract class WeaponControllerBase : MonoBehaviour
     }
 
 
+    private bool readyToFire = true;
+
     public virtual void Start(){
         m_WeaponViewBase = gameObject.GetComponent<WeaponViewBase>();
         LoadAsset();
@@ -58,7 +60,8 @@ public abstract class WeaponControllerBase : MonoBehaviour
     public void PreShoot(){
         ray = new Ray(M_WeaponViewBase.MuzzlePos.position, M_WeaponViewBase.MuzzlePos.forward);
         //デバッグ用射線
-        Debug.DrawLine(M_WeaponViewBase.MuzzlePos.position, M_WeaponViewBase.MuzzlePos.forward * 1000, Color.cyan);
+        //Debug.DrawLine(M_WeaponViewBase.MuzzlePos.position, M_WeaponViewBase.MuzzlePos.forward * 1000, Color.cyan);
+
 
         if (Physics.Raycast(ray, out hit)){
             Debug.Log("あたり");
@@ -98,7 +101,8 @@ public abstract class WeaponControllerBase : MonoBehaviour
     }
 
     public void Controller() {
-        if (Input.GetMouseButtonDown(0)){
+        if (Input.GetMouseButtonDown(0)&& readyToFire)
+        {
             MouseButtonDownLeft();
         }
 
@@ -112,13 +116,16 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
     }
 
-
     //一定時間後にプールによって管理される
-    public IEnumerator Delay(ObjectPool objectPool, GameObject gameObject, float delayTime)
-    {
+    public IEnumerator Delay(ObjectPool objectPool, GameObject gameObject, float delayTime) {
         yield return new WaitForSeconds(delayTime);
         objectPool.AddObject(gameObject);
 
+    }
+
+    public void ReadyToFire(int state){
+        if (state == 0) readyToFire = false;
+        else readyToFire = true;
     }
 
     public abstract void Init();

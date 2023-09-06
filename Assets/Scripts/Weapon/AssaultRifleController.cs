@@ -74,5 +74,10 @@ public class AssaultRifleController : WeaponControllerBase{
 	}
 
 
+    void Update()
+    {
+        //Debug.DrawLine(m_AssaultRifleView.M_EjectionPos.position, m_AssaultRifleView.M_EjectionPos.up * 1000, Color.cyan);
+
+    }
 
 }
