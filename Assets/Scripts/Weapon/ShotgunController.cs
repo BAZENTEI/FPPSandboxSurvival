@@ -5,6 +5,7 @@ using UnityEngine;
 public class ShotgunController : WeaponControllerBase
 {
     private ShotgunView m_ShotgunView;
+    private const int pelletCapactiy = 6;   //散弾の粒数
     public override void Init(){
         m_ShotgunView = (ShotgunView)M_WeaponViewBase;
     }
@@ -28,9 +29,18 @@ public class ShotgunController : WeaponControllerBase
     }
 
     public override void Shoot(){
-
+        StartCoroutine("CreateBullet");
     }
 
+    private IEnumerator CreateBullet() {
+        for(int i = 0;i < pelletCapactiy; i++){
+            Vector3 offset = new Vector3(Random.Range(-0.03f, 0.03f), Random.Range(-0.03f, 0.03f), 0);
+
+            GameObject tempBullet = GameObject.Instantiate<GameObject>(m_ShotgunView.Prefab_Bullet, m_ShotgunView.MuzzlePos.position, Quaternion.identity);
+            tempBullet.GetComponent<ShotgunBullet>().Shoot(2000, m_ShotgunView.MuzzlePos.forward + offset );
+            yield return new WaitForSeconds(0.01f);
+        }
+    }
     IEnumerator FireEffectDestory(GameObject go,float time){
         yield return new WaitForSeconds(time);
         GameObject.Destroy(go);
