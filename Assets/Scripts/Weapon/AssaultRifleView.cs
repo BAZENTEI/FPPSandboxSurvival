@@ -21,7 +21,7 @@ public class AssaultRifleView : WeaponViewBase {
 
 
     override public void Init(){
-        MuzzlePos = gameObject.transform.Find("Assault_Rifle/Pos_Muzzle");
+        M_MuzzlePos = gameObject.transform.Find("Assault_Rifle/Pos_Muzzle");
 
         prefab_Bullet = Resources.Load<GameObject>("Bullet");
 		prefab_Shell = Resources.Load<GameObject>("Animation/Ejection/Shell");

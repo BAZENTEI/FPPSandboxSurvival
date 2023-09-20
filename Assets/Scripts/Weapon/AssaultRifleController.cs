@@ -38,12 +38,12 @@ public class AssaultRifleController : WeaponControllerBase{
 
 		if(objectPools[0].isEmpty()){
 			//非アクティブなオブジェクトがない場合新規生成
-			fire = GameObject.Instantiate<GameObject>(Effect, m_AssaultRifleView.MuzzlePos.position, Quaternion.identity,m_AssaultRifleView.M_FireParent);
+			fire = GameObject.Instantiate<GameObject>(Effect, m_AssaultRifleView.M_MuzzlePos.position, Quaternion.identity,m_AssaultRifleView.M_FireParent);
 			fire.name = "Fire";
 		}else{
 			//オブジェクト再利用
 			fire = objectPools[0].GetObject();
-			fire.transform.position = m_AssaultRifleView.MuzzlePos.position; 
+			fire.transform.position = m_AssaultRifleView.M_MuzzlePos.position; 
 		}
 	
 		fire.GetComponent<ParticleSystem>().Play();

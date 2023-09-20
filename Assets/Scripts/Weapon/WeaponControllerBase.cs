@@ -41,7 +41,6 @@ public abstract class WeaponControllerBase : MonoBehaviour
         }
     }
 
-
     private bool readyToFire = true;
 
     public virtual void Start(){
@@ -58,7 +57,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
     //発射
     public void PreShoot(){
-        ray = new Ray(M_WeaponViewBase.MuzzlePos.position, M_WeaponViewBase.MuzzlePos.forward);
+        ray = new Ray(M_WeaponViewBase.M_MuzzlePos.position, M_WeaponViewBase.M_MuzzlePos.forward);
         //デバッグ用射線
         //Debug.DrawLine(M_WeaponViewBase.MuzzlePos.position, M_WeaponViewBase.MuzzlePos.forward * 1000, Color.cyan);
 
@@ -73,7 +72,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
     //発射のサウンドエフェクト
     public void PlayFireAudio(){
-        AudioSource.PlayClipAtPoint(AudioClip, M_WeaponViewBase.MuzzlePos.position);
+        AudioSource.PlayClipAtPoint(AudioClip, M_WeaponViewBase.M_MuzzlePos.position);
     }
 
     public void MouseButtonDownLeft() {

@@ -16,7 +16,7 @@ public class ShotgunView : WeaponViewBase{
     public AudioClip M_EffectAudio { get { return effectAudio; } }
 
     public override void Init(){
-        MuzzlePos = gameObject.transform.Find("Armature/Weapon/Pos_Muzzle");
+        M_MuzzlePos = gameObject.transform.Find("Armature/Weapon/Pos_Muzzle");
         ejectionPos = gameObject.transform.Find("Armature/Weapon/Pos_Ejection");
         effectAudio = Resources.Load<AudioClip>("Aduio/Weapon/Shotgun_Pump");
         prefab_Shell = Resources.Load<GameObject>("Animation/Ejection/Shotgun_Shell");

@@ -24,7 +24,7 @@ public abstract class WeaponViewBase : MonoBehaviour {
 	public Vector3 M_StartRot { get { return startRot; } set { startRot = value; }}
 	public Vector3 M_EndRot { get { return endRot; } set { endRot = value; }}
 	public Transform M_Crosshair { get { return m_Crosshair; } set { m_Crosshair = value; }}
-    public Transform MuzzlePos { get { return muzzlePos; } set { muzzlePos = value; }}
+    public Transform M_MuzzlePos { get { return muzzlePos; } set { muzzlePos = value; }}
 
     public virtual void Awake(){
 		//コンポーネントプロパティの初期化

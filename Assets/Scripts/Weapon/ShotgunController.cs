@@ -23,7 +23,7 @@ public class ShotgunController : WeaponControllerBase
     }
 
     public override void PlayFireEffect(){
-        GameObject temp = GameObject.Instantiate<GameObject>(Effect, M_WeaponViewBase.MuzzlePos.position, Quaternion.identity);
+        GameObject temp = GameObject.Instantiate<GameObject>(Effect, M_WeaponViewBase.M_MuzzlePos.position, Quaternion.identity);
         temp.GetComponent<ParticleSystem>().Play();
         StartCoroutine(FireEffectDestory(temp, 3.0f));
     }
@@ -36,8 +36,8 @@ public class ShotgunController : WeaponControllerBase
         for(int i = 0;i < pelletCapactiy; i++){
             Vector3 offset = new Vector3(Random.Range(-0.03f, 0.03f), Random.Range(-0.03f, 0.03f), 0);
 
-            GameObject tempBullet = GameObject.Instantiate<GameObject>(m_ShotgunView.Prefab_Bullet, m_ShotgunView.MuzzlePos.position, Quaternion.identity);
-            tempBullet.GetComponent<ShotgunBullet>().Shoot(2000, m_ShotgunView.MuzzlePos.forward + offset );
+            GameObject tempBullet = GameObject.Instantiate<GameObject>(m_ShotgunView.Prefab_Bullet, m_ShotgunView.M_MuzzlePos.position, Quaternion.identity);
+            tempBullet.GetComponent<ShotgunBullet>().Shoot(2000, m_ShotgunView.M_MuzzlePos.forward + offset );
             yield return new WaitForSeconds(0.01f);
         }
     }
