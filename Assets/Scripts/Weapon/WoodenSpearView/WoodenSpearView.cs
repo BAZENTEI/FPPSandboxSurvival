@@ -3,10 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WoodenSpearView : WeaponViewBase
-{
+public class WoodenSpearView : WeaponViewBase {
+    
+    private GameObject preab_Spear;
+    public GameObject M_Preab_Spear { get { return preab_Spear; } }
+
+
     public override void Init(){
-        M_MuzzlePos = gameObject.transform.Find("Armature/Arm_R/Forearm_R/Wrist_R/Weapon/Pos_Muzzle");
+        M_MuzzlePos = transform.Find("Armature/Arm_R/Forearm_R/Wrist_R/Weapon/Pos_Muzzle");
+        preab_Spear = Resources.Load<GameObject>("Weapon/Wooden_Spear");
     }
 
     public override void CrosshairInit(){

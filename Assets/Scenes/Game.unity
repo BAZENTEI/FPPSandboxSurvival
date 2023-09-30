@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -127,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &18885668
 Transform:
   m_ObjectHideFlags: 0
@@ -765,7 +765,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1530010315199310, guid: 357855e5785bdea4eb6fc0ea017c34bc, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1274777372627198, guid: 357855e5785bdea4eb6fc0ea017c34bc, type: 2}
       propertyPath: m_IsActive
@@ -2204,7 +2204,7 @@ GameObject:
   - component: {fileID: 707396971}
   - component: {fileID: 707396970}
   - component: {fileID: 707396969}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2576,7 +2576,7 @@ Prefab:
       objectReference: {fileID: 9100000, guid: 536f517f19f438b4fb40eff586d5cbb0, type: 2}
     - target: {fileID: 100026, guid: f01a880f7473c2546b3ff80815537299, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 13700000, guid: f01a880f7473c2546b3ff80815537299, type: 3}
       propertyPath: m_CastShadows
@@ -3416,7 +3416,7 @@ GameObject:
   - component: {fileID: 1243370356}
   - component: {fileID: 1243370355}
   - component: {fileID: 1243370354}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4235,7 +4235,7 @@ GameObject:
   - component: {fileID: 1899381388}
   - component: {fileID: 1899381387}
   - component: {fileID: 1899381386}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4406,7 +4406,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1985888554}
-  m_LocalRotation: {x: 0.6942654, y: 0.1295504, z: -0.6954036, w: -0.13276403}
+  m_LocalRotation: {x: 0.69426537, y: 0.12955038, z: -0.6954035, w: -0.13276401}
   m_LocalPosition: {x: -0.7662245, y: -0.027564045, z: -0.0089048445}
   m_LocalScale: {x: 0.02000001, y: 0.020000013, z: 0.020000014}
   m_Children: []
