@@ -2,20 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotgunBullet : MonoBehaviour {
+public class ShotgunBullet : ProjectileBase{
 
-	private Rigidbody m_Rigidbody;
-	// Use this for initialization
-	void Awake () {
-		m_Rigidbody = gameObject.GetComponent<Rigidbody>();
-	}
-	
-	public void Shoot (int force, Vector3 dir) {
-		m_Rigidbody.AddForce(dir * force);
-	}
+    public override void Init(){
+        
+    }
 
-	void OnCollisionEnter(Collision coll){
-		m_Rigidbody.Sleep();
+    public override void Shoot(Vector3 dir, int force, int damage){
+        m_Rigidbody.AddForce(dir * force);
+    }
 
-	}
+    public override void CollisionEnter(Collision coll){
+        m_Rigidbody.Sleep();
+    }
 }
