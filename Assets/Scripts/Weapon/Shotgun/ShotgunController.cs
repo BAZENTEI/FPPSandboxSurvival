@@ -37,7 +37,7 @@ public class ShotgunController : WeaponControllerBase
             Vector3 offset = new Vector3(Random.Range(-0.03f, 0.03f), Random.Range(-0.03f, 0.03f), 0);
 
             GameObject tempBullet = GameObject.Instantiate<GameObject>(m_ShotgunView.Prefab_Bullet, m_ShotgunView.M_MuzzlePos.position, Quaternion.identity);
-            tempBullet.GetComponent<ShotgunBullet>().Shoot(2000, m_ShotgunView.M_MuzzlePos.forward + offset );
+            tempBullet.GetComponent<ShotgunBullet>().Shoot(m_ShotgunView.M_MuzzlePos.forward + offset, 2000, 10);
             yield return new WaitForSeconds(0.01f);
         }
     }
