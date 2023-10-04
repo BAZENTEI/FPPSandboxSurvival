@@ -9,16 +9,16 @@ public class WoodenSpearView : WeaponViewBase {
     public GameObject M_Preab_Spear { get { return preab_Spear; } }
 
 
-    public override void Init(){
+    protected override void Init(){
         M_MuzzlePos = transform.Find("Armature/Arm_R/Forearm_R/Wrist_R/Weapon/Pos_Muzzle");
         preab_Spear = Resources.Load<GameObject>("Weapon/Wooden_Spear");
     }
 
-    public override void CrosshairInit(){
+    protected override void CrosshairInit(){
         M_Crosshair = GameObject.Find("Crosshair").gameObject.transform;
     }
 
-    public override void HoldPoseInit(){
+    protected override void HoldPoseInit(){
         M_StartPos = transform.localPosition;
         M_StartRot = transform.localRotation.eulerAngles;
         M_EndPos = new Vector3(0.0f, -1.55f, 0.32f);

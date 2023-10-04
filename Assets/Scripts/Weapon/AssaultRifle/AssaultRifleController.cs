@@ -3,23 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class AssaultRifleController : WeaponControllerBase{
+public class AssaultRifleController : GunControllerBase{
 	private AssaultRifleView m_AssaultRifleView;
 	private ObjectPool []objectPools;	//オブジェクトプール
    
-	override public void Init(){
+	override protected void Init(){
         m_AssaultRifleView = (AssaultRifleView)M_WeaponViewBase;
 
         objectPools = gameObject.GetComponents<ObjectPool>();
 
 	}
 
-    override public void LoadAsset(){
+    override protected void LoadAsset(){
         AudioClip = Resources.Load<AudioClip>("Audio/Weapon/Drum_gun");
         Effect = Resources.Load<GameObject>("Effect/Muzzle/AssaultRifle_GunPoint_Effect");
     }
 
-    override public void Shoot(){
+    override protected void Shoot(){
         if (Hit.point != Vector3.zero){
             Debug.Log("玉あり");
             //的に生成
@@ -33,7 +33,7 @@ public class AssaultRifleController : WeaponControllerBase{
 
 	//発射のエフェクト
 	//発射炎
-	override public void PlayFireEffect(){
+	override protected void PlayFireEffect(){
 		GameObject fire = null;
 
 		if(objectPools[0].isEmpty()){
@@ -52,7 +52,7 @@ public class AssaultRifleController : WeaponControllerBase{
 	}
 
 	//発射のアニメーション
-	override public void PlayFireAnimation()
+	override protected void PlayFireAnimation()
 	{
 		GameObject shell = null;
 		if(objectPools[1].isEmpty()){

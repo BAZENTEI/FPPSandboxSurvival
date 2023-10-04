@@ -35,15 +35,15 @@ public abstract class WeaponControllerBase : MonoBehaviour
         set {
             durable = value;
             if (durable < 0){
-                GameObject.Destroy(gameObject);
-                GameObject.Destroy(m_WeaponViewBase.M_Crosshair.gameObject);
+                Destroy(gameObject);
+                Destroy(m_WeaponViewBase.M_Crosshair.gameObject);
             }
         }
     }
 
     private bool readyToFire = true;
 
-    public virtual void Start(){
+    virtual protected void Start(){
         m_WeaponViewBase = gameObject.GetComponent<WeaponViewBase>();
         LoadAsset();
         Init();
@@ -56,7 +56,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
     }
 
     //発射
-    public void PreShoot(){
+    private void PreShoot(){
         ray = new Ray(M_WeaponViewBase.M_MuzzlePos.position, M_WeaponViewBase.M_MuzzlePos.forward);
         //デバッグ用射線
         //Debug.DrawLine(M_WeaponViewBase.MuzzlePos.position, M_WeaponViewBase.MuzzlePos.forward * 1000, Color.cyan);
@@ -71,35 +71,35 @@ public abstract class WeaponControllerBase : MonoBehaviour
     }
 
     //発射のサウンドエフェクト
-    public void PlayFireAudio(){
+    private void PlayFireAudio(){
         AudioSource.PlayClipAtPoint(AudioClip, M_WeaponViewBase.M_MuzzlePos.position);
     }
 
-    public void MouseButtonDownLeft() {
+    virtual protected void MouseButtonDownLeft() {
         Shoot();
         //発射のアニメーション
         M_WeaponViewBase.M_Animator.SetTrigger("fire");
         //追加処理
         PlayFireAudio();
-        PlayFireEffect();
-        PlayFireAnimation();
+       
+        
     }
 
-    public void MouseButtonRight(){
+    private void MouseButtonRight(){
         //照準
         M_WeaponViewBase.M_Animator.SetBool("holdPose", true);
         M_WeaponViewBase.HoldPoseStart();
         M_WeaponViewBase.M_Crosshair.gameObject.SetActive(false);       
     }
 
-    public void MouseButtonUpRight(){
+    private void MouseButtonUpRight(){
         //照準を解除
         M_WeaponViewBase.M_Animator.SetBool("holdPose", false);
         M_WeaponViewBase.HoldPoseEnd();
         M_WeaponViewBase.M_Crosshair.gameObject.SetActive(true);
     }
 
-    public void Controller() {
+    private void Controller() {
         if (Input.GetMouseButtonDown(0)&& readyToFire)
         {
             MouseButtonDownLeft();
@@ -116,7 +116,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
     }
 
     //一定時間後にプールによって管理される
-    public IEnumerator Delay(ObjectPool objectPool, GameObject gameObject, float delayTime) {
+    protected IEnumerator Delay(ObjectPool objectPool, GameObject gameObject, float delayTime) {
         yield return new WaitForSeconds(delayTime);
         objectPool.AddObject(gameObject);
 
@@ -127,14 +127,15 @@ public abstract class WeaponControllerBase : MonoBehaviour
         else readyToFire = true;
     }
 
-    public abstract void Init();
+    public void SetAnimation(){
+        m_WeaponViewBase.M_Animator.SetTrigger("holster");
+    }
 
-    public abstract void LoadAsset();
+    protected abstract void Init();
 
-    public abstract void Shoot();
+    protected abstract void LoadAsset();
 
-    public abstract void PlayFireEffect();
-
-    public abstract void PlayFireAnimation();
+    protected abstract void Shoot();
+    
 
 }

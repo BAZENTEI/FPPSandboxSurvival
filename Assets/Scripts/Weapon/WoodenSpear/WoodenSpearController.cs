@@ -4,29 +4,21 @@ using UnityEngine;
 
 public class WoodenSpearController : WeaponControllerBase{
     private WoodenSpearView m_WoodenSpearView;
-    public override void Init(){
+    protected override void Init(){
         m_WoodenSpearView = (WoodenSpearView)M_WeaponViewBase;
         ReadyToFire(0);
 
     }
 
-    public override void LoadAsset(){
+    protected override void LoadAsset(){
         AudioClip = Resources.Load<AudioClip>("Audio/Weapon/Arrow_Release");
 
     }
 
-    public override void Shoot(){
+    protected override void Shoot(){
         GameObject go = Instantiate<GameObject>(m_WoodenSpearView.M_Preab_Spear, m_WoodenSpearView.M_MuzzlePos.position, m_WoodenSpearView.M_MuzzlePos.rotation);
         go.GetComponent<ArrowContorller>().Shoot(m_WoodenSpearView.M_MuzzlePos.forward, 2000, Damage);
     }
 
-    public override void PlayFireEffect(){
-        //エフェクトなし
-    }
-
-    public override void PlayFireAnimation(){
-        //アニメーションなし
-
-    }
 
 }

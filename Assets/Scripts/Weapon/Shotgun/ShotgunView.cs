@@ -15,7 +15,7 @@ public class ShotgunView : WeaponViewBase{
     public Transform M_EjectionPos { get { return ejectionPos; } }
     public AudioClip M_EffectAudio { get { return effectAudio; } }
 
-    public override void Init(){
+    protected override void Init(){
         M_MuzzlePos = gameObject.transform.Find("Armature/Weapon/Pos_Muzzle");
         ejectionPos = gameObject.transform.Find("Armature/Weapon/Pos_Ejection");
         effectAudio = Resources.Load<AudioClip>("Aduio/Weapon/Shotgun_Pump");
@@ -23,11 +23,11 @@ public class ShotgunView : WeaponViewBase{
         prefab_Bullet = Resources.Load<GameObject>("Animation/Ejection/Shotgun_Bullet");
     }
 
-    public override void CrosshairInit(){
+    protected override void CrosshairInit(){
         M_Crosshair = GameObject.Find("Crosshair").gameObject.transform;
     }
 
-    public override void HoldPoseInit(){
+    protected override void HoldPoseInit(){
         M_StartPos = gameObject.transform.localPosition;
         M_StartRot = gameObject.transform.localRotation.eulerAngles;
         M_EndPos = new Vector3(-0.125f, -1.78f, 0.03f);

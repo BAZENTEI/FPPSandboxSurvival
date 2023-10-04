@@ -26,7 +26,7 @@ public abstract class WeaponViewBase : MonoBehaviour {
 	public Transform M_Crosshair { get { return m_Crosshair; } set { m_Crosshair = value; }}
     public Transform M_MuzzlePos { get { return muzzlePos; } set { muzzlePos = value; }}
 
-    public virtual void Awake(){
+    protected virtual void Awake(){
 		//コンポーネントプロパティの初期化
 		m_Animator = gameObject.GetComponent<Animator>();
 		m_EnvCamera = GameObject.Find("WorldCamera").GetComponent<Camera>();
@@ -37,16 +37,16 @@ public abstract class WeaponViewBase : MonoBehaviour {
 	}
 
 	//子グラスの初期化
-	public abstract void Init();
+	protected abstract void Init();
 
-	//照準の初期化
-	public abstract void HoldPoseInit();
-	//照準のアニメーション
-	public abstract void HoldPoseStart();
-	//照準(解除)のアニメーション
-	public abstract void HoldPoseEnd();
+    //照準の初期化
+    protected abstract void HoldPoseInit();
+    //照準のアニメーション
+    public abstract void HoldPoseStart();
+    //照準(解除)のアニメーション
+    public abstract void HoldPoseEnd();
 
-	//クロスヘアの初期化
-	public abstract void CrosshairInit();
+    //クロスヘアの初期化
+    protected abstract void CrosshairInit();
 
 }

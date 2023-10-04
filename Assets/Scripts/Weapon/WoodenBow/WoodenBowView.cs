@@ -6,13 +6,13 @@ using UnityEngine;
 public class WoodenBowView : WeaponViewBase {
     private GameObject arrow;
     public GameObject M_Arrow { get { return arrow; } }
-    public override void Init(){
+    protected override void Init(){
     
         M_MuzzlePos = gameObject.transform.Find("Armature/Arm_L/Forearm_L/Wrist_L/Weapon/Pos_Muzzle");
         arrow = Resources.Load<GameObject>("Weapon/Arrow");
     }
 
-    public override void HoldPoseInit(){
+    protected override void HoldPoseInit(){
         M_StartPos = gameObject.transform.localPosition;
         M_StartRot = gameObject.transform.localRotation.eulerAngles;
         M_EndPos = new Vector3(0.75f, -1.2f, 0.22f);
@@ -31,7 +31,7 @@ public class WoodenBowView : WeaponViewBase {
 
         M_EnvCamera.DOFieldOfView(60, 0.2f);
     }
-    public override void CrosshairInit(){
+    protected override void CrosshairInit(){
         //仕様:クロスヘアなし
         M_Crosshair = GameObject.Find("Crosshair").gameObject.transform;
     }

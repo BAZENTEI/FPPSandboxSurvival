@@ -20,7 +20,7 @@ public class AssaultRifleView : WeaponViewBase {
 	public Transform M_ShellParent { get { return shellParent; }}
 
 
-    override public void Init(){
+    override protected void Init(){
         M_MuzzlePos = gameObject.transform.Find("Assault_Rifle/Pos_Muzzle");
 
         prefab_Bullet = Resources.Load<GameObject>("Bullet");
@@ -31,7 +31,7 @@ public class AssaultRifleView : WeaponViewBase {
         shellParent = GameObject.Find("ObjectPool/Shell_Parent").transform;
     }
 
-	override public void HoldPoseInit(){
+	override protected void HoldPoseInit(){
 		M_StartPos = gameObject.transform.localPosition;
 		M_StartRot = gameObject.transform.localRotation.eulerAngles;
 		M_EndPos = new Vector3(-0.065f, -1.85f, 0.25f);
@@ -52,7 +52,7 @@ public class AssaultRifleView : WeaponViewBase {
 
 	}
 
-	override public void CrosshairInit(){
+	override protected void CrosshairInit(){
 		M_Crosshair = GameObject.Find("Crosshair").gameObject.transform;
 	}
 }

@@ -2,33 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShotgunController : WeaponControllerBase
-{
+public class ShotgunController : GunControllerBase{
     private ShotgunView m_ShotgunView;
     private const int pelletCapactiy = 6;   //散弾の粒数
-    public override void Init(){
+    protected override void Init(){
         m_ShotgunView = (ShotgunView)M_WeaponViewBase;
     }
 
-    public override void LoadAsset(){
+    protected override void LoadAsset(){
         AudioClip = Resources.Load<AudioClip>("Audio/Weapon/Shotgun_Fire");
         Effect = Resources.Load<GameObject>("Effect/Weapon/Shotgun_Muzzle_Effect");
     }
 
-    public override void PlayFireAnimation(){
+    protected override void PlayFireAnimation(){
         GameObject tempShell = GameObject.Instantiate<GameObject>(m_ShotgunView.Prefab_Shell, m_ShotgunView.M_EjectionPos.position, Quaternion.identity);
         tempShell.GetComponent<Rigidbody>().AddForce(m_ShotgunView.M_EjectionPos.up * 70.0f);
         StartCoroutine(FireEffectDestory(tempShell, 6.0f));
 
     }
 
-    public override void PlayFireEffect(){
+    protected override void PlayFireEffect(){
         GameObject temp = GameObject.Instantiate<GameObject>(Effect, M_WeaponViewBase.M_MuzzlePos.position, Quaternion.identity);
         temp.GetComponent<ParticleSystem>().Play();
         StartCoroutine(FireEffectDestory(temp, 3.0f));
     }
 
-    public override void Shoot(){
+    protected override void Shoot(){
         StartCoroutine("CreateBullet");
     }
 
