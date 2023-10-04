@@ -34,8 +34,9 @@ public class PlayerController : MonoBehaviour {
 			SwitchItem();
 		}
 	}
+
 	private void SwitchItem(){
-		presentItem.GetComponent<Animator>().SetTrigger("Holster");
+		presentItem.GetComponent<Animator>().SetTrigger("holster");
 		StartCoroutine("DelayTime");
 		//presentItem.SetActive(false);
 		//targetItem.SetActive(true);
