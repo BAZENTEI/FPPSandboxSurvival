@@ -13,10 +13,10 @@ public class PlayerController : MonoBehaviour {
 
 	void Start(){
 		m_Transform = gameObject.transform;
-		m_BuildingPlan = m_Transform.Find("CharacterCamera/Building Plan").gameObject;
-		m_WoodenSpear = m_Transform.Find("CharacterCamera/Wooden Spear").gameObject;
+		//m_BuildingPlan = m_Transform.Find("CharacterCamera/Building Plan").gameObject;
+		//m_WoodenSpear = m_Transform.Find("CharacterCamera/Wooden Spear").gameObject;
 
-		m_WoodenSpear.SetActive(false);
+		//m_WoodenSpear.SetActive(false);
 		presentItem = m_BuildingPlan;
 		targetItem = m_BuildingPlan;
 	}
