@@ -28,6 +28,12 @@ public class ShotgunController : GunControllerBase{
     }
 
     protected override void Shoot(){
+        if (Hit.collider.GetComponent<BulletHole>() != null){
+            Hit.collider.GetComponent<BulletHole>().CreateBulletHole(Hit);
+        }else{
+            //的に生成
+            Instantiate(m_ShotgunView.Prefab_Bullet, Hit.point, Quaternion.identity);
+        }
         StartCoroutine("CreateBullet");
     }
 

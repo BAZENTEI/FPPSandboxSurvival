@@ -5,9 +5,9 @@ using DG.Tweening;
 
 public class AssaultRifleController : GunControllerBase{
 	private AssaultRifleView m_AssaultRifleView;
-	private ObjectPool []objectPools;	//オブジェクトプール
-   
-	override protected void Init(){
+	private ObjectPool []objectPools;   //[0]発射炎 [1]発射のアニメーション
+
+	protected override void Init(){
         m_AssaultRifleView = (AssaultRifleView)M_WeaponViewBase;
 
         objectPools = gameObject.GetComponents<ObjectPool>();
@@ -15,18 +15,23 @@ public class AssaultRifleController : GunControllerBase{
 	}
 
     override protected void LoadAsset(){
-        AudioClip = Resources.Load<AudioClip>("Audio/Weapon/Drum_gun");
+		AudioClip = Resources.Load<AudioClip>("Audio/Weapon/Drum_gun");
         Effect = Resources.Load<GameObject>("Effect/Muzzle/AssaultRifle_GunPoint_Effect");
     }
 
     override protected void Shoot(){
-        if (Hit.point != Vector3.zero){
-            Debug.Log("玉あり");
-            //的に生成
-            Instantiate(m_AssaultRifleView.Prefab_Bullet, Hit.point, Quaternion.identity);
+		if (Hit.point != Vector3.zero){
+			//当たったものが銃痕スクリプトなければ、弾を生成
+			if (Hit.collider.GetComponent<BulletHole>() != null){
+				Hit.collider.GetComponent<BulletHole>().CreateBulletHole(Hit);
+			}else{
+				//的に生成
+				Instantiate(m_AssaultRifleView.Prefab_Bullet, Hit.point, Quaternion.identity);
+				Debug.Log("弾あり");
+			}
         }
         else{
-            Debug.Log("玉なし");
+            Debug.Log("弾なし");
         }
         Durable--;
     }
@@ -71,13 +76,13 @@ public class AssaultRifleController : GunControllerBase{
 		//エジェクションポートから空薬莢が弾き出される
 		shellRigidbody.AddForce(m_AssaultRifleView.M_EjectionPos.up * Random.Range(60, 70));
 		StartCoroutine(Delay(objectPools[1], shell, 3.0f));
+
 	}
 
 
-    void Update()
-    {
+    //void Update(){
         //Debug.DrawLine(m_AssaultRifleView.M_EjectionPos.position, m_AssaultRifleView.M_EjectionPos.up * 1000, Color.cyan);
 
-    }
+	//}
 
 }

@@ -11,3 +11,11 @@ public enum WeaponType
 	WoodenBow,
 	WoodenSpear
 }
+
+public enum MaterialType
+{
+	Wood,
+	Marble,
+	Stone,
+	Metal
+}

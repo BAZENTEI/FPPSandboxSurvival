@@ -59,7 +59,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
     private void PreShoot(){
         ray = new Ray(M_WeaponViewBase.M_MuzzlePos.position, M_WeaponViewBase.M_MuzzlePos.forward);
         //デバッグ用射線
-        //Debug.DrawLine(M_WeaponViewBase.MuzzlePos.position, M_WeaponViewBase.MuzzlePos.forward * 1000, Color.cyan);
+        Debug.DrawLine(M_WeaponViewBase.M_MuzzlePos.position, M_WeaponViewBase.M_MuzzlePos.forward * 1000, Color.cyan);
 
 
         if (Physics.Raycast(ray, out hit)){
@@ -76,6 +76,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
     }
 
     virtual protected void MouseButtonDownLeft() {
+      
         Shoot();
         //発射のアニメーション
         M_WeaponViewBase.M_Animator.SetTrigger("fire");
@@ -100,8 +101,8 @@ public abstract class WeaponControllerBase : MonoBehaviour
     }
 
     private void Controller() {
-        if (Input.GetMouseButtonDown(0)&& readyToFire)
-        {
+        
+        if (Input.GetMouseButtonDown(0) && readyToFire){
             MouseButtonDownLeft();
         }
 

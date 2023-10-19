@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WoodenBowController : WeaponControllerBase{
+public class WoodenBowController : RangedWeaponControllerBase{
     private WoodenBowView m_WoodenBowView;
     protected override void Init(){
         m_WoodenBowView = (WoodenBowView)M_WeaponViewBase;
