@@ -7,6 +7,7 @@ public class ShotgunController : GunControllerBase{
     private const int pelletCapactiy = 6;   //散弾の粒数
     protected override void Init(){
         m_ShotgunView = (ShotgunView)M_WeaponViewBase;
+        Damage = 12;
     }
 
     protected override void LoadAsset(){
@@ -42,7 +43,7 @@ public class ShotgunController : GunControllerBase{
             Vector3 offset = new Vector3(Random.Range(-0.03f, 0.03f), Random.Range(-0.03f, 0.03f), 0);
 
             GameObject tempBullet = GameObject.Instantiate<GameObject>(m_ShotgunView.Prefab_Bullet, m_ShotgunView.M_MuzzlePos.position, Quaternion.identity);
-            tempBullet.GetComponent<ShotgunBullet>().Shoot(m_ShotgunView.M_MuzzlePos.forward + offset, 2000, 10);
+            tempBullet.GetComponent<ShotgunBullet>().Shoot(m_ShotgunView.M_MuzzlePos.forward + offset, 2000, Damage / pelletCapactiy);
             yield return new WaitForSeconds(0.01f);
         }
     }
@@ -52,6 +53,6 @@ public class ShotgunController : GunControllerBase{
     }
 
     private void PlayPumpAudio(int state){
-        AudioSource.PlayClipAtPoint(m_ShotgunView.M_EffectAudio, m_ShotgunView.M_EjectionPos.position);
+        //AudioSource.PlayClipAtPoint(m_ShotgunView.M_EffectAudio, m_ShotgunView.M_EjectionPos.position);
     }
 }

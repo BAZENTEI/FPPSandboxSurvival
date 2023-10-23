@@ -9,16 +9,27 @@ using UnityEngine;
 public class BulletHole : MonoBehaviour {
 	private Texture2D m_BulletHole;           //銃痕のテクスチャー
 	private Texture2D m_BulletStrikeTexture;  //当たったもののテクスチャー
-	private Texture2D m_BulletStrikeBackup;   //元のテクスチャー
-	[SerializeField] private MaterialType materialType; //当たったもののマテリアルタイプ
+	private Texture2D m_BulletStrikeBackup_1;   //元のテクスチャー
+    private Texture2D m_BulletStrikeBackup_2;
+    [SerializeField] private MaterialType materialType; //当たったもののマテリアルタイプ
 	private Queue<Vector2> hitUVQueue = null;			//当たった場所のUV座標キュー
 
 	private GameObject prefab_hitEffect; //銃痕のエフェクト
 	private Transform effectParent;	     //エフェクトを一括管理のオブジェクト
 	private ObjectPool effectObejctPool; //銃痕エフェクトのオブジェクトプール
 
+    [SerializeField] private int hp;        //テスト      
+    public int Hp{
+        get { return hp; }
+        set{
+            hp = value;
+            if (hp <= 0){
+                Destroy(gameObject);
+            }
+        }
+    }
 
-	void Start () {
+    void Start () {
 		switch (materialType){
 			case MaterialType.Wood:
 				ResourcesLoad("Bullet Decal_Wood", "Bullet Impact FX_Wood", "Effect_Parent");
@@ -42,9 +53,11 @@ public class BulletHole : MonoBehaviour {
 		}
 
 		m_BulletStrikeTexture = (Texture2D)gameObject.GetComponent<MeshRenderer>().material.mainTexture;
-		m_BulletStrikeBackup = Instantiate<Texture2D>(m_BulletStrikeTexture);
-		hitUVQueue = new Queue<Vector2>();
+		m_BulletStrikeBackup_1 = Instantiate<Texture2D>(m_BulletStrikeTexture);
+        m_BulletStrikeBackup_2 = Instantiate<Texture2D>(m_BulletStrikeTexture);
+        gameObject.GetComponent<MeshRenderer>().material.mainTexture = m_BulletStrikeBackup_1;
 
+        hitUVQueue = new Queue<Vector2>();
 	}
 
 	private void ResourcesLoad(string bulletMark, string effect, string parent){
@@ -69,12 +82,12 @@ public class BulletHole : MonoBehaviour {
 				Color color = m_BulletHole.GetPixel(i, j);
 				//カラーの融合
 				if (color.a >= 0.3f){
-					m_BulletStrikeTexture.SetPixel((int)x, (int)y, color);
+                    m_BulletStrikeBackup_1.SetPixel((int)x, (int)y, color);
 
 				}
 			}
 		}
-		m_BulletStrikeTexture.Apply();
+        m_BulletStrikeBackup_1.Apply();
 		PlayEffect(hit);
 		//銃痕を取り除く
 		Invoke("RemoveBulletHole", 3.0f);
@@ -92,8 +105,8 @@ public class BulletHole : MonoBehaviour {
 					float x = uv.x * m_BulletStrikeTexture.width - m_BulletHole.width / 2 + i;
 					float y = uv.y * m_BulletStrikeTexture.height - m_BulletHole.height / 2 + j;
 
-					Color color = m_BulletStrikeBackup.GetPixel((int)x, (int)y);
-					m_BulletStrikeTexture.SetPixel((int)x, (int)y, color);
+					Color color = m_BulletStrikeBackup_2.GetPixel((int)x, (int)y);
+                    m_BulletStrikeBackup_1.SetPixel((int)x, (int)y, color);
 					
 				}
 				m_BulletStrikeTexture.Apply();
@@ -120,7 +133,7 @@ public class BulletHole : MonoBehaviour {
 			//新規
 			Debug.Log(prefab_hitEffect);
 			Debug.Log(effectParent);
-			effect = GameObject.Instantiate<GameObject>(prefab_hitEffect, hit.point, Quaternion.LookRotation(hit.normal), effectParent);
+			effect = Instantiate<GameObject>(prefab_hitEffect, hit.point, Quaternion.LookRotation(hit.normal), effectParent);
 			effect.name = "Effect_" + materialType;
 
 		}

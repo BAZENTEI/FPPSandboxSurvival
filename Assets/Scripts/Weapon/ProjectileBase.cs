@@ -7,7 +7,9 @@ using UnityEngine;
 /// </summary>
 public abstract class ProjectileBase : MonoBehaviour {
     protected Rigidbody m_Rigidbody;
-    public Rigidbody M_Rigidbody { get { return m_Rigidbody;} }
+    private int damage;
+    public Rigidbody M_Rigidbody { get { return m_Rigidbody; } }
+    public int Damage { get { return damage; } set { damage = value; } }
 
     void Awake(){
         m_Rigidbody = GetComponent<Rigidbody>();
