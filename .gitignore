@@ -22,6 +22,10 @@
 # Visual Studio cache directory
 .vs/
 
+# VS Code files for those working on multiple tools
+.vscode/
+
+
 # Gradle cache directory
 .gradle/
 
