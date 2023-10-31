@@ -18,7 +18,7 @@ public class AudioManager : MonoBehaviour
     {
         Instance = this;
         audioClipDic = new Dictionary<string, AudioClip>();
-        audioClip = Resources.LoadAll<AudioClip>("Audio/All");
+        audioClip = Resources.LoadAll<AudioClip>("Audio");
         Debug.Log("audio:" + audioClip.Length);
         //音リソースをロード
         for (int i = 0; i < audioClip.Length; i++)

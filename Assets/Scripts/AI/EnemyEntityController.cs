@@ -17,10 +17,12 @@ public enum AIState
     EXITATTACK,
     DEATH
 }
-public class AIController : MonoBehaviour {
+public class EnemyEntityController : MonoBehaviour {
     private NavMeshAgent m_navMeshAgent;
     private Animator m_Animator;
     private AIState m_AIState = AIState.IDLE;
+    private EnemyManagerType enemyManagerType = EnemyManagerType.NULL;
+    private EnemyEntityRagdoll enemyEntityRagdoll = null;
 
     private Vector3 dir;
     private List<Vector3> dirList = new List<Vector3>();
@@ -29,10 +31,13 @@ public class AIController : MonoBehaviour {
     private AIState M_AIState { get { return m_AIState; } set { m_AIState = value; } }
     public Vector3 Dir { get { return dir; } set { dir = value; } }
     public List<Vector3> DirList { get { return dirList; } set { dirList = value; } }
+    public EnemyManagerType EnemyManagerType { get { return enemyManagerType; } set { enemyManagerType = value; } }
+
 
     private int life;
     private int attack;
 
+  
     public int Life { 
         get { return life; }
         set { 
@@ -48,6 +53,10 @@ public class AIController : MonoBehaviour {
         Debug.Log("m_navMeshAgent:" + m_navMeshAgent);
         m_Animator = GetComponent<Animator>();
         m_navMeshAgent.SetDestination(dir);
+        //CANNIBALだけはragdollを使う
+        if (enemyManagerType == EnemyManagerType.CANNIBAL){
+            enemyEntityRagdoll = GetComponent<EnemyEntityRagdoll>();
+        }
 
         playerTransform = GameObject.Find("FPPController").transform;
         
@@ -238,7 +247,15 @@ public class AIController : MonoBehaviour {
     private void DeathState(){
         m_AIState = AIState.DEATH;
         m_navMeshAgent.isStopped = true;
-        m_Animator.SetTrigger("Death");
+        
+      
+        if (enemyManagerType == EnemyManagerType.BOAR){
+            m_Animator.SetTrigger("Death");
+        }else if (enemyManagerType == EnemyManagerType.CANNIBAL){
+            m_Animator.enabled = false;
+            enemyEntityRagdoll.StartRagdoll();  
+        }
+        
         StartCoroutine("Death");
     }
 

@@ -130,9 +130,9 @@ public class BulletHole : MonoBehaviour {
 
 		}
 		else{
-			//新規
-			Debug.Log(prefab_hitEffect);
-			Debug.Log(effectParent);
+            //新規
+            Debug.Log("PlayEffect: " + prefab_hitEffect + ", " + effectParent);
+		
 			effect = Instantiate<GameObject>(prefab_hitEffect, hit.point, Quaternion.LookRotation(hit.normal), effectParent);
 			effect.name = "Effect_" + materialType;
 

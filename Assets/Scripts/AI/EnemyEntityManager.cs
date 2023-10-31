@@ -20,6 +20,7 @@ public class EnemyEntityManager : MonoBehaviour {
     public EnemyManagerType EnemyManagerType { get { return enemyManagerType; } set { enemyManagerType = value; }}
 
 
+
     void Start(){
         prefab_Cannibal = Resources.Load<GameObject>("AI/Cannibal");
         prefab_Boar = Resources.Load<GameObject>("AI/Boar");
@@ -40,11 +41,11 @@ public class EnemyEntityManager : MonoBehaviour {
         switch (enemyManagerType){
             case EnemyManagerType.CANNIBAL:
                 Debug.Log("GenerateEnemyEntityByEnum : CANNIBAL");
-                GenerateEnemyEntity(prefab_Cannibal);
+                GenerateEnemyEntity(prefab_Cannibal, EnemyManagerType.CANNIBAL);
                 break;
             case EnemyManagerType.BOAR:
                 Debug.Log("GenerateEnemyEntityByEnum : BOAR");
-                GenerateEnemyEntity(prefab_Boar);
+                GenerateEnemyEntity(prefab_Boar, EnemyManagerType.BOAR);
                 break;
             default:
                 Debug.Log("GenerateEnemyEntityByEnum : default");
@@ -55,13 +56,15 @@ public class EnemyEntityManager : MonoBehaviour {
     /// <summary>
     /// エネミーの生成(初期化)
     /// </summary>
-     private void GenerateEnemyEntity(GameObject prefab){
+     private void GenerateEnemyEntity(GameObject prefab, EnemyManagerType enemyManagerType)
+    {
         for(int i = 0; i < posTransform.Length - 1; i++){
             GameObject entity = Instantiate<GameObject>(prefab, transform.position, Quaternion.identity, transform);
-            entity.GetComponent<AIController>().Dir = posList[i];
-            entity.GetComponent<AIController>().DirList = posList;
-            entity.GetComponent<AIController>().Life = 200;
-            entity.GetComponent<AIController>().Attack = 100;
+            entity.GetComponent<EnemyEntityController>().Dir = posList[i];
+            entity.GetComponent<EnemyEntityController>().DirList = posList;
+            entity.GetComponent<EnemyEntityController>().Life = 200;
+            entity.GetComponent<EnemyEntityController>().Attack = 100;
+            entity.GetComponent<EnemyEntityController>().EnemyManagerType = enemyManagerType;
             entityList.Add(entity);
                  
         }
@@ -85,20 +88,29 @@ public class EnemyEntityManager : MonoBehaviour {
         switch (enemyManagerType){
             case EnemyManagerType.CANNIBAL:
                 entity = Instantiate<GameObject>(prefab_Cannibal, transform.position, Quaternion.identity, transform);
-                entity.GetComponent<AIController>().Dir = posList[index];
-                entity.GetComponent<AIController>().DirList = posList;
+                entity.GetComponent<EnemyEntityController>().Dir = posList[index];
+                entity.GetComponent<EnemyEntityController>().DirList = posList;
+                entity.GetComponent<EnemyEntityController>().EnemyManagerType = EnemyManagerType.CANNIBAL;
+
                 //
                 break;
             case EnemyManagerType.BOAR:
                 entity = Instantiate<GameObject>(prefab_Boar, transform.position, Quaternion.identity, transform);
-                entity.GetComponent<AIController>().Dir = posList[index];
-                entity.GetComponent<AIController>().DirList = posList;
+                entity.GetComponent<EnemyEntityController>().Dir = posList[index];
+                entity.GetComponent<EnemyEntityController>().DirList = posList;
+                entity.GetComponent<EnemyEntityController>().EnemyManagerType = EnemyManagerType.BOAR;
+
                 //
                 break;
             default:
                 Debug.Log("GenerateEnemyEntityByEnum : pass");
                 break;
         }
+
+        entity.GetComponent<EnemyEntityController>().Life = 200;
+        entity.GetComponent<EnemyEntityController>().Attack = 100;
+
+
         index++;
         index = index % posList.Count;
         entityList.Add(entity);
