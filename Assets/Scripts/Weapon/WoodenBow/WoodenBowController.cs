@@ -14,9 +14,13 @@ public class WoodenBowController : RangedWeaponControllerBase{
     }
 
     protected override void Shoot(){
+      
+       
+      
         GameObject arrow = Instantiate<GameObject>(m_WoodenBowView.M_Arrow, m_WoodenBowView.M_MuzzlePos.transform.position,
             m_WoodenBowView.M_MuzzlePos.rotation);
-        arrow.GetComponent<ArrowContorller>().Shoot(m_WoodenBowView.M_MuzzlePos.transform.forward, 1000, 100);
+        Debug.Log(arrow);
+        arrow.GetComponent<ArrowController>().Shoot(m_WoodenBowView.M_MuzzlePos.transform.forward, 1000, Damage, Hit);
     }
 
 

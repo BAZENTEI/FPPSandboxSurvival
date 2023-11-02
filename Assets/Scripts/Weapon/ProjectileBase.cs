@@ -21,10 +21,12 @@ public abstract class ProjectileBase : MonoBehaviour {
     }
 
     public abstract void Init();
-    public abstract void Shoot(Vector3 dir, int force, int damage);
+    public abstract void Shoot(Vector3 dir, int force, int damage, RaycastHit hit);
     public abstract void CollisionEnter(Collision coll);
 
-   
+    private void DestroySelf(){
+        Destroy(gameObject);
+    }
 
 
 }

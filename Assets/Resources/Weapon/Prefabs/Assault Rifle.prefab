@@ -1737,7 +1737,7 @@ MonoBehaviour:
   id: 1
   weaponType: 2
   damage: 1
-  durable: 10
+  durable: 15
 --- !u!114 &114606053350932048
 MonoBehaviour:
   m_ObjectHideFlags: 1

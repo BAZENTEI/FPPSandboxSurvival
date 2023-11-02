@@ -19,7 +19,8 @@ public class EnemyEntityManager : MonoBehaviour {
     private int index = 0;
     public EnemyManagerType EnemyManagerType { get { return enemyManagerType; } set { enemyManagerType = value; }}
 
-
+    [SerializeField] private int entity_attack;
+    [SerializeField] private int entity_life;
 
     void Start(){
         prefab_Cannibal = Resources.Load<GameObject>("AI/Cannibal");
@@ -60,11 +61,13 @@ public class EnemyEntityManager : MonoBehaviour {
     {
         for(int i = 0; i < posTransform.Length - 1; i++){
             GameObject entity = Instantiate<GameObject>(prefab, transform.position, Quaternion.identity, transform);
-            entity.GetComponent<EnemyEntityController>().Dir = posList[i];
-            entity.GetComponent<EnemyEntityController>().DirList = posList;
-            entity.GetComponent<EnemyEntityController>().Life = 200;
-            entity.GetComponent<EnemyEntityController>().Attack = 100;
-            entity.GetComponent<EnemyEntityController>().EnemyManagerType = enemyManagerType;
+            EnemyEntityController enemyEntityController = entity.GetComponent<EnemyEntityController>();
+            enemyEntityController.Dir = posList[i];
+            enemyEntityController.DirList = posList;
+            enemyEntityController.EnemyManagerType = enemyManagerType;
+
+            enemyEntityController.Life = entity_life;
+            enemyEntityController.Attack = entity_attack;
             entityList.Add(entity);
                  
         }
@@ -107,8 +110,8 @@ public class EnemyEntityManager : MonoBehaviour {
                 break;
         }
 
-        entity.GetComponent<EnemyEntityController>().Life = 200;
-        entity.GetComponent<EnemyEntityController>().Attack = 100;
+        entity.GetComponent<EnemyEntityController>().Life = entity_life;
+        entity.GetComponent<EnemyEntityController>().Attack = entity_attack;
 
 
         index++;

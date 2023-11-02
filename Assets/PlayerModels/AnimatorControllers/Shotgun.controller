@@ -13,19 +13,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: holdPose
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: holster
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -377,30 +377,30 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102836330456358744}
-    m_Position: {x: 312, y: 108, z: 0}
+    m_Position: {x: 312, y: 0, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102942291522398738}
-    m_Position: {x: 312, y: 180, z: 0}
+    m_Position: {x: 312, y: 108, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102522654070276766}
-    m_Position: {x: 228, y: 300, z: 0}
+    m_Position: {x: 228, y: 216, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102213426526550972}
-    m_Position: {x: 456, y: 300, z: 0}
+    m_Position: {x: 444, y: 216, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102654122987104530}
-    m_Position: {x: 456, y: 408, z: 0}
+    m_Position: {x: 444, y: 300, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102547865589456032}
-    m_Position: {x: 12, y: 372, z: 0}
+    m_Position: {x: 0, y: 216, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions:
   - {fileID: 1101632655457815514}
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 36, y: 276, z: 0}
-  m_EntryPosition: {x: 36, y: 120, z: 0}
-  m_ExitPosition: {x: 36, y: 192, z: 0}
+  m_AnyStatePosition: {x: 24, y: 156, z: 0}
+  m_EntryPosition: {x: 24, y: 0, z: 0}
+  m_ExitPosition: {x: 24, y: 84, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: 1102836330456358744}

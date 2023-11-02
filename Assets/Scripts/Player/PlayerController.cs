@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
-	private Transform m_Transform;
 	private GameObject m_BuildingPlan;
 	private GameObject m_WoodenSpear;
 
@@ -12,7 +11,6 @@ public class PlayerController : MonoBehaviour {
 	private GameObject targetItem;	//切り替える道具
 
 	void Start(){
-		m_Transform = gameObject.transform;
 		//m_BuildingPlan = m_Transform.Find("CharacterCamera/Building Plan").gameObject;
 		//m_WoodenSpear = m_Transform.Find("CharacterCamera/Wooden Spear").gameObject;
 

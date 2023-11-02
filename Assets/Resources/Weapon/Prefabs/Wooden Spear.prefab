@@ -554,7 +554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1693749142761238
 GameObject:
   m_ObjectHideFlags: 1
@@ -1491,8 +1491,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1678452863642652}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.85, z: 0.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4054181696468088}
@@ -1660,7 +1660,7 @@ Animator:
   m_GameObject: {fileID: 1678452863642652}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f01a880f7473c2546b3ff80815537299, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 536f517f19f438b4fb40eff586d5cbb0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1681,8 +1681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   weaponType: 6
-  damage: 0
-  durable: 0
+  damage: 1
+  durable: 20
 --- !u!114 &114859190577629788
 MonoBehaviour:
   m_ObjectHideFlags: 1

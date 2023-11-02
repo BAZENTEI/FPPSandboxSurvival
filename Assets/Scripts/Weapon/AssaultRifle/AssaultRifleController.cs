@@ -20,17 +20,23 @@ public class AssaultRifleController : GunControllerBase{
     }
 
     override protected void Shoot(){
-		if (Hit.point != Vector3.zero){
-			//当たったものが銃痕スクリプトなければ、弾を生成
+        //当たった場合
+        if (Hit.point != Vector3.zero){
 			if (Hit.collider.GetComponent<BulletHole>() != null){
-				Hit.collider.GetComponent<BulletHole>().CreateBulletHole(Hit);
-			}else{
-				//的に生成
-				Instantiate(m_AssaultRifleView.Prefab_Bullet, Hit.point, Quaternion.identity);
-				Debug.Log("弾あり");
-			}
-        }
-        else{
+                //当たったものが銃痕スクリプトなければ、弾の代わりに弾痕を生成
+                Hit.collider.GetComponent<BulletHole>().CreateBulletHole(Hit);
+			}else if (Hit.collider.GetComponentInParent<EnemyEntityController>() != null){
+                //敵キャラに当たった
+                Hit.collider.GetComponentInParent<EnemyEntityController>().Life -= Damage;
+                //エフェクト再生
+                Hit.collider.GetComponentInParent<EnemyEntityController>().PlayFleshEffect(Hit);
+            }else{
+                
+                //それ以外のものに当たった
+                Instantiate(m_AssaultRifleView.Prefab_Bullet, Hit.point, Quaternion.identity);
+                Debug.Log("弾あり");
+            }
+        }else{
             Debug.Log("弾なし");
         }
         Durable--;

@@ -23,21 +23,19 @@ public class EnemyEntityController : MonoBehaviour {
     private AIState m_AIState = AIState.IDLE;
     private EnemyManagerType enemyManagerType = EnemyManagerType.NULL;
     private EnemyEntityRagdoll enemyEntityRagdoll = null;
+    private GameObject prefab_FleshEffect;
 
     private Vector3 dir;
     private List<Vector3> dirList = new List<Vector3>();
     private Transform playerTransform;
     
     private AIState M_AIState { get { return m_AIState; } set { m_AIState = value; } }
+    public EnemyManagerType EnemyManagerType { get { return enemyManagerType; } set { enemyManagerType = value; } }
     public Vector3 Dir { get { return dir; } set { dir = value; } }
     public List<Vector3> DirList { get { return dirList; } set { dirList = value; } }
-    public EnemyManagerType EnemyManagerType { get { return enemyManagerType; } set { enemyManagerType = value; } }
-
 
     private int life;
     private int attack;
-
-  
     public int Life { 
         get { return life; }
         set { 
@@ -52,6 +50,7 @@ public class EnemyEntityController : MonoBehaviour {
         m_navMeshAgent = GetComponent<NavMeshAgent>();
         Debug.Log("m_navMeshAgent:" + m_navMeshAgent);
         m_Animator = GetComponent<Animator>();
+        prefab_FleshEffect = Resources.Load<GameObject>("Weapon/BulletHoles/Effects/Bullet Impact FX_Flesh");
         m_navMeshAgent.SetDestination(dir);
         //CANNIBALだけはragdollを使う
         if (enemyManagerType == EnemyManagerType.CANNIBAL){
@@ -82,7 +81,7 @@ public class EnemyEntityController : MonoBehaviour {
             HitNormal();
         }
 
-        Debug.Log("m_AIState::" + m_AIState);
+        Debug.Log("m_AIState:" + m_AIState);
     }
 
    
@@ -264,4 +263,15 @@ public class EnemyEntityController : MonoBehaviour {
         Destroy(gameObject);
         SendMessageUpwards("EnemyEntityDeath", gameObject);
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void PlayFleshEffect(RaycastHit hit){
+        Debug.Log("PlayFleshEffect");
+        GameObject fleshEffect = Instantiate<GameObject>(prefab_FleshEffect, hit.point, Quaternion.LookRotation(hit.normal));
+        Destroy(fleshEffect, 5);
+    }
+
+
 }
