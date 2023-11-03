@@ -42,7 +42,11 @@ public class ArrowController : ProjectileBase{
             //矢が刺さったものに付く
             transform.SetParent(coll.collider.gameObject.transform);
             //ダメージ計算
-            coll.collider.GetComponentInParent<EnemyEntityController>().Life -= Damage;
+            if (coll.collider.gameObject.name.Contains("Head")){
+                coll.collider.GetComponentInParent<EnemyEntityController>().HeadHit(Damage * 2);
+            }else{
+                coll.collider.GetComponentInParent<EnemyEntityController>().NormalHit(Damage);
+            }
             //エフェクト
             coll.collider.GetComponentInParent<EnemyEntityController>().PlayFleshEffect(hit);
             StartCoroutine("VibrationAnimation");

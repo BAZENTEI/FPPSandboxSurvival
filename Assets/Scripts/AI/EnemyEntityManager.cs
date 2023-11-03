@@ -20,7 +20,7 @@ public class EnemyEntityManager : MonoBehaviour {
     public EnemyManagerType EnemyManagerType { get { return enemyManagerType; } set { enemyManagerType = value; }}
 
     [SerializeField] private int entity_attack;
-    [SerializeField] private int entity_life;
+    [SerializeField] private int entity_life = 20;
 
     void Start(){
         prefab_Cannibal = Resources.Load<GameObject>("AI/Cannibal");

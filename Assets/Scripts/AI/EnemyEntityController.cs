@@ -21,7 +21,7 @@ public class EnemyEntityController : MonoBehaviour {
     private NavMeshAgent m_navMeshAgent;
     private Animator m_Animator;
     private AIState m_AIState = AIState.IDLE;
-    private EnemyManagerType enemyManagerType = EnemyManagerType.NULL;
+    private EnemyManagerType enemyManagerType;
     private EnemyEntityRagdoll enemyEntityRagdoll = null;
     private GameObject prefab_FleshEffect;
 
@@ -34,19 +34,18 @@ public class EnemyEntityController : MonoBehaviour {
     public Vector3 Dir { get { return dir; } set { dir = value; } }
     public List<Vector3> DirList { get { return dirList; } set { dirList = value; } }
 
-    private int life;
+    [SerializeField] private int life;
     private int attack;
     public int Life { 
         get { return life; }
         set { 
             life = value; 
-            if (life <= 0) ToggleState(AIState.DEATH);  
-            if (life > value) HitNormal(); //ダメージを受けた
+            if (life <= 0) ToggleState(AIState.DEATH);
         } 
     }
     public int Attack { get { return attack; } set { attack = value; } }
 
-    void Awake(){
+    void Start(){
         m_navMeshAgent = GetComponent<NavMeshAgent>();
         Debug.Log("m_navMeshAgent:" + m_navMeshAgent);
         m_Animator = GetComponent<Animator>();
@@ -54,6 +53,7 @@ public class EnemyEntityController : MonoBehaviour {
         m_navMeshAgent.SetDestination(dir);
         //CANNIBALだけはragdollを使う
         if (enemyManagerType == EnemyManagerType.CANNIBAL){
+            Debug.Log("enemyEntityRagdoll::" + enemyEntityRagdoll);
             enemyEntityRagdoll = GetComponent<EnemyEntityRagdoll>();
         }
 
@@ -69,11 +69,11 @@ public class EnemyEntityController : MonoBehaviour {
         EntityFollowPlayer();
         EntityAttackPlayer();
 
-        if (Input.GetKeyDown(KeyCode.Space)){
+        if (Input.GetKeyDown(KeyCode.K)){
             ToggleState(AIState.DEATH);
         }
 
-        if (Input.GetKeyDown(KeyCode.K)){
+        if (Input.GetKeyDown(KeyCode.P)){
             HitHead();
         }
 
@@ -81,7 +81,7 @@ public class EnemyEntityController : MonoBehaviour {
             HitNormal();
         }
 
-        Debug.Log("m_AIState:" + m_AIState);
+        //Debug.Log("m_AIState:" + m_AIState);
     }
 
    
@@ -93,8 +93,9 @@ public class EnemyEntityController : MonoBehaviour {
         if (m_AIState == AIState.IDLE || m_AIState == AIState.WALK){
             if (Vector3.Distance(transform.position, dir) < 1.0f){
                 int index = Random.Range(0, dirList.Count);
+                Debug.Log("Distance" + index);
                 dir = dirList[index];
-
+                
                 m_navMeshAgent.SetDestination(dir);
 
                 ToggleState(AIState.IDLE);
@@ -273,5 +274,21 @@ public class EnemyEntityController : MonoBehaviour {
         Destroy(fleshEffect, 5);
     }
 
+    /// <summary>
+    /// ボディ　ダメージを受けた
+    /// </summary>
+    public void NormalHit(int damage) {
+        HitNormal();
+        Life -= damage;
+        Debug.Log("NormalHit");
+    }
 
+    /// <summary>
+    /// ヘッドショット
+    /// </summary>
+    public void HeadHit(int damage){
+        HitHead();
+        Life -= damage;
+        Debug.Log("HeadHit");
+    }
 }

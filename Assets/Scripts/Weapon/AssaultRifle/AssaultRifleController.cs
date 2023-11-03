@@ -27,7 +27,13 @@ public class AssaultRifleController : GunControllerBase{
                 Hit.collider.GetComponent<BulletHole>().CreateBulletHole(Hit);
 			}else if (Hit.collider.GetComponentInParent<EnemyEntityController>() != null){
                 //敵キャラに当たった
-                Hit.collider.GetComponentInParent<EnemyEntityController>().Life -= Damage;
+                //ダメージ計算
+                if (Hit.collider.gameObject.name.Contains("Head")){
+                    Hit.collider.GetComponentInParent<EnemyEntityController>().HeadHit(Damage * 2);
+                }else{             
+                    Hit.collider.GetComponentInParent<EnemyEntityController>().NormalHit(Damage);
+                }
+
                 //エフェクト再生
                 Hit.collider.GetComponentInParent<EnemyEntityController>().PlayFleshEffect(Hit);
             }else{

@@ -249,7 +249,7 @@ GameObject:
   - component: {fileID: 4336079427273378}
   - component: {fileID: 136235886948002028}
   m_Layer: 10
-  m_Name: Collider_Back
+  m_Name: Collider_Head_Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1425,6 +1425,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79eddcc6fae70c43b07c69d05af5f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  life: 40
 --- !u!136 &136193708024990676
 CapsuleCollider:
   m_ObjectHideFlags: 1

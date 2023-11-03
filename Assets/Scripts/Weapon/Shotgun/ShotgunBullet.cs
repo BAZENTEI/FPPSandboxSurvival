@@ -30,20 +30,27 @@ public class ShotgunBullet : ProjectileBase{
         //銃痕 生成
         if (coll.collider.GetComponent<BulletHole>() != null){
             float maxDistance = 500.0f;
-            //Layer "Env": 9   射线 此处写注释
+            //Layer "Env": 9
             if (Physics.Raycast(ray, out hit, maxDistance, 1 << 9)){}
             coll.collider.GetComponent<BulletHole>().CreateBulletHole(hit);
             coll.collider.GetComponent<BulletHole>().Hp -= this.Damage;
         }
-        
 
-        if (coll.collider.GetComponent<EnemyEntityController>() != null){
+        if (coll.collider.GetComponentInParent<EnemyEntityController>() != null){
             float maxDistance = 500.0f;
-            //Layer "Env": 9   射线 此处写注释
+            //Layer "Env": 9  
             if (Physics.Raycast(ray, out hit, maxDistance, 1 << 10)) { }
-            coll.collider.GetComponent<EnemyEntityController>().Life -= this.Damage;
+           
+            //ダメージ計算
+            Debug.Log("Damage:" + Damage);
+            if (coll.collider.gameObject.name.Contains("Head")){
+                coll.collider.GetComponentInParent<EnemyEntityController>().HeadHit(Damage * 2);
+            }else{
+                coll.collider.GetComponentInParent<EnemyEntityController>().NormalHit(Damage);
+            }
+
             //エフェクトの再生
-            coll.collider.GetComponent<EnemyEntityController>().PlayFleshEffect(hit);
+            coll.collider.GetComponentInParent<EnemyEntityController>().PlayFleshEffect(hit);
         }
 
         //当たった瞬間 弾をなくす

@@ -1736,8 +1736,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   weaponType: 2
-  damage: 1
-  durable: 15
+  damage: 10
+  durable: 1000
 --- !u!114 &114606053350932048
 MonoBehaviour:
   m_ObjectHideFlags: 1

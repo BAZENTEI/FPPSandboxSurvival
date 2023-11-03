@@ -256,7 +256,6 @@ GameObject:
   - component: {fileID: 4844554846064162}
   - component: {fileID: 54086921160305122}
   - component: {fileID: 144397745312077668}
-  - component: {fileID: 135879047638145328}
   m_Layer: 10
   m_Name: Head
   m_TagString: Untagged
@@ -428,8 +427,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4404372801073500}
+  - component: {fileID: 135009017985389248}
   m_Layer: 10
-  m_Name: Collider
+  m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1474,8 +1474,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1388968135925340}
   m_LocalRotation: {x: -0.03709365, y: -0.041291278, z: 0.7038579, w: 0.7081689}
-  m_LocalPosition: {x: 0.050426062, y: -0.00047822675, z: 0.024723228}
-  m_LocalScale: {x: 0.3625, y: 0.48225832, z: 1}
+  m_LocalPosition: {x: -0.102, y: -0.003, z: 0.008}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4844554846064162}
   m_RootOrder: 0
@@ -2196,18 +2196,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f79eddcc6fae70c43b07c69d05af5f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135879047638145328
+  life: 20
+--- !u!135 &135009017985389248
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1198050101693252}
+  m_GameObject: {fileID: 1388968135925340}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.10909002
-  m_Center: {x: -0.10909002, y: 0, z: 0}
+  m_Radius: 0.17
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136002181577428674
 CapsuleCollider:
   m_ObjectHideFlags: 1
