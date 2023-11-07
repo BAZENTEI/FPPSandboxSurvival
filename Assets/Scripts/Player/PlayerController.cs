@@ -8,6 +8,8 @@ public class PlayerController : MonoBehaviour
     private int hitPoint = 1000;  //体力ポイント
     private int stamina = 100;  //スタミナ
     private int index = 0;
+    private PlayerStatusPanel m_PlayerStatusPanel;
+
 
     public int HitPoint { get { return hitPoint; } set { hitPoint = value; } }
     public int Stamina { get { return stamina; } set { stamina = value; } }
@@ -17,6 +19,8 @@ public class PlayerController : MonoBehaviour
     void Start(){
         StartCoroutine("RestoreVIT");
         m_FirstPersonController = GetComponent<FirstPersonController>();
+        m_PlayerStatusPanel = GameObject.Find("Canvas/GearBarPanel/PlayerStatus").GetComponent<PlayerStatusPanel>();
+
 
     }
 
@@ -30,9 +34,11 @@ public class PlayerController : MonoBehaviour
 
     public void CutHP(int HPValue){
         this.HitPoint -= HPValue;
+        m_PlayerStatusPanel.SetHpBar(hitPoint);
+
     }
 
-    
+
     public void CutVit(){
         if (m_FirstPersonController.M_PlayerState == PlayerState.WALK){
             index++;
@@ -51,6 +57,8 @@ public class PlayerController : MonoBehaviour
                 index = 0;
             }
         }
+
+        m_PlayerStatusPanel.SetStaminaBar(stamina);
     }
 
 
@@ -63,7 +71,12 @@ public class PlayerController : MonoBehaviour
                 this.Stamina += 5;
                 ResetSpeed();
             }
+
+            m_PlayerStatusPanel.SetStaminaBar(stamina);
         }
+
+        
+
     }
 
 
