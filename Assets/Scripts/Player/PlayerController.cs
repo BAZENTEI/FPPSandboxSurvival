@@ -1,51 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
+    private int hitPoint = 1000;  //体力ポイント
+    private int stamina = 100;  //スタミナ
+    private int index = 0;
 
-	private GameObject m_BuildingPlan;
-	private GameObject m_WoodenSpear;
+    public int HitPoint { get { return hitPoint; } set { hitPoint = value; } }
+    public int Stamina { get { return stamina; } set { stamina = value; } }
 
-	private GameObject presentItem;   //今持っている道具
-	private GameObject targetItem;	//切り替える道具
+    private FirstPersonController m_FirstPersonController;
 
-	void Start(){
-		//m_BuildingPlan = m_Transform.Find("CharacterCamera/Building Plan").gameObject;
-		//m_WoodenSpear = m_Transform.Find("CharacterCamera/Wooden Spear").gameObject;
+    void Start(){
+        StartCoroutine("RestoreVIT");
+        m_FirstPersonController = GetComponent<FirstPersonController>();
 
-		//m_WoodenSpear.SetActive(false);
-		presentItem = m_BuildingPlan;
-		targetItem = m_BuildingPlan;
-	}
-	
-	
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.G)){
-			targetItem = m_BuildingPlan;
-			SwitchItem();
+    }
 
-		}
 
-		if (Input.GetKeyDown(KeyCode.H)){
-			targetItem = m_WoodenSpear;
-			SwitchItem();
-		}
-	}
+    void Update(){
+        Debug.Log("player state:" + m_FirstPersonController.M_PlayerState);
+        CutVit();
+        Debug.Log("スタミナ:" + this.Stamina);
+    }
 
-	private void SwitchItem(){
-		presentItem.GetComponent<Animator>().SetTrigger("holster");
-		StartCoroutine("DelayTime");
-		//presentItem.SetActive(false);
-		//targetItem.SetActive(true);
-		//presentItem = targetItem;
-	}
 
-	private IEnumerator DelayTime() {
-		yield return new WaitForSeconds(1);
+    public void CutHP(int HPValue){
+        this.HitPoint -= HPValue;
+    }
 
-		presentItem.SetActive(false);
-		targetItem.SetActive(true);
-		presentItem = targetItem;
-	}
+    
+    public void CutVit(){
+        if (m_FirstPersonController.M_PlayerState == PlayerState.WALK){
+            index++;
+            if (index >= 20){
+                this.Stamina -= 1;
+                ResetSpeed();
+                index = 0;
+            }
+        }
+
+        if (m_FirstPersonController.M_PlayerState == PlayerState.RUN){
+            index++;
+            if (index >= 20){
+                this.Stamina -= 2;
+                ResetSpeed();
+                index = 0;
+            }
+        }
+    }
+
+
+    private IEnumerator RestoreVIT(){
+        Vector3 tempPos;
+        while (true){
+            tempPos = transform.position;
+            yield return new WaitForSeconds(1);
+            if (this.Stamina <= 95 && tempPos.Equals(transform.position)){
+                this.Stamina += 5;
+                ResetSpeed();
+            }
+        }
+    }
+
+
+    private void ResetSpeed(){
+        m_FirstPersonController.M_WalkSpeed = 5 * (this.Stamina * 0.01f);
+        m_FirstPersonController.M_RunSpeed = 10 * (this.Stamina * 0.01f);
+
+    }
 }

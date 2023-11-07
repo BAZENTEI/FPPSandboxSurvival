@@ -6,6 +6,13 @@ using Random = UnityEngine.Random;
 
 namespace UnityStandardAssets.Characters.FirstPerson
 {
+    public enum PlayerState
+    {
+        IDLE,
+        WALK,
+        RUN
+    }
+
     [RequireComponent(typeof (CharacterController))]
     [RequireComponent(typeof (AudioSource))]
     public class FirstPersonController : MonoBehaviour
@@ -28,6 +35,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] private AudioClip m_JumpSound;           // the sound played when character leaves the ground.
         [SerializeField] private AudioClip m_LandSound;           // the sound played when character touches back on ground.
 
+        public float M_WalkSpeed { get { return M_WalkSpeed; } set { m_WalkSpeed = value;} }
+        public float M_RunSpeed { get { return m_RunSpeed; } set { m_RunSpeed = value; } }
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
@@ -41,6 +51,9 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private float m_NextStep;
         private bool m_Jumping;
         private AudioSource m_AudioSource;
+        private PlayerState m_PlayerState = PlayerState.IDLE;
+        public PlayerState M_PlayerState{ get { return m_PlayerState; } set { m_PlayerState = value; } }
+
 
         // Use this for initialization
         private void Start()
@@ -231,6 +244,17 @@ namespace UnityStandardAssets.Characters.FirstPerson
                 StopAllCoroutines();
                 StartCoroutine(!m_IsWalking ? m_FovKick.FOVKickUp() : m_FovKick.FOVKickDown());
             }
+
+            
+            if (m_IsWalking == true && (vertical != 0 || horizontal != 0)){
+                m_PlayerState = PlayerState.WALK;
+            }
+            if (m_IsWalking == false && (vertical != 0 || horizontal != 0)){
+                m_PlayerState = PlayerState.RUN;
+            }
+            if (vertical == 0 && horizontal == 0){
+                m_PlayerState = PlayerState.IDLE;
+            }
         }
 
 
@@ -256,4 +280,5 @@ namespace UnityStandardAssets.Characters.FirstPerson
             body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
     }
+
 }
