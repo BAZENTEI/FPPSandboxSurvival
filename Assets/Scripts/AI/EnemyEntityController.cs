@@ -35,6 +35,8 @@ public class EnemyEntityController : MonoBehaviour {
     public List<Vector3> DirList { get { return dirList; } set { dirList = value; } }
 
     [SerializeField] private int life;
+
+    private PlayerController m_PlayerController;
     private int attack;
     public int Life { 
         get { return life; }
@@ -58,13 +60,12 @@ public class EnemyEntityController : MonoBehaviour {
         }
 
         playerTransform = GameObject.Find("FPPController").transform;
-        
+        m_PlayerController = playerTransform.GetComponent<PlayerController>();
         m_AIState = AIState.IDLE;
     }
 
 
     void Update(){
-
         Distance();
         EntityFollowPlayer();
         EntityAttackPlayer();
@@ -143,7 +144,7 @@ public class EnemyEntityController : MonoBehaviour {
     /// 状態の切り替えり
     /// </summary>
     private void ToggleState(AIState aiState){
-        Debug.Log("ToggleState :" + aiState);
+        //Debug.Log("ToggleState :" + aiState);
 
         switch (aiState){
             case AIState.IDLE:
@@ -290,5 +291,12 @@ public class EnemyEntityController : MonoBehaviour {
         HitHead();
         Life -= damage;
         Debug.Log("HeadHit");
+    }
+
+    /// <summary>
+    /// 攻撃
+    /// </summary>
+    private void AttackPlayer(){
+        m_PlayerController.CutHP(this.attack);
     }
 }

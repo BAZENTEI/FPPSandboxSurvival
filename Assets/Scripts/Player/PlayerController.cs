@@ -8,18 +8,20 @@ public class PlayerController : MonoBehaviour
     private int hitPoint = 1000;  //体力ポイント
     private int stamina = 100;  //スタミナ
     private int index = 0;
+    private FirstPersonController m_FirstPersonController;
     private PlayerStatusPanel m_PlayerStatusPanel;
-
+    private BloodSplatterScreen m_BloodSplatterScreen;
 
     public int HitPoint { get { return hitPoint; } set { hitPoint = value; } }
     public int Stamina { get { return stamina; } set { stamina = value; } }
 
-    private FirstPersonController m_FirstPersonController;
+    
 
     void Start(){
         StartCoroutine("RestoreVIT");
         m_FirstPersonController = GetComponent<FirstPersonController>();
         m_PlayerStatusPanel = GameObject.Find("Canvas/GearBarPanel/PlayerStatus").GetComponent<PlayerStatusPanel>();
+        m_BloodSplatterScreen = GameObject.Find("Canvas/GearBarPanel/BloodSplatter").GetComponent<BloodSplatterScreen>();
 
 
     }
@@ -28,13 +30,16 @@ public class PlayerController : MonoBehaviour
     void Update(){
         Debug.Log("player state:" + m_FirstPersonController.M_PlayerState);
         CutVit();
-        Debug.Log("スタミナ:" + this.Stamina);
+        Debug.Log("スタミナ:" + this.Stamina + ",HP:" + this.hitPoint);
     }
 
 
     public void CutHP(int HPValue){
         this.HitPoint -= HPValue;
-        m_PlayerStatusPanel.SetHpBar(hitPoint);
+        //HPバー
+        m_PlayerStatusPanel.SetHpBar(this.hitPoint);
+        //BloodSplatterエフェクト
+        m_BloodSplatterScreen.SetImageAlpha();
 
     }
 
