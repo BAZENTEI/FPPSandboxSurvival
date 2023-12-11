@@ -59,7 +59,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
     private void PreShoot(){
         ray = new Ray(M_WeaponViewBase.M_MuzzlePos.position, M_WeaponViewBase.M_MuzzlePos.forward);
         //デバッグ用射線
-        Debug.DrawLine(M_WeaponViewBase.M_MuzzlePos.position, M_WeaponViewBase.M_MuzzlePos.forward * 1000, Color.cyan);
+        //Debug.DrawLine(M_WeaponViewBase.M_MuzzlePos.position, M_WeaponViewBase.M_MuzzlePos.forward * 1000, Color.cyan);
 
 
         if (Physics.Raycast(ray, out hit)){
