@@ -28,9 +28,9 @@ public class PlayerController : MonoBehaviour
 
 
     void Update(){
-        Debug.Log("player state:" + m_FirstPersonController.M_PlayerState);
+        //Debug.Log("player state:" + m_FirstPersonController.M_PlayerState);
         CutVit();
-        Debug.Log("スタミナ:" + this.Stamina + ",HP:" + this.hitPoint);
+        //Debug.Log("スタミナ:" + this.Stamina + ",HP:" + this.hitPoint);
     }
 
 

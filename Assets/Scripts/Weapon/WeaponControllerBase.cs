@@ -63,9 +63,9 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
 
         if (Physics.Raycast(ray, out hit)){
-            Debug.Log("あたり");
+            //Debug.Log("あたり");
         }else{
-            Debug.Log("はずれ");
+           // Debug.Log("はずれ");
             hit.point = Vector3.zero;
         }
     }
