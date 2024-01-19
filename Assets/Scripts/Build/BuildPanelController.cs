@@ -1,11 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BuildPanelController : MonoBehaviour {
 	private Transform BG_Transform;
 	private GameObject item_Prefab;
+	private GameObject material_Prefab;
 	private Text itemName_Text;
 	private List<Sprite> icons = new List<Sprite>();
 
@@ -17,11 +17,16 @@ public class BuildPanelController : MonoBehaviour {
 	private Item currentItem = null;
 	private Item targetItem = null;
 
-	private string[] itemNames = new string[] { "", "1", "2", "3", "4", "5", "6", "7", "8" };
+	private string[] itemNames = new string[] { "", "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]" };
+	private List<Sprite[]> materialIcons = new List<Sprite[]>();
+
+	private int zIndex = 20;
+	private List<string[]> materialIconNames = new List<string[]>();
 	void Start () {
-		Debug.Log("!!!!!!!!!!!!!!!!!!!");
 		Init();
 		LoadIcons();
+		LoadMaterialIcons();
+		SetmaterialIconNames();
 		CreateItems();
 	}
 
@@ -31,20 +36,23 @@ public class BuildPanelController : MonoBehaviour {
 		}
         if (isShow){
 			if (Input.GetAxis("Mouse ScrollWheel") != 0){
-				Debug.Log("GetAxis !!!!!");
-				Debug.Log("GetAxis" + Input.GetAxis("Mouse ScrollWheel"));
-				//5倍
-				scrollNum += Input.GetAxis("Mouse ScrollWheel") * 5;
-				index = Mathf.Abs((int)scrollNum);
-				Debug.Log("index:" + index);
-				targetItem = itemList[index % itemList.Count];
-				if(targetItem != currentItem){
-					currentItem.Hide();
-					targetItem.Show();
-					currentItem = targetItem;
-					SetTextValue();
-				}
+				MouseScrollWheel();
 			}
+		}
+	}
+
+	private void MouseScrollWheel() {
+		//Debug.Log("GetAxis !!!!!");
+		//Debug.Log("GetAxis" + Input.GetAxis("Mouse ScrollWheel"));
+		//5倍
+		scrollNum += Input.GetAxis("Mouse ScrollWheel") * 5;
+		index = Mathf.Abs((int)scrollNum);
+		targetItem = itemList[index % itemList.Count];
+		if (targetItem != currentItem){
+			currentItem.Hide();
+			targetItem.Show();
+			currentItem = targetItem;
+			SetTextValue();
 		}
 	}
 
@@ -52,6 +60,7 @@ public class BuildPanelController : MonoBehaviour {
 		BG_Transform = transform.Find("WheelBG");
 		item_Prefab = Resources.Load<GameObject>("Build/Prefab/Item");
 		itemName_Text = transform.Find("WheelBG/ItemName").GetComponent<Text>();
+		material_Prefab = Resources.Load<GameObject>("Build/Prefab/MaterialBG");
 	}
 
 	private void LoadIcons() {
@@ -67,31 +76,63 @@ public class BuildPanelController : MonoBehaviour {
 		icons.Add(Resources.Load<Sprite>("Build/Icon/Foundation_Category"));
 	}
 
+	private void LoadMaterialIcons(){
+		materialIcons.Add(null);
+		materialIcons.Add(new Sprite[]{ LoadIcon("Ceiling Light"), LoadIcon("Pillar_Wood"), LoadIcon("Wooden Ladder")});
+		materialIcons.Add(new Sprite[] { null, LoadIcon("Roof_Metal"), null });
+		materialIcons.Add(new Sprite[] { LoadIcon("Stairs_Wood"), LoadIcon("L Shaped Stairs_Wood"), null });
+		materialIcons.Add(new Sprite[] { null, LoadIcon("Window_Wood"), null });
+		materialIcons.Add(new Sprite[] { null, LoadIcon("Wooden Door"), null });
+		materialIcons.Add(new Sprite[] { LoadIcon("Wall_Wood"), LoadIcon("Doorway_Wood"), LoadIcon("Window Frame_Wood") });
+		materialIcons.Add(new Sprite[] { null, LoadIcon("Floor_Wood"), null });
+		materialIcons.Add(new Sprite[] { null, LoadIcon("Platform_Wood"), null });
+	}
+
+	private void SetmaterialIconNames(){
+		materialIconNames.Add(null);
+		materialIconNames.Add(new string[] { "Ceiling Light", "Wood Pillar", "Ladder"});
+		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
+		materialIconNames.Add(new string[] { "Ceiling Light2", "Wood Pillar", null});
+		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
+		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
+		materialIconNames.Add(new string[] { "Ceiling Light5", "Wood Pillar", "Ladder"});
+		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
+		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
+	}
+
 	private void CreateItems() {
-		Debug.Log("CreateItems");
 		for (int i = 0; i < 9; i++){
 			GameObject item = Instantiate<GameObject>(item_Prefab, BG_Transform);
 			//item.transform.rotation = Quaternion.Euler(new Vector3(0, 0, i * 40));
 			//item.transform.Find("Icon").rotation = Quaternion.Euler(Vector3.zero);
-
-			item.transform.Find("Icon").GetComponent<Image>().sprite = icons[i];
-
+			itemList.Add(item.GetComponent<Item>());
+		
+			//item.GetComponent<Item>().Icons = materialIcons[i];
 			if (icons[i] == null){
 				//item.transform.Find("Icon").GetComponent<Image>().enabled = false;
 				item.GetComponent<Item>().Init("Item", Quaternion.Euler(new Vector3(0, 0, i * 40)), false, null, true);
-				itemList.Add(item.GetComponent<Item>());
-				Debug.Log("itemList");
-				Debug.Log(itemList);
+				Debug.Log("itemList" + itemList);
 
 			}else{
 				//item.transform.Find("Icon").GetComponent<Image>().sprite = icons[i];
 				//item.GetComponent<Image>().enabled = false;
 
 				item.GetComponent<Item>().Init("Item", Quaternion.Euler(new Vector3(0, 0, i * 40)), true, icons[i], false);
-				itemList.Add(item.GetComponent<Item>());
-				Debug.Log("itemList2");
-				Debug.Log(itemList);
-
+				Debug.Log("itemList2" + itemList);
+				//materialIcons[i].Length == 3
+				for (int j = 0; j < materialIcons[i].Length; j++){
+					zIndex += 13;
+					if(materialIcons[i][j] != null)
+                    {
+						GameObject material = Instantiate<GameObject>(material_Prefab, BG_Transform);
+						material.transform.rotation = Quaternion.Euler(new Vector3(0, 0, zIndex));
+						material.transform.Find("Icon").GetComponent<Image>().sprite = materialIcons[i][j];
+						material.transform.Find("Icon").transform.rotation = Quaternion.Euler(Vector3.zero);
+						material.transform.SetParent(item.transform);
+						item.GetComponent<Item>().MaterialListAdd(material);
+					}
+				}
+				item.GetComponent<Item>().Hide();
 			}
 		}
 
@@ -111,10 +152,15 @@ public class BuildPanelController : MonoBehaviour {
 			isShow = true;
 		}
     }
-	
 
+	//アイテム名
 	private void SetTextValue(){
 		itemName_Text.text = itemNames[index % itemNames.Length];
 
 	}
+
+	
+	private Sprite LoadIcon(string name){
+		return Resources.Load<Sprite>("Build/MaterialIcon/" + name);
+    }
 }
