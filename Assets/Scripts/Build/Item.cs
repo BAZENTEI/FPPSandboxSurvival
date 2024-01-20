@@ -12,7 +12,7 @@ public class Item : MonoBehaviour {
         get { return icons; }
         set { icons = value; }
 	}*/
-	private List<GameObject> materialList = new List<GameObject>();
+	public List<GameObject> materialList = new List<GameObject>();
 
 	void Awake () {
 		icon_Image = transform.Find("Icon").GetComponent<Image>();

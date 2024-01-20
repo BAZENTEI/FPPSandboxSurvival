@@ -12,16 +12,26 @@ public class BuildPanelController : MonoBehaviour {
 	private bool isShow = true;
 	private List<Item> itemList = new List<Item>();
 
+	//メインメニュー
 	private float scrollNum = 90000.0f;
 	private int index = 0;
 	private Item currentItem = null;
 	private Item targetItem = null;
+
+	//サブメニュー
+	private float scrollNum_Material = 0.0f;
+	private int index_Material = 0;
+	private MaterialItem currentMaterial = null;
+	private MaterialItem targetMaterial = null;
 
 	private string[] itemNames = new string[] { "", "[1]", "[2]", "[3]", "[4]", "[5]", "[6]", "[7]", "[8]" };
 	private List<Sprite[]> materialIcons = new List<Sprite[]>();
 
 	private int zIndex = 20;
 	private List<string[]> materialIconNames = new List<string[]>();
+
+	private bool isItemCtr = true;
+
 	void Start () {
 		Init();
 		LoadIcons();
@@ -32,12 +42,27 @@ public class BuildPanelController : MonoBehaviour {
 
 	void Update(){
 		if (Input.GetMouseButtonDown(1)){
-			ShowOrHide();
+            if (isItemCtr == false){
+				isItemCtr = true;
+
+			}else{
+				ShowOrHide();
+			}
 		}
-        if (isShow){
+		//メインメニュー
+        if (isShow && isItemCtr){
 			if (Input.GetAxis("Mouse ScrollWheel") != 0){
 				MouseScrollWheel();
 			}
+		}
+		//サブメニュー
+		if (isShow && isItemCtr == false){
+			if (Input.GetAxis("Mouse ScrollWheel") != 0){
+				MouseScrollWheelMaterial();
+			}
+		}
+		if (Input.GetMouseButtonDown(0)){
+			isItemCtr = false;
 		}
 	}
 
@@ -52,6 +77,24 @@ public class BuildPanelController : MonoBehaviour {
 			currentItem.Hide();
 			targetItem.Show();
 			currentItem = targetItem;
+			SetTextValue();
+		}
+	}
+
+	private void MouseScrollWheelMaterial(){
+		scrollNum_Material += Input.GetAxis("Mouse ScrollWheel") * 5;
+		index_Material = Mathf.Abs((int)scrollNum_Material);
+		targetItem = itemList[index % itemList.Count];
+		Debug.Log(targetItem.materialList.Count);
+		Debug.Log(currentMaterial);
+		targetMaterial = targetItem.materialList[index_Material % targetItem.materialList.Count].GetComponent<MaterialItem>();
+		
+		if (targetMaterial != currentMaterial){
+			targetMaterial.Highlight();
+			if(currentMaterial != null){
+				currentMaterial.Normal();
+			}
+			currentMaterial = targetMaterial;
 			SetTextValue();
 		}
 	}

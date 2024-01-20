@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MatrialItem : MonoBehaviour {
+public class MaterialItem : MonoBehaviour {
 
 	private Image icon_Image;
 
