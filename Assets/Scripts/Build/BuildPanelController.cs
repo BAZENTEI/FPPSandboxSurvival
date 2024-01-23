@@ -43,6 +43,7 @@ public class BuildPanelController : MonoBehaviour {
 	void Update(){
 		if (Input.GetMouseButtonDown(1)){
             if (isItemCtr == false){
+				currentMaterial.Normal();
 				isItemCtr = true;
 
 			}else{
@@ -62,40 +63,8 @@ public class BuildPanelController : MonoBehaviour {
 			}
 		}
 		if (Input.GetMouseButtonDown(0)){
+			if (targetItem.materialList.Count == 0) return;
 			isItemCtr = false;
-		}
-	}
-
-	private void MouseScrollWheel() {
-		//Debug.Log("GetAxis !!!!!");
-		//Debug.Log("GetAxis" + Input.GetAxis("Mouse ScrollWheel"));
-		//5倍
-		scrollNum += Input.GetAxis("Mouse ScrollWheel") * 5;
-		index = Mathf.Abs((int)scrollNum);
-		targetItem = itemList[index % itemList.Count];
-		if (targetItem != currentItem){
-			currentItem.Hide();
-			targetItem.Show();
-			currentItem = targetItem;
-			SetTextValue();
-		}
-	}
-
-	private void MouseScrollWheelMaterial(){
-		scrollNum_Material += Input.GetAxis("Mouse ScrollWheel") * 5;
-		index_Material = Mathf.Abs((int)scrollNum_Material);
-		targetItem = itemList[index % itemList.Count];
-		Debug.Log(targetItem.materialList.Count);
-		Debug.Log(currentMaterial);
-		targetMaterial = targetItem.materialList[index_Material % targetItem.materialList.Count].GetComponent<MaterialItem>();
-		
-		if (targetMaterial != currentMaterial){
-			targetMaterial.Highlight();
-			if(currentMaterial != null){
-				currentMaterial.Normal();
-			}
-			currentMaterial = targetMaterial;
-			SetTextValue();
 		}
 	}
 
@@ -134,13 +103,13 @@ public class BuildPanelController : MonoBehaviour {
 	private void SetmaterialIconNames(){
 		materialIconNames.Add(null);
 		materialIconNames.Add(new string[] { "Ceiling Light", "Wood Pillar", "Ladder"});
-		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
-		materialIconNames.Add(new string[] { "Ceiling Light2", "Wood Pillar", null});
-		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
-		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
+		materialIconNames.Add(new string[] {  "Wood Pillar"});
+		materialIconNames.Add(new string[] { "Ceiling Light2", "Wood Pillar"});
+		materialIconNames.Add(new string[] { "Wood Pillar"});
+		materialIconNames.Add(new string[] { "Wood Pillar"});
 		materialIconNames.Add(new string[] { "Ceiling Light5", "Wood Pillar", "Ladder"});
-		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
-		materialIconNames.Add(new string[] { null, "Wood Pillar", null});
+		materialIconNames.Add(new string[] { "Wood Pillar"});
+		materialIconNames.Add(new string[] { "Wood Pillar"});
 	}
 
 	private void CreateItems() {
@@ -183,6 +152,40 @@ public class BuildPanelController : MonoBehaviour {
 		SetTextValue();
 	}
 
+	private void MouseScrollWheel(){
+		//Debug.Log("GetAxis !!!!!");
+		//Debug.Log("GetAxis" + Input.GetAxis("Mouse ScrollWheel"));
+		//5倍
+		scrollNum += Input.GetAxis("Mouse ScrollWheel") * 5;
+		index = Mathf.Abs((int)scrollNum);
+		targetItem = itemList[index % itemList.Count];
+		if (targetItem != currentItem){
+			currentItem.Hide();
+			targetItem.Show();
+			currentItem = targetItem;
+			SetTextValue();
+		}
+	}
+
+	private void MouseScrollWheelMaterial(){
+		scrollNum_Material += Input.GetAxis("Mouse ScrollWheel") * 5;
+		index_Material = Mathf.Abs((int)scrollNum_Material);
+		targetItem = itemList[index % itemList.Count];
+		Debug.Log(targetItem.materialList.Count);
+		Debug.Log(currentMaterial);
+		targetMaterial = targetItem.materialList[index_Material % targetItem.materialList.Count].GetComponent<MaterialItem>();
+
+		if (targetMaterial != currentMaterial){
+			targetMaterial.Highlight();
+			if (currentMaterial != null){
+				currentMaterial.Normal();
+			}
+			currentMaterial = targetMaterial;
+			SetTextValueMaterial();
+			//SetTextValue();
+		}
+	}
+
 	private void ShowOrHide(){
         if (isShow){
 			GameObject.Find("WheelBG").SetActive(true);
@@ -202,7 +205,11 @@ public class BuildPanelController : MonoBehaviour {
 
 	}
 
-	
+	private void SetTextValueMaterial(){
+		itemName_Text.text = materialIconNames[index % itemList.Count][index_Material % targetItem.materialList.Count];
+
+	}
+
 	private Sprite LoadIcon(string name){
 		return Resources.Load<Sprite>("Build/MaterialIcon/" + name);
     }
