@@ -29,14 +29,18 @@ public class BuildPanelController : MonoBehaviour {
 
 	private int zIndex = 20;
 	private List<string[]> materialIconNames = new List<string[]>();
+	private List<GameObject[]> materialModels = new List<GameObject[]>();
 
 	private bool isItemCtr = true;
+	private Transform player_Transform;
+	private GameObject tempBuildModel = null;
 
 	void Start () {
 		Init();
 		LoadIcons();
 		LoadMaterialIcons();
 		SetmaterialIconNames();
+		LoadMaterialModels();
 		CreateItems();
 	}
 
@@ -64,7 +68,16 @@ public class BuildPanelController : MonoBehaviour {
 		}
 		if (Input.GetMouseButtonDown(0)){
 			if (targetItem.materialList.Count == 0) return;
-			isItemCtr = false;
+			if (tempBuildModel == null) isItemCtr = false;
+			if(tempBuildModel != null && isShow){
+				BG_Transform.gameObject.SetActive(false);
+				isShow = false;
+				
+			}
+			if(tempBuildModel != null){
+				Instantiate<GameObject>(tempBuildModel, player_Transform.position + new Vector3(0, 0, 10), Quaternion.identity);
+				isItemCtr = true;
+			}
 		}
 	}
 
@@ -73,6 +86,7 @@ public class BuildPanelController : MonoBehaviour {
 		item_Prefab = Resources.Load<GameObject>("Build/Prefab/Item");
 		itemName_Text = transform.Find("WheelBG/ItemName").GetComponent<Text>();
 		material_Prefab = Resources.Load<GameObject>("Build/Prefab/MaterialBG");
+		player_Transform = GameObject.Find("FPPController").transform;
 	}
 
 	private void LoadIcons() {
@@ -111,6 +125,21 @@ public class BuildPanelController : MonoBehaviour {
 		materialIconNames.Add(new string[] { "Wood Pillar"});
 		materialIconNames.Add(new string[] { "Wood Pillar"});
 	}
+
+	private void LoadMaterialModels(){
+		materialModels.Add(null);
+		materialModels.Add(new GameObject[] { LoadBuildModel("Ceiling_Light") , LoadBuildModel("Pillar"), LoadBuildModel("Ladder")});
+		materialModels.Add(new GameObject[] { LoadBuildModel("Roof")});
+		Debug.Log("materialModels!!!!!!!!!!!!" + materialModels[1][1].name);
+		materialModels.Add(new GameObject[] { LoadBuildModel("Stairs"), LoadBuildModel("L_Shaped_Stairs")});
+		materialModels.Add(new GameObject[] { LoadBuildModel("Window")});
+		materialModels.Add(new GameObject[] { LoadBuildModel("Door")});
+		materialModels.Add(new GameObject[] { LoadBuildModel("Wall"), LoadBuildModel("Doorway"), LoadBuildModel("Window_Frame")});
+		materialModels.Add(new GameObject[] { LoadBuildModel("Floor") });
+		materialModels.Add(new GameObject[] { LoadBuildModel("Platform") });
+
+	}
+
 
 	private void CreateItems() {
 		for (int i = 0; i < 9; i++){
@@ -176,6 +205,7 @@ public class BuildPanelController : MonoBehaviour {
 		targetMaterial = targetItem.materialList[index_Material % targetItem.materialList.Count].GetComponent<MaterialItem>();
 
 		if (targetMaterial != currentMaterial){
+			tempBuildModel = materialModels[index % itemList.Count][index_Material % targetItem.materialList.Count];
 			targetMaterial.Highlight();
 			if (currentMaterial != null){
 				currentMaterial.Normal();
@@ -188,14 +218,15 @@ public class BuildPanelController : MonoBehaviour {
 
 	private void ShowOrHide(){
         if (isShow){
-			GameObject.Find("WheelBG").SetActive(true);
-			//BG_Transform.gameObject.SetActive(true);
+			//GameObject.Find("WheelBG").SetActive(false) ;
+			BG_Transform.gameObject.SetActive(false);
 			isShow = false;
 
 		}else{
-			GameObject.Find("WheelBG").SetActive(false);
-			//BG_Transform.gameObject.SetActive(false);
+			BG_Transform.gameObject.SetActive(true);
 			isShow = true;
+			if(tempBuildModel != null) tempBuildModel = null;
+			if (targetMaterial != null) targetMaterial.Normal();
 		}
     }
 
@@ -212,5 +243,9 @@ public class BuildPanelController : MonoBehaviour {
 
 	private Sprite LoadIcon(string name){
 		return Resources.Load<Sprite>("Build/MaterialIcon/" + name);
+    }
+
+	private GameObject LoadBuildModel(string name){
+		return Resources.Load<GameObject>("Build/Prefab/Material/" + name);
     }
 }
