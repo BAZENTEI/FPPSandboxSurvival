@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4951420253103738}
   - component: {fileID: 33478044422946908}
   - component: {fileID: 23786516458530422}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: L_Shaped_Stairs
   m_TagString: Untagged
   m_Icon: {fileID: 0}

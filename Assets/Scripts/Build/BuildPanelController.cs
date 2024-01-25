@@ -34,6 +34,11 @@ public class BuildPanelController : MonoBehaviour {
 	private bool isItemCtr = true;
 	private Transform player_Transform;
 	private GameObject tempBuildModel = null;
+	private GameObject BuildModel = null;
+
+	private Camera WorldCamera = null;
+	private Ray ray;
+	private RaycastHit Hit;
 
 	void Start () {
 		Init();
@@ -67,18 +72,29 @@ public class BuildPanelController : MonoBehaviour {
 			}
 		}
 		if (Input.GetMouseButtonDown(0)){
-			if (targetItem.materialList.Count == 0) return;
+			//最初はヌル
+			if (targetItem == null) return;
+			if (targetItem.materialList.Count == 0){
+				SetLeftKeyNull();
+				SetUIHide();
+				return;
+            }
 			if (tempBuildModel == null) isItemCtr = false;
 			if(tempBuildModel != null && isShow){
-				BG_Transform.gameObject.SetActive(false);
-				isShow = false;
-				
+				SetUIHide();
 			}
-			if(tempBuildModel != null){
-				Instantiate<GameObject>(tempBuildModel, player_Transform.position + new Vector3(0, 0, 10), Quaternion.identity);
+
+			if (BuildModel != null && BuildModel.GetComponent<Platform>().IsCanPut == false) return;
+			if (BuildModel != null && BuildModel.GetComponent<Platform>().IsCanPut){
+				BuildModel.GetComponent<Platform>().Normal();
+				Destroy(BuildModel.GetComponent<Platform>());
+			}
+			if (tempBuildModel != null){
+				BuildModel = Instantiate<GameObject>(tempBuildModel, player_Transform.position + new Vector3(0, 0, 10), Quaternion.identity);
 				isItemCtr = true;
 			}
 		}
+		SetModelPosition();
 	}
 
 	private void Init() {
@@ -87,6 +103,7 @@ public class BuildPanelController : MonoBehaviour {
 		itemName_Text = transform.Find("WheelBG/ItemName").GetComponent<Text>();
 		material_Prefab = Resources.Load<GameObject>("Build/Prefab/MaterialBG");
 		player_Transform = GameObject.Find("FPPController").transform;
+		WorldCamera = GameObject.Find("WorldCamera").GetComponent<Camera>();
 	}
 
 	private void LoadIcons() {
@@ -248,4 +265,34 @@ public class BuildPanelController : MonoBehaviour {
 	private GameObject LoadBuildModel(string name){
 		return Resources.Load<GameObject>("Build/Prefab/Material/" + name);
     }
+
+	private void SetModelPosition(){
+		Debug.Log("SetModelPosition");
+		ray = WorldCamera.ScreenPointToRay(Input.mousePosition);
+		float maxDistance = 12;
+		if(Physics.Raycast(ray, out Hit, maxDistance, ~(1 << 11))){
+			Debug.Log("SetModelPosition!!!!!");
+			if (BuildModel.GetComponent<Platform>().IsAttach == false){
+				if (BuildModel != null) BuildModel.transform.position = Hit.point;
+			}
+
+			if(Vector3.Distance(Hit.point, BuildModel.transform.position) > 1){
+				BuildModel.GetComponent<Platform>().IsAttach = false;
+            }
+		}
+    }
+
+
+	private void SetLeftKeyNull(){
+		if (tempBuildModel != null) tempBuildModel = null;
+		if(BuildModel != null){
+			Destroy(BuildModel);
+			BuildModel = null;
+		}
+	}
+
+	private void SetUIHide(){
+		BG_Transform.gameObject.SetActive(false);
+		isShow = false;
+	}
 }

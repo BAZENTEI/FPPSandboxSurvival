@@ -41,15 +41,15 @@ public class EnemyEntityManager : MonoBehaviour {
       
         switch (enemyManagerType){
             case EnemyManagerType.CANNIBAL:
-                Debug.Log("GenerateEnemyEntityByEnum : CANNIBAL");
+                //Debug.Log("GenerateEnemyEntityByEnum : CANNIBAL");
                 GenerateEnemyEntity(prefab_Cannibal, EnemyManagerType.CANNIBAL);
                 break;
             case EnemyManagerType.BOAR:
-                Debug.Log("GenerateEnemyEntityByEnum : BOAR");
+                //Debug.Log("GenerateEnemyEntityByEnum : BOAR");
                 GenerateEnemyEntity(prefab_Boar, EnemyManagerType.BOAR);
                 break;
             default:
-                Debug.Log("GenerateEnemyEntityByEnum : default");
+                //Debug.Log("GenerateEnemyEntityByEnum : default");
                 break;
         }
     }

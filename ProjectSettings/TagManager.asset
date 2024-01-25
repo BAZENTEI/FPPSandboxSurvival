@@ -7,6 +7,8 @@ TagManager:
   - InventorySlot
   - InventoryItem
   - CraftingSlot
+  - Terrain
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Character
   - Env
   - EnemyEntity
-  - 
+  - BuildModel
   - 
   - 
   - 
