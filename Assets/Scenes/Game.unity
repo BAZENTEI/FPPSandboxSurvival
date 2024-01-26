@@ -257,6 +257,34 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &65128921
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 65128922}
+  m_Layer: 11
+  m_Name: BuildModels
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &65128922
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 65128921}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.2, y: 0, z: 6.06}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &128357621
 GameObject:
   m_ObjectHideFlags: 0
@@ -1599,7 +1627,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &707396968
 Transform:
   m_ObjectHideFlags: 0
@@ -1947,7 +1975,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4551526101352486, guid: 23290e82328135d4ba86c2e759c8cec3, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4551526101352486, guid: 23290e82328135d4ba86c2e759c8cec3, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1955,7 +1983,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4551526101352486, guid: 23290e82328135d4ba86c2e759c8cec3, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 6.06
       objectReference: {fileID: 0}
     - target: {fileID: 4551526101352486, guid: 23290e82328135d4ba86c2e759c8cec3, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1979,7 +2007,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1310383888884682, guid: 23290e82328135d4ba86c2e759c8cec3, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 23290e82328135d4ba86c2e759c8cec3, type: 2}
@@ -2863,7 +2891,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 8
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1243370353
 Transform:
   m_ObjectHideFlags: 0
@@ -5061,6 +5089,7 @@ GameObject:
   - component: {fileID: 2111341738}
   - component: {fileID: 2111341737}
   - component: {fileID: 2111341739}
+  - component: {fileID: 2111341740}
   m_Layer: 5
   m_Name: BuildPanel
   m_TagString: Untagged
@@ -5129,6 +5158,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac8813ee398355c4180937ddc761b65a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2111341740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2111341735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81890c3d87561c94da0983c0b286e88e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2136718480
