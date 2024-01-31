@@ -13,8 +13,7 @@ public abstract class MaterialModelBase : MonoBehaviour {
 	public bool IsCanPut { get { return isCanPut; } set { isCanPut = value; } }
 	public bool IsAttach { get { return isAttach; } set { isAttach = value; } }
 
-	void Start()
-	{
+	void Awake(){
 		newMaterial = Resources.Load<Material>("Build/Building Preview");
 		oldMaterial = gameObject.GetComponent<MeshRenderer>().material;
 		gameObject.GetComponent<MeshRenderer>().material = newMaterial;

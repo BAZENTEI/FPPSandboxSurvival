@@ -93,6 +93,7 @@ public class EnemyEntityController : MonoBehaviour {
     private void Distance(){
         if (m_AIState == AIState.IDLE || m_AIState == AIState.WALK){
             if (Vector3.Distance(transform.position, dir) < 1.0f){
+
                 int index = Random.Range(0, dirList.Count);
                 //Debug.Log("Distance" + index);
                 dir = dirList[index];

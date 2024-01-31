@@ -9,6 +9,7 @@ TagManager:
   - CraftingSlot
   - Terrain
   - Platform
+  - PlatformToWall
   layers:
   - Default
   - TransparentFX

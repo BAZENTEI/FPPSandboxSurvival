@@ -31,6 +31,7 @@ public class BuildPanelController : MonoBehaviour {
 
 	private Ray ray;
 	private RaycastHit Hit;
+	private float lingmindu = 3.0f; 
 
 	void Start () {
 		m_BuildPanelView = gameObject.GetComponent<BuildPanelView>();
@@ -46,32 +47,26 @@ public class BuildPanelController : MonoBehaviour {
 		SetModelPosition();
 	}
 
-	private void MouseLeft()
-    {
-		if (Input.GetMouseButtonDown(0))
-		{
+	private void MouseLeft(){
+		if (Input.GetMouseButtonDown(0)){
 			//最初はヌル
 			if (targetItem == null) return;
-			if (targetItem.materialList.Count == 0)
-			{
+			if (targetItem.materialList.Count == 0){
 				SetLeftKeyNull();
 				SetUIHide();
 				return;
 			}
 			if (tempBuildModel == null) isItemCtr = false;
-			if (tempBuildModel != null && isShow)
-			{
+			if (tempBuildModel != null && isShow){
 				SetUIHide();
 			}
 
-			if (BuildModel != null && BuildModel.GetComponent<Platform>().IsCanPut == false) return;
-			if (BuildModel != null && BuildModel.GetComponent<Platform>().IsCanPut)
-			{
-				BuildModel.GetComponent<Platform>().Normal();
-				Destroy(BuildModel.GetComponent<Platform>());
+			if (BuildModel != null && BuildModel.GetComponent<MaterialModelBase>().IsCanPut == false) return;
+			if (BuildModel != null && BuildModel.GetComponent<MaterialModelBase>().IsCanPut){
+				BuildModel.GetComponent<MaterialModelBase>().Normal();
+				Destroy(BuildModel.GetComponent<MaterialModelBase>());
 			}
-			if (tempBuildModel != null)
-			{
+			if (tempBuildModel != null){
 				BuildModel = Instantiate<GameObject>(tempBuildModel, m_BuildPanelView.M_Player_Transform.position + new Vector3(0, 0, 10), Quaternion.identity, m_BuildPanelView.M_Models_Parent);
 				isItemCtr = true;
 			}
@@ -217,7 +212,7 @@ public class BuildPanelController : MonoBehaviour {
 				if (BuildModel != null) BuildModel.transform.position = Hit.point;
 			}
 
-			if(Vector3.Distance(Hit.point, BuildModel.transform.position) > 1){
+			if(Vector3.Distance(Hit.point, BuildModel.transform.position) > lingmindu){
 				BuildModel.GetComponent<MaterialModelBase>().IsAttach = false;
             }
 		}

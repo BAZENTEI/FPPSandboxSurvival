@@ -47,7 +47,7 @@ public class BuildPanelView : MonoBehaviour {
 	private void Init(){
 		BG_Transform = transform.Find("WheelBG");
 		player_Transform = GameObject.Find("FPPController").transform;
-		models_Parent = GameObject.Find("BuildModels").transform;
+		models_Parent = GameObject.Find("BuildModelsParent").transform;
 
 		item_Prefab = Resources.Load<GameObject>("Build/Prefab/Item");
 		material_Prefab = Resources.Load<GameObject>("Build/Prefab/MaterialBG");
