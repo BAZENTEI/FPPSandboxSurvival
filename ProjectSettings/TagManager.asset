@@ -10,6 +10,7 @@ TagManager:
   - Terrain
   - Platform
   - PlatformToWall
+  - PlatformToPillar
   layers:
   - Default
   - TransparentFX
