@@ -5,20 +5,25 @@ using UnityEngine;
 public class Platform : MaterialModelBase
 {
 
-	protected override void OnCollisionEnter(Collision coll){
+	void Start(){
+        IsCanPut = true;
+
+    }
+
+    protected void OnCollisionEnter(Collision coll){
 		if (coll.collider.tag != "Terrain"){
 			IsCanPut = false;
 		}
 
 	}
 
-	protected override void OnCollisionStay(Collision coll){
+	protected void OnCollisionStay(Collision coll){
 		if (coll.collider.tag != "Terrain"){
 			IsCanPut = false;
 		}
 	}
 
-	protected override void OnCollisionExit(Collision coll){
+	protected void OnCollisionExit(Collision coll){
 		if (coll.collider.tag != "Terrain"){
 			IsCanPut = true;
 		}

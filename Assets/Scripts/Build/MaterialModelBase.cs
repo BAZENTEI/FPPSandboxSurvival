@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class MaterialModelBase : MonoBehaviour {
 
-	private bool isCanPut = true;
+	private bool isCanPut = false;
 	private bool isAttach = false;
 
 	private Material oldMaterial;
@@ -37,9 +37,7 @@ public abstract class MaterialModelBase : MonoBehaviour {
 		gameObject.GetComponent<MeshRenderer>().material = oldMaterial;
 	}
 
-	protected abstract void OnCollisionEnter(Collision coll);
-	protected abstract void OnCollisionStay(Collision coll);
-	protected abstract void OnCollisionExit(Collision coll);
+
 	protected abstract void OnTriggerEnter(Collider coll);
 	protected abstract void OnTriggerExit(Collider coll);
 	

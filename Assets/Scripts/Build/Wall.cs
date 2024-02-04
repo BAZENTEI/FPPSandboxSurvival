@@ -3,15 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Wall : MaterialModelBase {
-    protected override void OnCollisionEnter(Collision coll){
-     
-    }
 
-    protected override void OnCollisionExit(Collision coll){
-    }
-
-    protected override void OnCollisionStay(Collision coll){
-    }
 
     protected override void OnTriggerEnter(Collider coll){
         if (coll.gameObject.tag == "PlatformToWall"){
