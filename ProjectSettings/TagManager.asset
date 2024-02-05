@@ -11,6 +11,8 @@ TagManager:
   - Platform
   - PlatformToWall
   - PlatformToPillar
+  - WallToRoof
+  - Roof
   layers:
   - Default
   - TransparentFX
@@ -24,7 +26,7 @@ TagManager:
   - Env
   - EnemyEntity
   - BuildModel
-  - 
+  - BuildModelEnd
   - 
   - 
   - 

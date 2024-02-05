@@ -63,7 +63,8 @@ public class BuildPanelController : MonoBehaviour {
 
 			if (BuildModel != null && BuildModel.GetComponent<MaterialModelBase>().IsCanPut == false) return;
 			if (BuildModel != null && BuildModel.GetComponent<MaterialModelBase>().IsCanPut){
-				BuildModel.GetComponent<MaterialModelBase>().Normal();
+				BuildModel.layer = 14;
+                BuildModel.GetComponent<MaterialModelBase>().Normal();
 				Destroy(BuildModel.GetComponent<MaterialModelBase>());
 			}
 			if (tempBuildModel != null){

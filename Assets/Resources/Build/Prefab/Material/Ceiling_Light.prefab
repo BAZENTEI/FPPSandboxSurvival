@@ -21,6 +21,9 @@ GameObject:
   - component: {fileID: 4685971679383294}
   - component: {fileID: 33917476804012132}
   - component: {fileID: 23914009213398912}
+  - component: {fileID: 65166447720162430}
+  - component: {fileID: 54071770338450656}
+  - component: {fileID: 114415495675527442}
   m_Layer: 11
   m_Name: Ceiling_Light
   m_TagString: Untagged
@@ -80,3 +83,41 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1899931526024934}
   m_Mesh: {fileID: 4300000, guid: 1e6e6c9abf50acf46b9792a5f5fd148e, type: 3}
+--- !u!54 &54071770338450656
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899931526024934}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 2
+--- !u!65 &65166447720162430
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899931526024934}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5314003, y: 0.35360682, z: 0.5314003}
+  m_Center: {x: 0, y: -0.15736142, z: -0.000000014901161}
+--- !u!114 &114415495675527442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1899931526024934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a32021fac2782644af351c890d66976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
