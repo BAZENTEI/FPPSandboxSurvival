@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryPanelController : MonoBehaviour {
+public class InventoryPanelController : MonoBehaviour ,IUIPanelShowHide{
 	public static InventoryPanelController Instance;
 
 	private InventoryPanelView m_InventoryPanelView;
@@ -53,5 +53,13 @@ public class InventoryPanelController : MonoBehaviour {
 			}
 		}	
 	}
+
+    public void UIPanelShow(){
+        gameObject.SetActive(true);
+    }
+
+    public void UIPanelHide(){
+        gameObject.SetActive(false);
+    }
 
 }

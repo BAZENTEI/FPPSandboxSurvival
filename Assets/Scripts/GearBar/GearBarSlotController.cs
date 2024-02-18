@@ -22,7 +22,7 @@ public class GearBarSlotController : MonoBehaviour {
 
 	}
 
-	private void ButtonClick(){
+	public void ButtonClick(){
 		Debug.Log(selfState);
 		
 		if (selfState){
