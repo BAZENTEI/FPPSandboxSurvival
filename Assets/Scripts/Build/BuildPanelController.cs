@@ -31,7 +31,9 @@ public class BuildPanelController : MonoBehaviour {
 
 	private Ray ray;
 	private RaycastHit Hit;
-	private float lingmindu = 3.0f; 
+	private float lingmindu = 3.0f;
+
+	private int layerNum = 0;
 
 	void Start () {
 		m_BuildPanelView = gameObject.GetComponent<BuildPanelView>();
@@ -63,7 +65,7 @@ public class BuildPanelController : MonoBehaviour {
 
 			if (BuildModel != null && BuildModel.GetComponent<MaterialModelBase>().IsCanPut == false) return;
 			if (BuildModel != null && BuildModel.GetComponent<MaterialModelBase>().IsCanPut){
-				BuildModel.layer = 14;
+				BuildModel.layer = 12;
                 BuildModel.GetComponent<MaterialModelBase>().Normal();
 				Destroy(BuildModel.GetComponent<MaterialModelBase>());
 			}
@@ -203,11 +205,18 @@ public class BuildPanelController : MonoBehaviour {
 	
 
 	private void SetModelPosition(){
-		if (BuildModel == null) return;
+        if (BuildModel == null) return;
+        if (BuildModel.name == "Roof(Clone)" || BuildModel.name == "Ceiling_Light(Clone)")
+        {
+            layerNum = ~(1 << 11);
+        }else{
+            layerNum = 1 << 0;
+        }
+       
 		Debug.Log("SetModelPosition");
 		ray = m_BuildPanelView.WorldCamera.ScreenPointToRay(Input.mousePosition);
 		float maxDistance = 12;
-		if(Physics.Raycast(ray, out Hit, maxDistance, ~(1 << 11))){
+		if(Physics.Raycast(ray, out Hit, maxDistance, layerNum)){
 			Debug.Log("SetModelPosition!!!!!");
 			if (BuildModel.GetComponent<MaterialModelBase>().IsAttach == false){
 				if (BuildModel != null) BuildModel.transform.position = Hit.point;

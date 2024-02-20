@@ -110,50 +110,6 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 23800000, guid: 8d62866c49cd1be49bd429c118a43492, type: 2}
---- !u!1 &2300106
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1211284405535712, guid: 49a6a025a534dd14183e816408c208ed,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 2300107}
-  - component: {fileID: 2300108}
-  m_Layer: 11
-  m_Name: B
-  m_TagString: WallToRoof
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2300107
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4336767800314060, guid: 49a6a025a534dd14183e816408c208ed,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2300106}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.987, z: 1.665}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 471237845}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &2300108
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 65709788749789586, guid: 49a6a025a534dd14183e816408c208ed,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2300106}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 0.20606536, z: 0.96967936}
-  m_Center: {x: -0.005754113, y: 0.06958169, z: -1.1581676}
 --- !u!1001 &21348642
 Prefab:
   m_ObjectHideFlags: 0
@@ -468,50 +424,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 128357621}
---- !u!1 &177819018
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 1075432268865916, guid: 49a6a025a534dd14183e816408c208ed,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 177819019}
-  - component: {fileID: 177819020}
-  m_Layer: 11
-  m_Name: A
-  m_TagString: WallToRoof
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &177819019
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 4383284182964568, guid: 49a6a025a534dd14183e816408c208ed,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177819018}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.987, z: -1.65}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 471237845}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &177819020
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 65529792133409672, guid: 49a6a025a534dd14183e816408c208ed,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 177819018}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5, y: 0.20606536, z: 1.0123615}
-  m_Center: {x: -0.005754113, y: 0.06958169, z: 1.1538368}
 --- !u!1 &189167433
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,18 +1123,9 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4286883743499108, guid: ccc9d472188d80e419e37a1bb1b294fe, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ccc9d472188d80e419e37a1bb1b294fe, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &471237845 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4049100019984578, guid: ccc9d472188d80e419e37a1bb1b294fe,
-    type: 2}
-  m_PrefabInternal: {fileID: 471237844}
 --- !u!1 &496612917
 GameObject:
   m_ObjectHideFlags: 0
@@ -3649,10 +3552,6 @@ Prefab:
     - target: {fileID: 4935490388730242, guid: 49a6a025a534dd14183e816408c208ed, type: 2}
       propertyPath: m_RootOrder
       value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 1075432268865916, guid: 49a6a025a534dd14183e816408c208ed, type: 2}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1783033444270932, guid: 49a6a025a534dd14183e816408c208ed, type: 2}
       propertyPath: m_IsActive

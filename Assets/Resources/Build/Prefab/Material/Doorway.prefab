@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 65526356066813826}
   - component: {fileID: 65419264113865790}
   - component: {fileID: 114436379339931160}
+  - component: {fileID: 65089463551896770}
   m_Layer: 11
   m_Name: Doorway
   m_TagString: Untagged
@@ -261,6 +262,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5, y: 0.20606536, z: 0.96967936}
   m_Center: {x: -0.005754113, y: 0.06958169, z: -1.1581676}
+--- !u!65 &65089463551896770
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1799560661637028}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0021585, y: 0.47068787, z: 0.19148374}
+  m_Center: {x: -0.029949129, y: 2.722012, z: 0.00000011920929}
 --- !u!65 &65104139385948862
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -316,7 +329,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730549135228072}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.5, y: 0.20606536, z: 1.0123615}
