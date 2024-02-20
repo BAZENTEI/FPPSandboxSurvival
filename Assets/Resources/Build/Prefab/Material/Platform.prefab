@@ -55,7 +55,6 @@ GameObject:
   - component: {fileID: 23505081026208128}
   - component: {fileID: 65954399979298462}
   - component: {fileID: 54772415691061902}
-  - component: {fileID: 135996661761536084}
   - component: {fileID: 114529866090885806}
   - component: {fileID: 208024011402429758}
   m_Layer: 11
@@ -291,18 +290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b42c29d55cb45a14e886907439b7164c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135996661761536084
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1310383888884682}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.8
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!208 &208024011402429758
 NavMeshObstacle:
   m_ObjectHideFlags: 1

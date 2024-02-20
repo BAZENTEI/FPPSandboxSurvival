@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class Door : MaterialModelBase
 {
+    private GameObject trigger = null;
+    
+    public override void Normal(){
+        base.Normal();
+        if(trigger != null){
+            Destroy(trigger);
+        }
+    }
+
+
+
     protected override void OnTriggerEnter(Collider coll){
         if (coll.gameObject.name == "DoorTrigger"){
             IsCanPut = true;
@@ -12,7 +23,7 @@ public class Door : MaterialModelBase
             transform.rotation = coll.gameObject.transform.rotation;
 
             transform.parent = coll.gameObject.transform.parent;
-
+            trigger = coll.gameObject;
 
         }
     }

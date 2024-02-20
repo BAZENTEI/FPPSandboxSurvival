@@ -23,13 +23,15 @@ GameObject:
   - component: {fileID: 23368924870422034}
   - component: {fileID: 54518131976796136}
   - component: {fileID: 65573316652781718}
+  - component: {fileID: 114907516753698456}
+  - component: {fileID: 114957744501139692}
   m_Layer: 11
   m_Name: Window
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4326096253445538
 Transform:
   m_ObjectHideFlags: 1
@@ -109,3 +111,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.2221045, y: 1.3104265, z: 0.15921688}
   m_Center: {x: -0.0006684065, y: 0.6526629, z: -0.0076888613}
+--- !u!114 &114907516753698456
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574575392408354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be0d418c7ce83f4a9288fad99b29ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114957744501139692
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574575392408354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be0d418c7ce83f4a9288fad99b29ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

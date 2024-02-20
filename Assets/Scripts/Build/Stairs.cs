@@ -3,7 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Stairs : MaterialModelBase {
-  
+    private GameObject trigger = null;
+
+    public override void Normal(){
+        base.Normal();
+        if(trigger != null) { trigger.name = "E"; }
+    }
+
 
     protected override void OnTriggerEnter(Collider coll){
         if(coll.gameObject.tag == "PlatformToWall"){
@@ -14,7 +20,7 @@ public class Stairs : MaterialModelBase {
             Vector3 modelRot = Vector3.zero;
             Vector3 targetPos = coll.gameObject.transform.parent.position;
 
-            switch (coll.gameObject.name) {
+            switch (coll.gameObject.name[0].ToString()) {
                 case "A":
                     modelPos = new Vector3(-2.5f, 0.0f, 0.0f);
                     modelRot = new Vector3(0.0f, 0.0f, 0.0f);
@@ -40,7 +46,7 @@ public class Stairs : MaterialModelBase {
 
             transform.position = targetPos + modelPos;
             transform.rotation = Quaternion.Euler(modelRot);
-
+            trigger = coll.gameObject;
         }
 
     }

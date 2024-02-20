@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 54005768093107324}
   - component: {fileID: 65526356066813826}
   - component: {fileID: 65419264113865790}
+  - component: {fileID: 114436379339931160}
   m_Layer: 11
   m_Name: Doorway
   m_TagString: Untagged
@@ -329,5 +330,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 993e492982e9da24995cef9cef37e524, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114436379339931160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1799560661637028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d1ff8694f159a44fa511ad7214879ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

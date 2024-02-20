@@ -32,7 +32,7 @@ public abstract class MaterialModelBase : MonoBehaviour {
 		}
 	}
 
-	public void Normal()
+	public virtual void Normal()
 	{
 		gameObject.GetComponent<MeshRenderer>().material = oldMaterial;
 	}

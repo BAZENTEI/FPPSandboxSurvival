@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class Window : MaterialModelBase
 {
+    private GameObject trigger = null;
+
+    public override void Normal(){
+        base.Normal();
+        if (trigger != null){
+            Destroy(trigger);
+        }
+    }
 
     protected override void OnTriggerEnter(Collider coll)
     {
@@ -12,6 +20,8 @@ public class Window : MaterialModelBase
             IsAttach = true;
             transform.position = coll.gameObject.transform.position;
             transform.rotation = coll.gameObject.transform.rotation;
+
+            trigger = coll.gameObject;
         }
     }
 
