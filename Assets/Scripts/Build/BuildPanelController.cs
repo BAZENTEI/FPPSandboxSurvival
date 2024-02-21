@@ -188,7 +188,21 @@ public class BuildPanelController : MonoBehaviour {
 			isShow = true;
 			if(tempBuildModel != null) tempBuildModel = null;
 			if (targetMaterial != null) targetMaterial.Normal();
-		}
+
+            Destroy(BuildModel);
+            currentItem.Hide();
+
+            index = 0;
+            scrollNum = -90000.0f;
+            currentItem = itemList[0];
+            currentItem.Show();
+
+			//初期化
+            scrollNum_Material = 0.0f;
+            index_Material = 0;
+            currentMaterial = null;
+            
+        }
     }
 
 	//アイテム名
@@ -202,12 +216,10 @@ public class BuildPanelController : MonoBehaviour {
 
 	}
 
-	
 
 	private void SetModelPosition(){
         if (BuildModel == null) return;
-        if (BuildModel.name == "Roof(Clone)" || BuildModel.name == "Ceiling_Light(Clone)")
-        {
+        if (BuildModel.name == "Roof(Clone)" || BuildModel.name == "Ceiling_Light(Clone)"){
             layerNum = ~(1 << 11);
         }else{
             layerNum = 1 << 0;
