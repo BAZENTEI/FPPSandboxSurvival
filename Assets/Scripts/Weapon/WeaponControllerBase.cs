@@ -17,7 +17,8 @@ public abstract class WeaponControllerBase : MonoBehaviour
     [SerializeField] private WeaponType weaponType;  //銃の種類
     [SerializeField] private int damage;     //基礎攻撃力
     [SerializeField] private int durable;    //最大耐久値
-    
+    //
+    private float durable_2;
 
     public WeaponViewBase M_WeaponViewBase { get { return m_WeaponViewBase; } set { m_WeaponViewBase = value; }}
 
@@ -43,16 +44,23 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
     private bool readyToFire = true;
 
+    private GameObject toolBarIcon;
+    public GameObject ToolBarIcon { get { return toolBarIcon; } set { toolBarIcon = value; } }
+
     virtual protected void Start(){
         m_WeaponViewBase = gameObject.GetComponent<WeaponViewBase>();
         LoadAsset();
         Init();
     }
 
-
     void Update(){
         PreShoot();
         Controller();
+    }
+
+    private void UpdateUI(){
+        //耐久值.
+        toolBarIcon.GetComponent<InventoryItemController>().UpdateUI(Durable / durable_2);
     }
 
     //発射

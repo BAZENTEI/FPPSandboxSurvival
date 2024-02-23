@@ -8,8 +8,10 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 	private CanvasGroup m_CanvasGroup;
 
 	private Image m_Image;  //アイコン
-	private Text m_Text;	//個数
-	private int id;			//アイテムid
+	private Text m_Text;    //個数
+    private Image m_Bar;    //耐久ゲージ
+    private bool bar = false;
+    private int id;			//アイテムid
 	private bool isDrag = false; //ドラッグ判定
 	private bool inInventory = true; //true false
 	private int num = 0;             //アイテム数
@@ -42,7 +44,9 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 		m_CanvasGroup = gameObject.GetComponent<CanvasGroup>();
 		m_Image = gameObject.GetComponent<Image>();
 		m_Text = m_RectTransform.Find("Number").GetComponent<Text>();
-		gameObject.name = "InventoryItem";
+		//
+        m_Bar = m_RectTransform.Find("Bar").GetComponent<Image>();
+        gameObject.name = "InventoryItem";
 
 		parent = GameObject.Find("Canvas").GetComponent<Transform>();
 	}
@@ -56,12 +60,15 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     }
 
 	// init item
-	public void InitItem(int id, string name, int num){
+	public void InitItem(int id, string name, int num, bool bar)
+    {
 		this.id = id;
 		m_Image.sprite = Resources.Load<Sprite>("Item/" + name);
 		m_Text.text = num.ToString();
 		this.num = num;
-	}
+        this.bar = bar;
+        BarOrNum();
+    }
 
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData){
 		self_parent = m_RectTransform.parent;
@@ -187,8 +194,26 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 	//
 	private void MergeMaterials(InventoryItemController target) {
 		target.Num = target.Num + Num; //
-		GameObject.Destroy(gameObject);
+		Destroy(gameObject);
     }
 
+    public void UpdateUI(float value){
+        if (value <= 0){
+            gameObject.GetComponent<Transform>().parent.GetComponent<GearBarSlotController>().Normal();
+            Destroy(gameObject);
+        }
+        m_Bar.fillAmount = value;
+    }
 
+    private void BarOrNum()
+    {
+        if (bar == false)
+        {
+            m_Bar.gameObject.SetActive(false);
+        }
+        else
+        {
+            m_Text.gameObject.SetActive(false);
+        }
+    }
 }

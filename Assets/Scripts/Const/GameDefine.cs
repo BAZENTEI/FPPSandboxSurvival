@@ -9,7 +9,8 @@ public enum WeaponType
 	HuntingRifle,
 	Shotgun,
 	WoodenBow,
-	WoodenSpear
+	WoodenSpear,
+    StoneHatchet
 }
 
 public enum MaterialType

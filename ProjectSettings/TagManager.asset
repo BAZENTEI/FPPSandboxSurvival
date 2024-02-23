@@ -14,6 +14,8 @@ TagManager:
   - WallToRoof
   - Roof
   - Build
+  - Hand
+  - Stone
   layers:
   - Default
   - TransparentFX

@@ -6,8 +6,9 @@ public class InventoryItem {
 	private int itemId;
 	private string itemName;
 	private int itemNum;
+    private bool itemBar;
 
-	public int ItemId
+    public int ItemId
 	{
 		get { return itemId; }
 		set { itemId = value; }
@@ -23,7 +24,13 @@ public class InventoryItem {
 		set { itemNum = value; }
 	}
 
-	public InventoryItem(){}
+    public bool ItemBar
+    {
+        get { return itemBar; }
+        set { itemBar = value; }
+    }
+
+    public InventoryItem(){}
 	public InventoryItem(int itemId, string itemName,int itemNum){
 		this.itemId = itemId;
 		this.ItemName = itemName;
