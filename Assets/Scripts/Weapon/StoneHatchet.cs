@@ -62,12 +62,17 @@ public class StoneHatchet : MonoBehaviour {
     }
 
     private void AttackPre(){
-        ray = new Ray(transform.position, transform.forward);
+        ray = new Ray(transform.Find("Point").position, transform.Find("Point").forward);
         if (Physics.Raycast(ray, out hit, 2)){
-            Debug.DrawLine(transform.position, transform.forward * 5, Color.red);
+            
 
-        }else{
-            Debug.Log("はずれ!");
+        }
+    }
+
+    //アニメーション呼び出し
+    private void AttackStone(){
+        if (hit.collider != null && hit.collider.tag == "Stone"){
+            hit.collider.GetComponent<BulletHole>().HatchetHit(hit, Damage);
         }
     }
 }

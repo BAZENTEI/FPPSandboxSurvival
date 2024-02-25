@@ -24,9 +24,14 @@ public class BulletHole : MonoBehaviour {
         set{
             hp = value;
             if (hp <= 0){
-                Destroy(gameObject);
+				Invoke("DestorySelf", 0.5f);
             }
         }
+    }
+
+	private void DestroySelf(){
+        Destroy(gameObject);
+
     }
 
     void Start () {
@@ -144,5 +149,15 @@ public class BulletHole : MonoBehaviour {
 	private IEnumerator Delay(GameObject gameObject, float time){
 		yield return new WaitForSeconds(time);
 		effectObejctPool.AddObject(gameObject);
+    }
+
+    private void PlayAudios(RaycastHit hit){
+       
+    }
+
+    public void HatchetHit(RaycastHit hit, int hpValue){
+        PlayAudios(hit);
+        PlayEffect(hit);
+        Hp -= hpValue;
     }
 }

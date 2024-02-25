@@ -103,7 +103,7 @@ public class GearBarController : MonoBehaviour {
     if(currentActiveModel.tag != "Build" && currentActiveModel.tag != "Hand"){
     currentActiveModel.GetComponent<GunControllerBase>().SetAnimation();
                 yield return new WaitForSeconds(1);
-    }->171で現れる
+    }
                 
      if(currentActiveModel.tag == "Hand"){
     currentActiveModel.GetComponent<StoneHatchet>().Holster();
