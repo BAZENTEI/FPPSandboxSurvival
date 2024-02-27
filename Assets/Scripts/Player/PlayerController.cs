@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
     void Update(){
         //Debug.Log("player state:" + m_FirstPersonController.M_PlayerState);
         CutVit();
@@ -84,10 +83,16 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
     private void ResetSpeed(){
         m_FirstPersonController.M_WalkSpeed = 5 * (this.Stamina * 0.01f);
         m_FirstPersonController.M_RunSpeed = 10 * (this.Stamina * 0.01f);
 
     }
+
+    void OnCollisionEnter(Collision coll){
+        if (coll.collider.tag == "RockMaterial"){
+            GameObject.Destroy(coll.gameObject);
+        }
+    }
+
 }

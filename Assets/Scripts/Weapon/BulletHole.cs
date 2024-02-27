@@ -18,20 +18,27 @@ public class BulletHole : MonoBehaviour {
 	private Transform effectParent;	     //エフェクトを一括管理のオブジェクト
 	private ObjectPool effectObejctPool; //銃痕エフェクトのオブジェクトプール
 
-    [SerializeField] private int hp;        //テスト      
+    [SerializeField] private int hp;        //テスト
+	private GameObject prefab_Rock_Material;
+    private List<Vector3> rockPosList;
     public int Hp{
         get { return hp; }
         set{
             hp = value;
             if (hp <= 0){
-				Invoke("DestorySelf", 0.5f);
+				Invoke("DestroySelf", 0.5f);
             }
         }
     }
 
 	private void DestroySelf(){
         Destroy(gameObject);
-
+        if (materialType == MaterialType.Stone){
+            int max = Random.Range(3, 5);
+            for (int i = 0; i < max; i++){
+                Instantiate<GameObject>(prefab_Rock_Material, transform.position + new Vector3(0, 2, 0) + rockPosList[i], Quaternion.identity);
+            }
+        }
     }
 
     void Start () {
@@ -40,9 +47,18 @@ public class BulletHole : MonoBehaviour {
 				ResourcesLoad("Bullet Decal_Wood", "Bullet Impact FX_Wood", "Effect_Parent");
 				break;
 			case MaterialType.Marble:
-			case MaterialType.Stone:
-				ResourcesLoad("Bullet Decal_Stone", "Bullet Impact FX_Stone", "Effect_Parent");
+                ResourcesLoad("Bullet Decal_Stone", "Bullet Impact FX_Stone", "Effect_Parent");
 				break;
+            case MaterialType.Stone:
+				ResourcesLoad("Bullet Decal_Stone", "Bullet Impact FX_Stone", "Effect_Parent");
+                prefab_Rock_Material = Resources.Load<GameObject>("Material/Env/Rock/Prefabs/Rock_Material");
+                rockPosList = new List<Vector3>();
+                rockPosList.Add(new Vector3(0, 0, 0));
+                rockPosList.Add(new Vector3(-1.5f, 0, -1.6f));
+                rockPosList.Add(new Vector3(0.9f, 0, -1.6f));
+                rockPosList.Add(new Vector3(1.7f, 0, 0.4f));
+                rockPosList.Add(new Vector3(-1.2f, 0, 1.3f));
+                break;
 			case MaterialType.Metal:
 				prefab_hitEffect = Resources.Load<GameObject>("Weapon/Effects/Bullet Impact FX_Metal");
 				ResourcesLoad("Bullet Decal_Metal", "Bullet Impact FX_Metal", "Effect_Parent");

@@ -16,6 +16,7 @@ TagManager:
   - Build
   - Hand
   - Stone
+  - RockMaterial
   layers:
   - Default
   - TransparentFX
