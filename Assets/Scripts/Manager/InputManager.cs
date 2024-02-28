@@ -34,8 +34,7 @@ public class InputManager : MonoBehaviour {
                 //m_GunStar.SetActive(true);
                 if (GearBarController.Instance.CurrentActiveModel != null)
                     GearBarController.Instance.CurrentActiveModel.SetActive(true);
-            }
-            else{
+            }else{
                 inventoryState = true;
                 InventoryPanelController.Instance.UIPanelShow();
                 m_FirstPersonController.enabled = false;

@@ -55,11 +55,13 @@ public class InventoryPanelController : MonoBehaviour ,IUIPanelShowHide{
 	}
 
     public void UIPanelShow(){
-        gameObject.SetActive(true);
+		//gameObject.SetActive(true);
+		GetComponent<RectTransform>().offsetMin = new Vector2(0, 0);
     }
 
     public void UIPanelHide(){
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        GetComponent<RectTransform>().offsetMin = new Vector2(100000000000, 0);
     }
 
 }

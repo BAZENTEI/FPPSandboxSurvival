@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23607723082170130}
   - component: {fileID: 54024204478519802}
   - component: {fileID: 64345098581185600}
+  - component: {fileID: 114666630651671376}
   m_Layer: 0
   m_Name: Rock_Material
   m_TagString: RockMaterial
@@ -111,3 +112,14 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300002, guid: 549448c03319d4c408e52988d28a413a, type: 3}
+--- !u!114 &114666630651671376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1065559815909434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06603528051ca2346bbf897cfe48bc8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

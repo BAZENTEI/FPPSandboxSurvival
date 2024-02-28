@@ -3,139 +3,139 @@
 		"ItemId": 10,
 		"ItemName": "Building",
 		"ItemNum": 1,
-		"ItemBar": 0
+		"ItemBar": false
     },
     {
 		"ItemId": 11,
 		"ItemName": "Arrow",
 		"ItemNum": 64,
-		"ItemBar": 0
+		"ItemBar": false
     },
     {
 		"ItemId": 12,
 		"ItemName": "Torch",
 		"ItemNum": 1,
-		"ItemBar": 0
+		"ItemBar": false
     },
     {
 		"ItemId": 13,
 		"ItemName": "Axe",
 		"ItemNum": 1,
-		"ItemBar": 0
+		"ItemBar": false
     },
     {
 		"ItemId": 1,
 		"ItemName": "1",
 		"ItemNum": 64,
-		"ItemBar": 0
+		"ItemBar": false
     },
     {
 		"ItemId": 2,
 		"ItemName": "2",
 		"ItemNum": 64,
-		"ItemBar": 0
+		"ItemBar": false
     },
 	{
 		"ItemId": 20,
 		"ItemName": "Assault Rifle",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },
     {
 		"ItemId": 21,
 		"ItemName": "Assault Rifle",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },
 	{
 		"ItemId": 22,
 		"ItemName": "Assault Rifle",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },
 	    {
 		"ItemId": 23,
 		"ItemName": "Assault Rifle",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },
     {
 		"ItemId": 24,
 		"ItemName": "Shotgun",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },
     {
 		"ItemId": 25,
 		"ItemName": "Shotgun",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 26,
 		"ItemName": "Shotgun",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },
     {
 		"ItemId": 27,
 		"ItemName": "Shotgun",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 28,
 		"ItemName": "Shotgun",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 41,
 		"ItemName": "Wooden Bow",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 42,
 		"ItemName": "Wooden Bow",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 43,
 		"ItemName": "Wooden Spear",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 44,
 		"ItemName": "Wooden Spear",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 45,
 		"ItemName": "Wooden Spear",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 46,
 		"ItemName": "Stone Hatchet",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 47,
 		"ItemName": "Stone Hatchet",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     },	
     {
 		"ItemId": 48,
 		"ItemName": "Stone Hatchet",
 		"ItemNum": 1,
-		"ItemBar": 1
+		"ItemBar": true
     }
 	
 ]

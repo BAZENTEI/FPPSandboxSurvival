@@ -45,7 +45,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 		m_Image = gameObject.GetComponent<Image>();
 		m_Text = m_RectTransform.Find("Number").GetComponent<Text>();
 		//
-        m_Bar = m_RectTransform.Find("Bar").GetComponent<Image>();
+        m_Bar = m_RectTransform.Find("DurabilityBar").GetComponent<Image>();
         gameObject.name = "InventoryItem";
 
 		parent = GameObject.Find("Canvas").GetComponent<Transform>();
@@ -205,15 +205,17 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         m_Bar.fillAmount = value;
     }
 
-    private void BarOrNum()
-    {
-        if (bar == false)
-        {
+    private void BarOrNum(){
+        if (bar == false){
             m_Bar.gameObject.SetActive(false);
-        }
-        else
-        {
+        }else{
             m_Text.gameObject.SetActive(false);
         }
     }
+
+    public string GetImageName(){
+        return m_Image.sprite.name.ToString();
+    }
+
+
 }

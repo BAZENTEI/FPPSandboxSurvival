@@ -36,6 +36,7 @@ public class BulletHole : MonoBehaviour {
         if (materialType == MaterialType.Stone){
             int max = Random.Range(3, 5);
             for (int i = 0; i < max; i++){
+				Debug.Log("!!!!!");
                 Instantiate<GameObject>(prefab_Rock_Material, transform.position + new Vector3(0, 2, 0) + rockPosList[i], Quaternion.identity);
             }
         }
@@ -51,8 +52,8 @@ public class BulletHole : MonoBehaviour {
 				break;
             case MaterialType.Stone:
 				ResourcesLoad("Bullet Decal_Stone", "Bullet Impact FX_Stone", "Effect_Parent");
-                prefab_Rock_Material = Resources.Load<GameObject>("Material/Env/Rock/Prefabs/Rock_Material");
-                rockPosList = new List<Vector3>();
+				prefab_Rock_Material = Resources.Load<GameObject>("Env/Rock/Prefabs/Rock_Material");
+				rockPosList = new List<Vector3>();
                 rockPosList.Add(new Vector3(0, 0, 0));
                 rockPosList.Add(new Vector3(-1.5f, 0, -1.6f));
                 rockPosList.Add(new Vector3(0.9f, 0, -1.6f));
