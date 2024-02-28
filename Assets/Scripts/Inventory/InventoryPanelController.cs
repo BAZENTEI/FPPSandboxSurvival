@@ -49,14 +49,15 @@ public class InventoryPanelController : MonoBehaviour ,IUIPanelShowHide{
 
 	//create item 
 	private void CreateItemAll(){
-		List<InventoryItem> tempList = new List<InventoryItem>();
-		tempList = m_InventoryPanelModel.GetJsonData("InventoryJsonData");
+		List<InventoryItem> tempList = m_InventoryPanelModel.GetJsonData("InventoryJsonData.txt");
 
 		for(int i = 0; i < tempList.Count ; i++){
-			
-			GameObject temp = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Item(), slotList[i].transform);
-			temp.GetComponent<InventoryItemController>().InitItem(tempList[i].ItemId, tempList[i].ItemName, tempList[i].ItemNum, tempList[i].ItemBar);
-		}	
+			if(tempList[i].ItemName != ""){
+                GameObject temp = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Item(), slotList[i].transform);
+                temp.GetComponent<InventoryItemController>().InitItem(tempList[i].ItemId, tempList[i].ItemName, tempList[i].ItemNum, tempList[i].ItemBar);
+
+            }
+        }	
 	}
 
 	public void AddItems(List<GameObject> itemList){
@@ -78,6 +79,10 @@ public class InventoryPanelController : MonoBehaviour ,IUIPanelShowHide{
     public void UIPanelHide(){
         //gameObject.SetActive(false);
         GetComponent<RectTransform>().offsetMin = new Vector2(100000000000, 0);
+    }
+
+    void OnDisable(){
+        m_InventoryPanelModel.ObjectToJson(slotList, "InventoryJsonData.txt");
     }
 
 }

@@ -214,8 +214,22 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     }
 
     public string GetImageName(){
-        return m_Image.sprite.name.ToString();
+        //if (m_Image.sprite.name == null)  return "";
+
+        //return m_Image.sprite.name.ToString();
+        if (m_Image.sprite != null)
+        {
+            return m_Image.sprite.name.ToString();
+        }
+        return "";
     }
 
+	public bool IsHaveBar(){
+		if (m_Bar.gameObject.activeSelf){
+			return true;
+		}else{
+			return false;
+		}
 
+    }
 }

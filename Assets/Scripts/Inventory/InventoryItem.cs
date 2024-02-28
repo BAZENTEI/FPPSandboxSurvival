@@ -31,12 +31,13 @@ public class InventoryItem {
     }
 
     public InventoryItem(){}
-	public InventoryItem(int itemId, string itemName,int itemNum){
+	public InventoryItem(int itemId, string itemName,int itemNum, bool itemBar){
 		this.itemId = itemId;
 		this.ItemName = itemName;
 		this.itemNum = itemNum;
+		this.itemBar = itemBar;
 
-	}
+    }
 
 	public override string ToString(){
 		return string.Format("");

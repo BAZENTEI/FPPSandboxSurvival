@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
+using System.IO;
 
 public sealed class JsonTools {
 	static public List<T> LoadJson<T>(string fileName){
@@ -21,14 +22,12 @@ public sealed class JsonTools {
 		return tempList;
 	}
 
-    public static List<T> LoadJsonFile<T>(string fileName)
-    {
+    public static List<T> LoadJsonFileByIO<T>(string fileName){
         List<T> tempList = new List<T>();
-        string tempJsonStr = Resources.Load<TextAsset>("JsonData/" + fileName).text;
+        string tempJsonStr = File.ReadAllText(Application.dataPath + @"\Resources\JsonData\" + fileName);
 
         JsonData jsonData = JsonMapper.ToObject(tempJsonStr);
-        for (int i = 0; i < jsonData.Count; i++)
-        {
+        for (int i = 0; i < jsonData.Count; i++){
             T ii = JsonMapper.ToObject<T>(jsonData[i].ToJson());
             tempList.Add(ii);
         }
