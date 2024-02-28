@@ -21,9 +21,25 @@ public class InventoryPanelController : MonoBehaviour ,IUIPanelShowHide{
 		CreateSlotAll();
 		CreateItemAll();
 	}
-	
-	//create slot
-	private void CreateSlotAll(){
+
+    public void ForAllSlot(string name)
+    {
+        for (int i = 0; i < slotList.Count; i++){
+            Transform tempTransform = slotList[i].GetComponent<Transform>();
+            if (tempTransform.childCount != 0){
+                InventoryItemController temp = tempTransform.Find("InventoryItem").GetComponent<InventoryItemController>();
+                if (temp.GetImageName() == name){
+                    if (temp.Num < 100){
+                        temp.Num++;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    //create slot
+    private void CreateSlotAll(){
 		for(int i = 0; i < slotNum; i++){
 			GameObject tempSlot = GameObject.Instantiate<GameObject>(m_InventoryPanelView.Prefab_Slot(), m_InventoryPanelView.GetGridTransform());
 			tempSlot.name = "InventorySlot" + i;

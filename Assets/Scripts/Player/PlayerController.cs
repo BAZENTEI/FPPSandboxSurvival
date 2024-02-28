@@ -91,6 +91,9 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision coll){
         if (coll.collider.tag == "RockMaterial"){
+            //アイテム数プラス1
+            InventoryPanelController.Instance.ForAllSlot(coll.gameObject.GetComponent<RockMaterialController>().Name);
+
             GameObject.Destroy(coll.gameObject);
         }
     }
