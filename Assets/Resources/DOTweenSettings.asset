@@ -39,7 +39,7 @@ MonoBehaviour:
   modules:
     showPanel: 0
     audioEnabled: 0
-    physicsEnabled: 1
+    physicsEnabled: 0
     physics2DEnabled: 0
     spriteEnabled: 0
     uiEnabled: 1
