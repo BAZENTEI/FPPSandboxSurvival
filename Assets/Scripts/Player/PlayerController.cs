@@ -5,15 +5,18 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 public class PlayerController : MonoBehaviour
 {
-    private int hitPoint = 1000;  //体力ポイント
-    private int stamina = 100;  //スタミナ
+    [SerializeField] private int hitPoint = 1000;  //体力ポイント
+    [SerializeField] private float stamina = 100;  //スタミナ
+    [SerializeField] private float staminaRestoreRate = 8.0f;
     private int index = 0;
     private FirstPersonController m_FirstPersonController;
     private PlayerStatusPanel m_PlayerStatusPanel;
     private BloodSplatterScreen m_BloodSplatterScreen;
 
     public int HitPoint { get { return hitPoint; } set { hitPoint = value; } }
-    public int Stamina { get { return stamina; } set { stamina = value; } }
+    public float Stamina { 
+        get { return stamina; } 
+        set { stamina = value; if (stamina > 100.0f) stamina = 100.0f; } }
 
     
 
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
         if (m_FirstPersonController.M_PlayerState == PlayerState.WALK){
             index++;
             if (index >= 20){
-                this.Stamina -= 1;
+                this.Stamina -= 0.2f;
                 ResetSpeed();
                 index = 0;
             }
@@ -56,7 +59,7 @@ public class PlayerController : MonoBehaviour
         if (m_FirstPersonController.M_PlayerState == PlayerState.RUN){
             index++;
             if (index >= 20){
-                this.Stamina -= 2;
+                this.Stamina -= 1;
                 ResetSpeed();
                 index = 0;
             }
@@ -70,9 +73,9 @@ public class PlayerController : MonoBehaviour
         Vector3 tempPos;
         while (true){
             tempPos = transform.position;
-            yield return new WaitForSeconds(1);
-            if (this.Stamina <= 95 && tempPos.Equals(transform.position)){
-                this.Stamina += 5;
+            yield return new WaitForSeconds(0.5f);
+            if (this.Stamina <= 92 && tempPos.Equals(transform.position)){
+                this.Stamina += staminaRestoreRate;
                 ResetSpeed();
             }
 

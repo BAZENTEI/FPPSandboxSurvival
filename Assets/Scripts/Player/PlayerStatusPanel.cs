@@ -19,7 +19,7 @@ public class PlayerStatusPanel : MonoBehaviour
         hpBar.fillAmount = hp * 0.001f;
     }
 
-    public void SetStaminaBar(int stamina){
+    public void SetStaminaBar(float stamina){
         staminaBar.fillAmount = stamina * 0.01f;
     }
 }
