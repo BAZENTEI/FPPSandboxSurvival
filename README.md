@@ -2,7 +2,7 @@
 - ジャンル: First Person Perspective Sandbox Survival Game
 
 ## 開発環境:
-- Unity 2017.1.5f1  
+- Unity 2022.3.12f1  
 - Visual Studio  
 - plugin: DOTween
 - Asset: フリー素材、フリー音源データ
