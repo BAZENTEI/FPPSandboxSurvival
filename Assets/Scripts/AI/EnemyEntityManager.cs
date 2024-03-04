@@ -19,7 +19,7 @@ public class EnemyEntityManager : MonoBehaviour {
     private int index = 0;
     public EnemyManagerType EnemyManagerType { get { return enemyManagerType; } set { enemyManagerType = value; }}
 
-    [SerializeField] private int entity_attack;
+    [SerializeField] private int entity_attack = 10;//エネミーの攻撃力
     [SerializeField] private int entity_life = 20;
 
     void Start(){
@@ -34,9 +34,6 @@ public class EnemyEntityManager : MonoBehaviour {
         GenerateEnemyEntityByEnum();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     private void GenerateEnemyEntityByEnum(){
       
         switch (enemyManagerType){
@@ -73,10 +70,6 @@ public class EnemyEntityManager : MonoBehaviour {
         }
      }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="enemyEntity"></param>
     private void EnemyEntityDeath(GameObject enemyEntity){
         entityList.Remove(enemyEntity);
         StartCoroutine("GenerateEnemyEntityOnlyOne");

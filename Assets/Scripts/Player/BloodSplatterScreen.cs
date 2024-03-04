@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class BloodSplatterScreen : MonoBehaviour{
     private Image m_Image;
-    private byte alpha = 0;
+    [SerializeField]private byte alpha = 0;
 
-    void Start(){
+    void Awake(){
         m_Image = gameObject.GetComponent<Image>();
     }
 
@@ -15,7 +15,7 @@ public class BloodSplatterScreen : MonoBehaviour{
     /// alphaの値.
     /// </summary>
     public void SetImageAlpha(){
-        alpha += 10;
+        alpha += 5;
         Color32 color = new Color32(255, 255, 255, alpha);
         m_Image.color = color;
         Debug.Log("BloodSplatterScreen alpha:" + m_Image.color.a);

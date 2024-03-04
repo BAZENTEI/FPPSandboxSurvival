@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class RockMaterialController : MonoBehaviour {
 
-    private string name = "2";
+    private string rockMaterialName = "2";
 
-    public string Name
-    {
-        get { return name; }
+    public string RockMaterialName{
+        get { return rockMaterialName; }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 /// <summary>
 /// エネミーのアニメーション状態
@@ -129,7 +130,7 @@ public class EnemyEntityController : MonoBehaviour {
     private void EntityAttackPlayer(){
         //|| m_AIState == AIState.WALK
         if (m_AIState == AIState.ENTERRUN ){
-            if (Vector3.Distance(transform.position, playerTransform.position) <= 1.0f){
+            if (Vector3.Distance(transform.position, playerTransform.position) <= 2.0f){
                 //攻撃状態に移る
                 Debug.Log("EntityAttackPlayer" + AIState.ENTERATTACK);
                 ToggleState(AIState.ENTERATTACK);
@@ -167,7 +168,7 @@ public class EnemyEntityController : MonoBehaviour {
                 ExitAttackState();
                 break;
             case AIState.DEATH:
-                Death();
+                DeathState();
                 break;
             default:
                 break;
@@ -250,7 +251,6 @@ public class EnemyEntityController : MonoBehaviour {
         m_AIState = AIState.DEATH;
         m_navMeshAgent.isStopped = true;
         
-      
         if (enemyManagerType == EnemyManagerType.BOAR){
             m_Animator.SetTrigger("Death");
         }else if (enemyManagerType == EnemyManagerType.CANNIBAL){
@@ -295,7 +295,7 @@ public class EnemyEntityController : MonoBehaviour {
     }
 
     /// <summary>
-    /// 攻撃
+    /// プレイヤーへの攻撃
     /// </summary>
     private void AttackPlayer(){
         m_PlayerController.CutHP(this.attack);
