@@ -7,7 +7,9 @@ using UnityEngine;
 /// controller.
 /// </summary>
 public class CraftingPanelController : MonoBehaviour {
-	private CraftingPanelView m_CraftingPanelView;
+    public static CraftingPanelController Instance;
+
+    private CraftingPanelView m_CraftingPanelView;
 	private CraftingPanelModel m_CraftingPanelModel;
 	private CraftingController m_CraftingController;
 
@@ -21,14 +23,17 @@ public class CraftingPanelController : MonoBehaviour {
 	private int currentIndex = -1;
 
 	private Transform m_Transform;
+    private int materialsCount = 0;         
+    private int dargMaterialsCount = 0;     
+    private List<GameObject> materialsList; 
 
-	void Start() {
+    void Start() {
 		Init();
 
 		CreateAlltabs();
 		CreateAllContents();
-
-		ResetTabsAndContents(0);
+		//最初のtab
+		ResetTabsAndContents(1);
 		CreateAllSlots();
 
 	}
@@ -42,7 +47,10 @@ public class CraftingPanelController : MonoBehaviour {
 		tabsList = new List<GameObject>();
 		contentsList = new List<GameObject>();
 		slotsList = new List<GameObject>();
-	}
+        materialsList = new List<GameObject>();
+
+        m_CraftingController.Prefab_InventoryItem = m_CraftingPanelView.Prefab_InventoryItem;
+    }
 
 	private void CreateAlltabs() {
 		for (int i = 0; i < tabsNum; i++) {
@@ -98,13 +106,16 @@ public class CraftingPanelController : MonoBehaviour {
 
 			for (int j = 0; j < temp.MapContents.Length; j++) {
 				if (temp.MapContents[j] != "0") {
+					
 					Sprite sp = m_CraftingPanelView.ByNameGetMaterialIconSprite(temp.MapContents[j]);
 					slotsList[j].GetComponent<CraftingSlotController>().Init(sp, int.Parse(temp.MapContents[j]));
 				}
-				//クラフトアイテムの表示
-				m_CraftingController.Init(temp.MapName);
-				//Debug.Log(tempList[i].ToString());
-			}
+              
+                //クラフトアイテムの表示
+                m_CraftingController.Init(temp.MapId, temp.MapName);
+                //Debug.Log(tempList[i].ToString());
+                materialsCount = temp.MaterialsCount;
+            }
 		}
 
 	}
@@ -129,5 +140,41 @@ public class CraftingPanelController : MonoBehaviour {
 		InventoryPanelController.Instance.AddItems(materialsList);
 	}
 
+    public void DargMaterilasItem(GameObject item)
+    {
+        materialsList.Add(item);
+        dargMaterialsCount++;
 
+        
+        if (materialsCount == dargMaterialsCount)
+        {
+            m_CraftingController.ActiveButton();
+        }
+    }
+
+    private void CraftingOK()
+    {
+        for (int i = 0; i < materialsList.Count; i++)
+        {
+            InventoryItemController iic = materialsList[i].GetComponent<InventoryItemController>();
+
+            if (iic.Num == 1)
+            {
+                GameObject.Destroy(materialsList[i]);
+            }
+            else
+            {
+                iic.Num = iic.Num - 1;
+            }
+        }
+        StartCoroutine("ResetMap");
+    }
+
+    private IEnumerator ResetMap()
+    {
+        yield return new WaitForSeconds(2);
+        ResetMaterials();
+        dargMaterialsCount = 0;
+        materialsList.Clear();
+    }
 }

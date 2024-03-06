@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine("RestoreVIT");
         m_FirstPersonController = GetComponent<FirstPersonController>();
         m_PlayerStatusPanel = GameObject.Find("Canvas/GearBarPanel/PlayerStatus").GetComponent<PlayerStatusPanel>();
-        m_BloodSplatterScreen = GameObject.Find("Canvas/GearBarPanel/BloodSplatter").GetComponent<BloodSplatterScreen>();
+        m_BloodSplatterScreen = GameObject.Find("Canvas/BloodSplatter").GetComponent<BloodSplatterScreen>();
 
 
     }

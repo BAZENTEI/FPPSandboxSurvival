@@ -15,8 +15,9 @@ public class CraftingPanelView : MonoBehaviour {
 	private GameObject prefab_Content;
 	private GameObject prefab_ContentItem;
 	private GameObject prefab_Slot;
+    private GameObject prefab_InventoryItem;
 
-	private Dictionary<string, Sprite> tabIconDic;
+    private Dictionary<string, Sprite> tabIconDic;
 	private Dictionary<string,Sprite> materialIconDic;
 
 	public Transform M_Transform { get { return m_Transform; } }
@@ -28,8 +29,9 @@ public class CraftingPanelView : MonoBehaviour {
 	public GameObject Prefab_Content { get { return prefab_Content; } }
 	public GameObject Prefab_ContentItem { get { return prefab_ContentItem; } }
 	public GameObject Prefab_Slot { get { return prefab_Slot; } }
+    public GameObject Prefab_InventoryItem { get { return prefab_InventoryItem; } }
 
-	void Awake () {
+    void Awake () {
 		m_Transform = gameObject.transform;
 		tabs_Transform = m_Transform.Find ("Left/Tabs").transform;
 		contents_Transform = m_Transform.Find ("Left/Contents").transform;
@@ -39,8 +41,9 @@ public class CraftingPanelView : MonoBehaviour {
 		prefab_Content = Resources.Load<GameObject>("CraftingContent");
 		prefab_ContentItem = Resources.Load<GameObject>("CraftingContentItem");
 		prefab_Slot = Resources.Load<GameObject>("CraftingSlot");
+        prefab_InventoryItem = Resources.Load<GameObject>("InventoryItem");
 
-		tabIconDic = new Dictionary<string, Sprite>();
+        tabIconDic = new Dictionary<string, Sprite>();
 		materialIconDic = new Dictionary<string, Sprite>();
 
 		TabsIconLoad();
