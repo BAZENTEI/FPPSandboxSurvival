@@ -140,7 +140,9 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 						m_RectTransform.SetParent(target.transform);
 						ResetSpriteSize(m_RectTransform, 70, 62);
 						inInventory = false;
-					} else {
+                        //CraftingPanelController.Instance.DargMaterilasItem(gameObject);
+                        InventoryPanelController.Instance.SendDragMaterilasItem(gameObject);
+                    } else {
 						//戻す
 						target.transform.SetParent(self_parent);
 					}

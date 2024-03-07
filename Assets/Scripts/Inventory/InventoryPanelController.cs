@@ -85,9 +85,11 @@ public class InventoryPanelController : MonoBehaviour ,IUIPanelShowHide{
         m_InventoryPanelModel.ObjectToJson(slotList, "InventoryJsonData.txt");
     }
 
-    public void SendDargMaterilasItem(GameObject item)
+    public void SendDragMaterilasItem(GameObject item)
     {
         CraftingPanelController.Instance.DargMaterilasItem(item);
     }
+
+
 
 }

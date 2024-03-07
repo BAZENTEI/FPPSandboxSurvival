@@ -25,7 +25,11 @@ public class CraftingPanelController : MonoBehaviour {
 	private Transform m_Transform;
     private int materialsCount = 0;         
     private int dargMaterialsCount = 0;     
-    private List<GameObject> materialsList; 
+    private List<GameObject> materialsList;
+
+    private void Awake(){
+        Instance = this;
+    }
 
     void Start() {
 		Init();
@@ -134,44 +138,42 @@ public class CraftingPanelController : MonoBehaviour {
 		List<GameObject> materialsList = new List<GameObject>();
 		for(int i = 0;i < slotsList.Count; i++){
 			if(slotsList[i].transform.Find("InventoryItem") != null){
-				materialsList.Add(slotsList[i].transform.Find("InventoryItem").gameObject);
+                Transform tempTransform = slotsList[i].transform.Find("InventoryItem");
+
+                //materialsList.Add(slotsList[i].transform.Find("InventoryItem").gameObject);
+				if(tempTransform != null)
+				{
+					materialsList.Add(tempTransform.gameObject);
+				}
             }
         }
 		InventoryPanelController.Instance.AddItems(materialsList);
 	}
 
-    public void DargMaterilasItem(GameObject item)
-    {
+    public void DargMaterilasItem(GameObject item){
         materialsList.Add(item);
         dargMaterialsCount++;
-
+		Debug.Log("dargMaterialsCount"+ dargMaterialsCount + "materialsCount" + materialsCount);
         
-        if (materialsCount == dargMaterialsCount)
-        {
+        if (materialsCount == dargMaterialsCount){
             m_CraftingController.ActiveButton();
         }
     }
 
-    private void CraftingOK()
-    {
-        for (int i = 0; i < materialsList.Count; i++)
-        {
+    private void CraftingOK(){
+        for (int i = 0; i < materialsList.Count; i++){
             InventoryItemController iic = materialsList[i].GetComponent<InventoryItemController>();
 
-            if (iic.Num == 1)
-            {
-                GameObject.Destroy(materialsList[i]);
-            }
-            else
-            {
+            if (iic.Num == 1){
+                Destroy(materialsList[i]);
+            }else{
                 iic.Num = iic.Num - 1;
             }
         }
         StartCoroutine("ResetMap");
     }
 
-    private IEnumerator ResetMap()
-    {
+    private IEnumerator ResetMap(){
         yield return new WaitForSeconds(2);
         ResetMaterials();
         dargMaterialsCount = 0;

@@ -23,8 +23,7 @@ public class CraftingMapItem {
 		set{ mapName = value; }
 	}
 
-    public int MaterialsCount
-    {
+    public int MaterialsCount{
         get { return materialsCount; }
         set { materialsCount = value; }
     }
@@ -38,7 +37,7 @@ public class CraftingMapItem {
     }
 
 	public override string ToString(){
-		return string.Format("ID:{0}, map:{1},mapName:{2}",this.mapId, this.mapContents.Length, this.mapName, this.materialsCount);
+		return string.Format("ID:{0}, map:{1},mapName:{2}, Count:{3}", this.mapId, this.mapContents.Length, this.mapName, this.materialsCount);
 	}
 
 
