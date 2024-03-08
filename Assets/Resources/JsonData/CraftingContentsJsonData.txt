@@ -7,15 +7,15 @@
             },
             {
                  "ItemID":2,
-                "ItemName": "wall"
+                "ItemName": "Wall"
             },
             {
                 "ItemID":3,
-                "ItemName": "door"
+                "ItemName": "Door"
             },
             {
                 "ItemID":4,
-                "ItemName": "window"
+                "ItemName": "Window"
             }
         ]
     },
@@ -23,11 +23,11 @@
         "Type": [
             {
                 "ItemID":11,
-                "ItemName": "arrow"
+                "ItemName": "Bow"
             },
             {
                 "ItemID":12,
-                "ItemName": "spear"
+                "ItemName": "Spear"
             }
         ]
     }
