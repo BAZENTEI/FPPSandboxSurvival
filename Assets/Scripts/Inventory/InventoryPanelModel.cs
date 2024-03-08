@@ -22,7 +22,7 @@ public class InventoryPanelModel : MonoBehaviour
         List<InventoryItem> tempList = new List<InventoryItem>();
         for (int i = 0; i < list.Count; i++)
         {
-            Transform tempTransform = list[i].GetComponent<Transform>();
+            Transform tempTransform = list[i].transform;
             InventoryItem item = null;
             if(tempTransform.childCount != 0) 
             {

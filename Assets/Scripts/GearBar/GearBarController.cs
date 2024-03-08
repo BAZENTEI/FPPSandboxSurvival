@@ -14,7 +14,7 @@ public class GearBarController : MonoBehaviour {
     private GameObject currentActiveModel = null;
     private List<GameObject> slotList = null;
     private Dictionary<GameObject, GameObject> toolBarDic = null;
-    private int currentKeyCode = -1;                
+    //private int currentKeyCode = -1;                
 
     public GameObject CurrentActiveModel { get { return currentActiveModel; } }
 

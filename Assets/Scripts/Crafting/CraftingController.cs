@@ -15,14 +15,14 @@ public class CraftingController : MonoBehaviour {
     private string tempSpriteName;
 
     private GameObject prefab_InventoryItem;
-    public GameObject Prefab_InventoryItem { set { prefab_InventoryItem = value; } }
+    public GameObject Prefab_InventoryItem { set {prefab_InventoryItem = value; } }
 
     void Awake () {
 		m_Transform = gameObject.transform;
 		m_Image = m_Transform.Find("GoodItem/ItemImage").GetComponent<Image>();
         m_Craft_Btn = m_Transform.Find("Craft").GetComponent<Button>();
         m_CraftAll_Btn = m_Transform.Find("CraftAll").GetComponent<Button>();
-        bg_Transform = m_Transform.Find("GoodItem").GetComponent<Transform>();
+        bg_Transform = m_Transform.Find("GoodItem").transform;
 
         m_Craft_Btn.onClick.AddListener(CraftingItem);
         m_Image.gameObject.SetActive(false);
@@ -36,8 +36,7 @@ public class CraftingController : MonoBehaviour {
         tempSpriteName = fileName;
     }
 
-    private void InitButton()
-    {
+    private void InitButton(){
         m_Craft_Btn.interactable = false;
         m_Craft_Btn.transform.Find("Text").GetComponent<Text>().color = Color.black;
 
@@ -45,14 +44,12 @@ public class CraftingController : MonoBehaviour {
         m_CraftAll_Btn.transform.Find("Text").GetComponent<Text>().color = Color.black;
     }
 
-    public void ActiveButton()
-    {
+    public void ActiveButton(){
         m_Craft_Btn.interactable = true;
         m_Craft_Btn.transform.Find("Text").GetComponent<Text>().color = Color.white;
     }
 
-    private void CraftingItem()
-    {
+    private void CraftingItem(){
        
         GameObject item = Instantiate<GameObject>(prefab_InventoryItem, bg_Transform);
 
@@ -60,7 +57,7 @@ public class CraftingController : MonoBehaviour {
         item.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 110);
 
         item.GetComponent<InventoryItemController>().InitItem(tempId, tempSpriteName, 1, true);
-
+        //初期化
         InitButton();
 
         SendMessageUpwards("CraftingOK");

@@ -103,9 +103,8 @@ public class CraftingPanelController : MonoBehaviour {
 	private void CreateSlotContents(int id) {
 		CraftingMapItem temp = m_CraftingPanelModel.GetItemById(id);
 		if (temp != null) {
-			//
+			
 			ResetSlotContents();
-			//
 			ResetMaterials();
 
 			for (int j = 0; j < temp.MapContents.Length; j++) {
@@ -131,9 +130,7 @@ public class CraftingPanelController : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
-	/// 
-	/// </summary>
+
 	private void ResetMaterials(){
 		List<GameObject> materialsList = new List<GameObject>();
 		for(int i = 0;i < slotsList.Count; i++){
@@ -141,8 +138,7 @@ public class CraftingPanelController : MonoBehaviour {
                 Transform tempTransform = slotsList[i].transform.Find("InventoryItem");
 
                 //materialsList.Add(slotsList[i].transform.Find("InventoryItem").gameObject);
-				if(tempTransform != null)
-				{
+				if(tempTransform != null){
 					materialsList.Add(tempTransform.gameObject);
 				}
             }

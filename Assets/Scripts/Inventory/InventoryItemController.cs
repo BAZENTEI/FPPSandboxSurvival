@@ -48,7 +48,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
         m_Bar = m_RectTransform.Find("DurabilityBar").GetComponent<Image>();
         gameObject.name = "InventoryItem";
 
-		parent = GameObject.Find("Canvas").GetComponent<Transform>();
+		parent = GameObject.Find("Canvas").transform;
 	}
 
 	void Update(){
@@ -201,7 +201,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 
     public void UpdateUI(float value){
         if (value <= 0){
-            gameObject.GetComponent<Transform>().parent.GetComponent<GearBarSlotController>().Normal();
+            gameObject.transform.parent.GetComponent<GearBarSlotController>().Normal();
             Destroy(gameObject);
         }
         m_Bar.fillAmount = value;

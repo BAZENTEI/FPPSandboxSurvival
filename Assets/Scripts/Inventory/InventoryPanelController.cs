@@ -25,7 +25,7 @@ public class InventoryPanelController : MonoBehaviour ,IUIPanelShowHide{
     public void ForAllSlot(string name)
     {
         for (int i = 0; i < slotList.Count; i++){
-            Transform tempTransform = slotList[i].GetComponent<Transform>();
+            Transform tempTransform = slotList[i].transform;
             if (tempTransform.childCount != 0){
                 InventoryItemController temp = tempTransform.Find("InventoryItem").GetComponent<InventoryItemController>();
                 if (temp.GetImageName() == name){

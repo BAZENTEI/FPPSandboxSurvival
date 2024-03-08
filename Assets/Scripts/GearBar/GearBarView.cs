@@ -16,7 +16,7 @@ public class GearBarView : MonoBehaviour {
 	void Awake () {
 		prefab_GearBarSlot = Resources.Load<GameObject>("GearBarSlot");
 		m_Transform = gameObject.transform;
-		grid_Transform = gameObject.transform.Find("Grid").GetComponent<Transform>();
+		grid_Transform = gameObject.transform.Find("Grid").transform;
 	}
 	
 	

@@ -6,8 +6,8 @@ public class DoorPlayerEnterTrigger : MonoBehaviour {
 
     void OnTriggerEnter(Collider coll){
         if (coll.gameObject.name == "FPSController"){
-            if (gameObject.GetComponent<Transform>().parent.Find("Door(Clone)") != null){
-                gameObject.GetComponent<Transform>().parent.Find("Door(Clone)").GetComponent<DoorController>().OpenDoor();
+            if (gameObject.transform.parent.Find("Door(Clone)") != null){
+                gameObject.transform.parent.Find("Door(Clone)").GetComponent<DoorController>().OpenDoor();
             }
         }
     }
@@ -15,8 +15,8 @@ public class DoorPlayerEnterTrigger : MonoBehaviour {
     void OnTriggerExit(Collider coll){
         if (coll.gameObject.name == "FPSController") {
             
-            if (gameObject.GetComponent<Transform>().parent.Find("Door(Clone)") != null){
-                gameObject.GetComponent<Transform>().parent.Find("Door(Clone)").GetComponent<DoorController>().CloseDoor();
+            if (gameObject.transform.parent.Find("Door(Clone)") != null){
+                gameObject.transform.parent.Find("Door(Clone)").GetComponent<DoorController>().CloseDoor();
             }
         }
     }
