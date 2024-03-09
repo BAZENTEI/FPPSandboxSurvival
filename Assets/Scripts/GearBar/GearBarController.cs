@@ -13,7 +13,7 @@ public class GearBarController : MonoBehaviour {
 	private GameObject currentHolding = null;   //手持ちの装備
     private GameObject currentActiveModel = null;
     private List<GameObject> slotList = null;
-    private Dictionary<GameObject, GameObject> toolBarDic = null;
+    private Dictionary<GameObject, GameObject> GearBarDic = null;
     //private int currentKeyCode = -1;                
 
     public GameObject CurrentActiveModel { get { return currentActiveModel; } }
@@ -32,7 +32,7 @@ public class GearBarController : MonoBehaviour {
 		//m_GearBarModel = gameObject.GetComponent<GearBarModel>();
 
 		slotList = new List<GameObject>();
-        toolBarDic = new Dictionary<GameObject, GameObject>();
+        GearBarDic = new Dictionary<GameObject, GameObject>();
     }
 
 	//スロット生成
@@ -114,14 +114,14 @@ public class GearBarController : MonoBehaviour {
 
             
             GameObject temp = null;
-            toolBarDic.TryGetValue(m_temp.gameObject, out temp);
+            GearBarDic.TryGetValue(m_temp.gameObject, out temp);
             
             if (temp == null)
             {
                
                 //temp = GunFactory.Instance.CreateGun(m_temp.GetComponent<Image>().sprite.name, m_temp.gameObject);
                 
-                toolBarDic.Add(m_temp.gameObject, temp);
+                GearBarDic.Add(m_temp.gameObject, temp);
             }
             else
             {

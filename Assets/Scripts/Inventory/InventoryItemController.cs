@@ -60,8 +60,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     }
 
 	// init item
-	public void InitItem(int id, string name, int num, bool bar)
-    {
+	public void InitItem(int id, string name, int num, bool bar){
 		this.id = id;
 		m_Image.sprite = Resources.Load<Sprite>("Item/" + name);
 		m_Text.text = num.ToString();
@@ -140,7 +139,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
 						m_RectTransform.SetParent(target.transform);
 						ResetSpriteSize(m_RectTransform, 70, 62);
 						inInventory = false;
-                        //CraftingPanelController.Instance.DargMaterilasItem(gameObject);
+
                         InventoryPanelController.Instance.SendDragMaterilasItem(gameObject);
                     } else {
 						//戻す

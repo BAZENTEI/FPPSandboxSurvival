@@ -52,15 +52,15 @@ public class InputManager : MonoBehaviour {
 
   
     private void GearBarPanelKey(){
-        GearBarKey(GameConst.ToolBarPanelKey1, 0);
-        GearBarKey(GameConst.ToolBarPanelKey2, 1);
-        GearBarKey(GameConst.ToolBarPanelKey3, 2);
-        GearBarKey(GameConst.ToolBarPanelKey4, 3);
-        GearBarKey(GameConst.ToolBarPanelKey5, 4);
-        GearBarKey(GameConst.ToolBarPanelKey6, 5);
-        GearBarKey(GameConst.ToolBarPanelKey7, 6);
-        GearBarKey(GameConst.ToolBarPanelKey8, 7);
-        GearBarKey(GameConst.ToolBarPanelKey9, 8);
+        GearBarKey(GameConst.GearBarPanelKey1, 0);
+        GearBarKey(GameConst.GearBarPanelKey2, 1);
+        GearBarKey(GameConst.GearBarPanelKey3, 2);
+        GearBarKey(GameConst.GearBarPanelKey4, 3);
+        GearBarKey(GameConst.GearBarPanelKey5, 4);
+        GearBarKey(GameConst.GearBarPanelKey6, 5);
+        GearBarKey(GameConst.GearBarPanelKey7, 6);
+        GearBarKey(GameConst.GearBarPanelKey8, 7);
+        GearBarKey(GameConst.GearBarPanelKey9, 8);
     }
 
     

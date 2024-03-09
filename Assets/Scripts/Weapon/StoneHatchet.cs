@@ -11,7 +11,7 @@ public class StoneHatchet : MonoBehaviour {
     [SerializeField] private int durable;    //最大耐久値
     //
     private float durable_2;
-    private GameObject toolBarIcon;
+    private GameObject gearBarIcon;
 
     public int Id { get { return id; } set { id = value; } }
     public WeaponType WeaponType { get { return weaponType; } set { weaponType = value; } }
@@ -28,7 +28,7 @@ public class StoneHatchet : MonoBehaviour {
             }
         }
     }
-    public GameObject ToolBarIcon { get { return toolBarIcon; } set { toolBarIcon = value; } }
+    public GameObject GearBarIcon { get { return gearBarIcon; } set { gearBarIcon = value; } }
 
     private Ray ray;
     private RaycastHit hit;
@@ -52,7 +52,7 @@ public class StoneHatchet : MonoBehaviour {
 
     private void UpdateUI(){
         
-        //toolBarIcon.GetComponent<InventoryItemController>().UpdateUI(Durable / durable_2);
+        //GearBarIcon.GetComponent<InventoryItemController>().UpdateUI(Durable / durable_2);
     }
 
     private void Attack(){

@@ -25,7 +25,7 @@ public class GunFactory : MonoBehaviour
 
     void Start()
     {
-        m_Transform = gameObject.GetComponent<Transform>();
+        m_Transform = gameObject.transform;
         PrefabLoad();
     }
 
@@ -71,7 +71,7 @@ public class GunFactory : MonoBehaviour
                 stoneHatchet.Damage = 100;
                 stoneHatchet.Durable = 30;
                 stoneHatchet.WeaponType = WeaponType.StoneHatchet;
-                stoneHatchet.ToolBarIcon = icon;
+                stoneHatchet.GearBarIcon = icon;
                 break;
         }
         return tempGun;
@@ -84,6 +84,6 @@ public class GunFactory : MonoBehaviour
         gcb.Damage = damage;
         gcb.Durable = durable;
         gcb.WeaponType = type;
-        gcb.ToolBarIcon = icon;
+        gcb.GearBarIcon = icon;
     }
 }

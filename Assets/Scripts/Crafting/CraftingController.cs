@@ -60,7 +60,7 @@ public class CraftingController : MonoBehaviour {
         //初期化
         InitButton();
 
-        SendMessageUpwards("CraftingOK");
+        SendMessageUpwards("CraftingDone");
     }
 
 

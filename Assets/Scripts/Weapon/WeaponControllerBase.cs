@@ -44,8 +44,8 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
     private bool readyToFire = true;
 
-    private GameObject toolBarIcon;
-    public GameObject ToolBarIcon { get { return toolBarIcon; } set { toolBarIcon = value; } }
+    private GameObject gearBarIcon;
+    public GameObject GearBarIcon { get { return gearBarIcon; } set { gearBarIcon = value; } }
 
     virtual protected void Start(){
         m_WeaponViewBase = gameObject.GetComponent<WeaponViewBase>();
@@ -60,7 +60,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
     private void UpdateUI(){
         //耐久值.
-        toolBarIcon.GetComponent<InventoryItemController>().UpdateUI(Durable / durable_2);
+        GearBarIcon.GetComponent<InventoryItemController>().UpdateUI(Durable / durable_2);
     }
 
     //発射

@@ -13,7 +13,6 @@ public class CraftingContentController : MonoBehaviour {
 		m_Transform = gameObject.transform;
 	}
 	
-	// Update is called once per frame
 	public void InitContent (int index, GameObject prefab, List<CraftingContentItem> strList) {
 		this.index = index;
 		gameObject.name = "Content" + index;

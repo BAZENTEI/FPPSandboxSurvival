@@ -25,7 +25,7 @@ public class CraftingPanelController : MonoBehaviour {
 	private Transform m_Transform;
     private int materialsCount = 0;         
     private int dargMaterialsCount = 0;     
-    private List<GameObject> materialsList;
+    private List<GameObject> materialsList;	//取り入れたアイテム
 
     private void Awake(){
         Instance = this;
@@ -156,12 +156,12 @@ public class CraftingPanelController : MonoBehaviour {
         }
     }
 
-    private void CraftingOK(){
+    private void CraftingDone(){
         for (int i = 0; i < materialsList.Count; i++){
             InventoryItemController iic = materialsList[i].GetComponent<InventoryItemController>();
-
-            if (iic.Num == 1){
-                Destroy(materialsList[i]);
+			
+            if (iic.Num == 1){ 	
+                Destroy(materialsList[i]);//アイテム1個しかない場合
             }else{
                 iic.Num = iic.Num - 1;
             }
