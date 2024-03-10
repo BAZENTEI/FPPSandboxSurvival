@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GunFactory : MonoBehaviour
-{
+public class GunFactory : MonoBehaviour{
 
     public static GunFactory Instance;
     private Transform m_Transform;
@@ -18,19 +17,16 @@ public class GunFactory : MonoBehaviour
 
     private int index = 0;
 
-    void Awake()
-    {
+    void Awake(){
         Instance = this;
     }
 
-    void Start()
-    {
+    void Start(){
         m_Transform = gameObject.transform;
         PrefabLoad();
     }
 
-    private void PrefabLoad()
-    {
+    private void PrefabLoad(){
         prefab_AssaultRifle = Resources.Load<GameObject>("Gun/Prefabs/Assault Rifle");
         prefab_Shotgun = Resources.Load<GameObject>("Gun/Prefabs/Shotgun");
         prefab_WoodenBow = Resources.Load<GameObject>("Gun/Prefabs/Wooden Bow");
@@ -40,11 +36,9 @@ public class GunFactory : MonoBehaviour
     }
 
 
-    public GameObject CreateGun(string gunName, GameObject icon)
-    {
+    public GameObject CreateGun(string gunName, GameObject icon){
         GameObject tempGun = null;
-        switch (gunName)
-        {
+        switch (gunName){
             case "Assault Rifle":
                 tempGun = GameObject.Instantiate<GameObject>(prefab_AssaultRifle, m_Transform);
                 InitGun(tempGun, 100, 15, WeaponType.AssaultRifle, icon);
@@ -77,8 +71,7 @@ public class GunFactory : MonoBehaviour
         return tempGun;
     }
 
-    private void InitGun(GameObject gun, int damage, int durable, WeaponType type, GameObject icon)
-    {
+    private void InitGun(GameObject gun, int damage, int durable, WeaponType type, GameObject icon){
         GunControllerBase gcb = gun.GetComponent<GunControllerBase>();
         gcb.Id = index++;
         gcb.Damage = damage;

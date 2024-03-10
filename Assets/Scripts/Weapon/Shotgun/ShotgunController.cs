@@ -30,7 +30,7 @@ public class ShotgunController : GunControllerBase {
 
     protected override void Shoot(){ 
         StartCoroutine("CreateBullet");
-        //
+        
         Durable--;
     }
 

@@ -21,6 +21,7 @@ public class WoodenBowController : RangedWeaponControllerBase{
             m_WoodenBowView.M_MuzzlePos.rotation);
         Debug.Log(arrow);
         arrow.GetComponent<ArrowController>().Shoot(m_WoodenBowView.M_MuzzlePos.transform.forward, 1000, Damage, Hit);
+        Durable--;
     }
 
 

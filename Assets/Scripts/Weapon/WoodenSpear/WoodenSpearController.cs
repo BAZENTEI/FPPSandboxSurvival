@@ -18,7 +18,7 @@ public class WoodenSpearController : RangedWeaponControllerBase{
     protected override void Shoot(){
         GameObject go = Instantiate<GameObject>(m_WoodenSpearView.M_Preab_Spear, m_WoodenSpearView.M_MuzzlePos.position, m_WoodenSpearView.M_MuzzlePos.rotation);
         go.GetComponent<ArrowController>().Shoot(m_WoodenSpearView.M_MuzzlePos.forward, 2000, Damage, Hit);
-        //
+        
         Durable--;
     }
 

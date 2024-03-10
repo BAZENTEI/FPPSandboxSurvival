@@ -9,14 +9,14 @@ public class Roof : MaterialModelBase {
         if (coll.gameObject.tag == "WallToRoof"){
             IsCanPut = true;
             IsAttach = true;
-            transform.position = coll.gameObject.GetComponent<Transform>().position;
+            transform.position = coll.gameObject.transform.position;
         }
 
         if (coll.gameObject.tag == "Roof"){
             IsCanPut = true;
             IsAttach = true;
 
-            Vector3 targetPos = coll.gameObject.GetComponent<Transform>().parent.position;
+            Vector3 targetPos = coll.gameObject.transform.parent.position;
             Vector3 selfPos = Vector3.zero;
 
             switch (coll.gameObject.name){

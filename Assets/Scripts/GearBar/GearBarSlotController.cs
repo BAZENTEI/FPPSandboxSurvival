@@ -8,6 +8,7 @@ public class GearBarSlotController : MonoBehaviour {
 	private Button m_Button;
 	private Image m_Image;
 	private bool selfState = false;//false:アクティブ状態 true:アクティブ状態
+	public bool SelfState { get { return selfState; } }
 
 	void Awake() {
 		m_Text = gameObject.transform.Find("Shortcut").GetComponent<Text>();
