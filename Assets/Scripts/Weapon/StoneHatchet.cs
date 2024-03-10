@@ -50,9 +50,10 @@ public class StoneHatchet : MonoBehaviour {
         m_Animator.SetTrigger("Holster");
     }
 
+    //耐久値のバーの更新
     private void UpdateUI(){
         
-        //GearBarIcon.GetComponent<InventoryItemController>().UpdateUI(Durable / durable_2);
+        GearBarIcon.GetComponent<InventoryItemController>().UpdateDurabilityBar(Durable / durable_2);
     }
 
     private void Attack(){

@@ -62,7 +62,7 @@ public abstract class WeaponControllerBase : MonoBehaviour
 
     private void UpdateUI(){
         //耐久值
-        GearBarIcon.GetComponent<InventoryItemController>().UpdateUI(Durable / durable_2);
+        GearBarIcon.GetComponent<InventoryItemController>().UpdateDurabilityBar(Durable / durable_2);
     }
 
     //発射
@@ -86,8 +86,9 @@ public abstract class WeaponControllerBase : MonoBehaviour
     }
 
     virtual protected void MouseButtonDownLeft() {
-        UpdateUI();//耐久値の更新
         Shoot();
+        UpdateUI();//耐久値の更新
+
         //発射のアニメーション
         M_WeaponViewBase.M_Animator.SetTrigger("fire");
         //追加処理

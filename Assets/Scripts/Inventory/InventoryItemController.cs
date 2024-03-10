@@ -199,7 +199,7 @@ public class InventoryItemController : MonoBehaviour, IBeginDragHandler, IDragHa
     }
 
 	//耐久値のバーの更新
-    public void UpdateUI(float value){
+    public void UpdateDurabilityBar(float value){
         if (value <= 0){
             gameObject.transform.parent.GetComponent<GearBarSlotController>().Normal();
             Destroy(gameObject);

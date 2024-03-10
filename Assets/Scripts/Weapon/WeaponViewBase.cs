@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-///
 public abstract class WeaponViewBase : MonoBehaviour {
 
 	//コンポーネント参照
@@ -15,7 +14,8 @@ public abstract class WeaponViewBase : MonoBehaviour {
 	private Vector3 endRot;
 
 	private Transform m_Crosshair;  //クロスヘア
-	private Transform muzzlePos;  //マズルの位置
+    private GameObject prefab_Crosshair;
+    private Transform muzzlePos;  //マズルの位置
 
 	public Animator M_Animator { get { return m_Animator; }}
 	public Camera M_EnvCamera { get { return m_EnvCamera; }}
@@ -30,6 +30,9 @@ public abstract class WeaponViewBase : MonoBehaviour {
 		//コンポーネントプロパティの初期化
 		m_Animator = gameObject.GetComponent<Animator>();
 		m_EnvCamera = GameObject.Find("WorldCamera").GetComponent<Camera>();
+
+        prefab_Crosshair = Resources.Load<GameObject>("Weapon/Crosshair");
+        m_Crosshair = Instantiate<GameObject>(prefab_Crosshair, GameObject.Find("Canvas").GetComponent<Transform>()).GetComponent<Transform>();
 
         HoldPoseInit();
 		CrosshairInit();
@@ -48,5 +51,26 @@ public abstract class WeaponViewBase : MonoBehaviour {
 
     //クロスヘアの初期化
     protected abstract void CrosshairInit();
+
+    private void OnEnable(){
+        ShowCrosshair();
+    }
+
+    private void OnDisable(){
+        HideCrosshair();
+    }
+
+    /// <summary>
+    /// クロスヘアの表示
+    /// </summary>
+    private void ShowCrosshair(){
+        m_Crosshair.gameObject.SetActive(true);
+    }
+
+    private void HideCrosshair(){
+        if (m_Crosshair != null)
+            m_Crosshair.gameObject.SetActive(false);
+    }
+
 
 }

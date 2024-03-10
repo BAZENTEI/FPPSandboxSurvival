@@ -29,7 +29,7 @@ public class CraftingContentController : MonoBehaviour {
 
 	private void ResetItemState(CraftingContentItemController item){
 		if (item == current) return;
-		Debug.Log(item.Id);
+		Debug.Log("item.Id:" + item.Id);
 		if(current != null){
 			current.NormalItem();
         }
