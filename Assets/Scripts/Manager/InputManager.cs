@@ -4,10 +4,30 @@ using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
 
 public class InputManager : MonoBehaviour {
-
+    public static InputManager Instance; //一人っ子
     private bool inventoryState = false;
     private FirstPersonController m_FirstPersonController;
+    private GameObject m_BuildPanel; //建築モジュール
     //private GameObject m_GunStar;
+
+    private bool buildState = false;
+    public bool BuildState{
+        get { return buildState; }
+        set{
+            if (m_BuildPanel != null) m_BuildPanel.SetActive(value);
+            buildState = value;
+            if (buildState == true){
+                m_BuildPanel.GetComponent<BuildPanelController>().Reset();
+            }else{
+                if (m_BuildPanel == null) return;
+                m_BuildPanel.GetComponent<BuildPanelController>().DestroyBuildModel();
+            }
+        }
+    }
+
+    void Awake(){
+        Instance = this;
+    }
 
     void Start(){
         InventoryPanelController.Instance.UIPanelHide();
@@ -22,19 +42,22 @@ public class InputManager : MonoBehaviour {
 
     private void FindInit(){
         m_FirstPersonController = GameObject.Find("FPPController").GetComponent<FirstPersonController>();
+        m_BuildPanel = GameObject.Find("Canvas/BuildPanel");
+        m_BuildPanel.SetActive(false);
         //m_GunStar = GameObject.Find("Canvas/Crosshair");
     }
 
     private void InventoryPanelKey(){
         if (Input.GetKeyDown(GameConst.InventoryPanelKey)){
-            if (inventoryState){
+            //非表示
+            if (inventoryState){ 
                 inventoryState = false;
                 InventoryPanelController.Instance.UIPanelHide();
                 m_FirstPersonController.enabled = true;
                 //m_GunStar.SetActive(true);
                 if (GearBarController.Instance.CurrentActiveModel != null)
                     GearBarController.Instance.CurrentActiveModel.SetActive(true);
-            }else{
+            }else{ //表示
                 inventoryState = true;
                 InventoryPanelController.Instance.UIPanelShow();
                 m_FirstPersonController.enabled = false;

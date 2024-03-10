@@ -91,6 +91,8 @@ public class BuildPanelController : MonoBehaviour {
 		}
 	}
 
+
+
 	private void MouseRight(){
 		if (Input.GetMouseButtonDown(1)){
 			if (isItemCtr == false){
@@ -178,35 +180,74 @@ public class BuildPanelController : MonoBehaviour {
 	}
 
 	private void ShowOrHide(){
-        if (isShow){
-			//GameObject.Find("WheelBG").SetActive(false) ;
-			m_BuildPanelView.M_BG_Transform.gameObject.SetActive(false);
-			isShow = false;
+  //      if (isShow){
+		//	//GameObject.Find("WheelBG").SetActive(false) ;
+		//	m_BuildPanelView.M_BG_Transform.gameObject.SetActive(false);
+		//	isShow = false;
 
-		}else{
-			m_BuildPanelView.M_BG_Transform.gameObject.SetActive(true);
-			isShow = true;
-			if(tempBuildModel != null) tempBuildModel = null;
-			if (targetMaterial != null) targetMaterial.Normal();
+		//}else{
+		//	m_BuildPanelView.M_BG_Transform.gameObject.SetActive(true);
+		//	isShow = true;
+		//	if(tempBuildModel != null) tempBuildModel = null;
+		//	if (targetMaterial != null) targetMaterial.Normal();
 
-            Destroy(BuildModel);
-            currentItem.Hide();
+  //          Destroy(BuildModel);
+  //          currentItem.Hide();
 
-            index = 0;
-            scrollNum = -90000.0f;
-            currentItem = itemList[0];
-            currentItem.Show();
+  //          index = 0;
+  //          scrollNum = -90000.0f;
+  //          currentItem = itemList[0];
+  //          currentItem.Show();
 
-			//初期化
-            scrollNum_Material = 0.0f;
-            index_Material = 0;
-            currentMaterial = null;
+		//	//初期化
+  //          scrollNum_Material = 0.0f;
+  //          index_Material = 0;
+  //          currentMaterial = null;
             
+  //      }
+
+        if (isShow){
+            m_BuildPanelView.M_BG_Transform.gameObject.SetActive(false);
+            isShow = false;
+        }else{
+            m_BuildPanelView.M_BG_Transform.gameObject.SetActive(true);
+            isShow = true;
+            if (tempBuildModel != null) tempBuildModel = null;
+            if (targetMaterial != null) targetMaterial.Normal();
+            Reset();
+
         }
     }
 
-	//アイテム名
-	private void SetTextValue(){
+    /// <summary>
+    /// UI初期化
+    /// </summary>
+    public void Reset(){
+        DestroyBuildModel();
+        if (tempBuildModel != null) tempBuildModel = null;
+        if (currentItem != null){
+            currentItem.Hide();
+            currentItem = itemList[0];
+            currentItem.Show();
+        }
+        index = 0;
+        scrollNum = -90000.0f;
+
+        scrollNum_Material = 0.0f;
+        index_Material = 0;
+        currentMaterial = null;
+
+    }
+
+	/// <summary>
+	/// 選択中のものを消去
+	/// </summary>
+    public void DestroyBuildModel(){
+       Destroy(BuildModel);
+    }
+
+    //アイテム名
+    private void SetTextValue(){
 		m_BuildPanelView.M_ItemName_Text.text = itemNames[index % itemNames.Length];
 
 	}
@@ -253,4 +294,6 @@ public class BuildPanelController : MonoBehaviour {
 		m_BuildPanelView.M_BG_Transform.gameObject.SetActive(false);
 		isShow = false;
 	}
+
+
 }
