@@ -149,9 +149,10 @@ public class CraftingPanelController : MonoBehaviour {
     public void DargMaterilasItem(GameObject item){
         materialsList.Add(item);
         dargMaterialsCount++;
-		Debug.Log("dargMaterialsCount"+ dargMaterialsCount + "materialsCount" + materialsCount);
-        
-        if (materialsCount == dargMaterialsCount){
+		Debug.Log("dargMaterialsCount:"+ dargMaterialsCount + ",materialsCount:" + materialsCount);
+        //materialsCount == dargMaterialsCount
+        if (materialsCount <= dargMaterialsCount){
+			Debug.Log("materialsCount <= dargMaterialsCount");
             m_CraftingController.ActiveButton();
         }
     }
