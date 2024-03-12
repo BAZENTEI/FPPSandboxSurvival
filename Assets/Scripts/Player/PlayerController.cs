@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityStandardAssets.Characters.FirstPerson;
+using UnityEngine.SceneManagement;
+public delegate void PlayerDeathDelegate();
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,7 +20,8 @@ public class PlayerController : MonoBehaviour
         get { return stamina; } 
         set { stamina = value; if (stamina > 100.0f) stamina = 100.0f; } }
 
-    
+    private bool isDeath = false;   //死亡フラグ
+    public event PlayerDeathDelegate PlayerDeathDel;   
 
     void Start(){
         StartCoroutine("RestoreVIT");
@@ -37,11 +40,17 @@ public class PlayerController : MonoBehaviour
 
 
     public void CutHP(int HPValue){
-        this.HitPoint -= HPValue;
-        //HPバー
-        m_PlayerStatusPanel.SetHpBar(this.hitPoint);
-        //BloodSplatterエフェクト
-        m_BloodSplatterScreen.SetImageAlpha();
+        if(isDeath == false){
+            this.HitPoint -= HPValue;
+            //AudioManager.Instance.PlayAudioClipByName(ClipName.PlayerDeath, m_Transform.position);
+            //HPバー
+            m_PlayerStatusPanel.SetHpBar(this.hitPoint);
+            //BloodSplatterエフェクト
+            m_BloodSplatterScreen.SetImageAlpha();
+        }
+       
+
+        if(this.HitPoint <= 0 && isDeath == false)  PlayerDeath();
 
     }
 
@@ -92,6 +101,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //石を拾う
     void OnCollisionEnter(Collision coll){
         if (coll.collider.tag == "RockMaterial"){
             //アイテム数プラス1
@@ -99,6 +109,21 @@ public class PlayerController : MonoBehaviour
 
             GameObject.Destroy(coll.gameObject);
         }
+    }
+
+    private void PlayerDeath(){
+        isDeath = true;
+        //死亡SE
+        //AudioManager.Instance.PlayAudioClipByName(ClipName.PlayerDeath, m_Transform.position);
+        transform.GetComponent<FirstPersonController>().enabled = false;
+        GameObject.Find("Managers").GetComponent<InputManager>().enabled = false;
+        PlayerDeathDel();
+        StartCoroutine("JumpScene");
+    }
+
+    private IEnumerator JumpScene(){
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("ResetScene");
     }
 
 }

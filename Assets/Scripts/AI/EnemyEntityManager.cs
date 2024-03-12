@@ -14,7 +14,7 @@ public class EnemyEntityManager : MonoBehaviour {
     private List<GameObject> entityList = new List<GameObject>(); //エネミーの参照
 
     private Transform[] posTransform;
-    private List<Vector3> posList = new List<Vector3>(); //
+    private List<Vector3> posList = new List<Vector3>(); //巡回の位置
 
     private int index = 0;
     public EnemyManagerType EnemyManagerType { get { return enemyManagerType; } set { enemyManagerType = value; }}
@@ -32,6 +32,8 @@ public class EnemyEntityManager : MonoBehaviour {
             posList.Add(posTransform[i].position);
         }
         GenerateEnemyEntityByEnum();
+
+        GameObject.Find("FPPController").GetComponent<PlayerController>().PlayerDeathDel += Death;
     }
 
     private void GenerateEnemyEntityByEnum(){
@@ -112,6 +114,14 @@ public class EnemyEntityManager : MonoBehaviour {
         entityList.Add(entity);
     }
 
-  
+
+    /// <summary>
+    /// 死亡
+    /// </summary>
+    private void Death(){
+        for (int i = 0; i < entityList.Count; i++){
+            GameObject.Destroy(entityList[i]);
+        }
+    }
 
 }
