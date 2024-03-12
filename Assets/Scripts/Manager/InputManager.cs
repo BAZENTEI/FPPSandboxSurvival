@@ -8,7 +8,6 @@ public class InputManager : MonoBehaviour {
     private bool inventoryState = false;
     private FirstPersonController m_FirstPersonController;
     private GameObject m_BuildPanel; //建築モジュール
-    //private GameObject m_GunStar;
 
     private bool buildState = false;
     public bool BuildState{
@@ -36,7 +35,8 @@ public class InputManager : MonoBehaviour {
 
     void Update(){
         InventoryPanelKey();
-        if (inventoryState == false)
+
+        if (inventoryState == false) //インベントリ表示中だったら無効する
             GearBarPanelKey();
     }
 
@@ -44,28 +44,27 @@ public class InputManager : MonoBehaviour {
         m_FirstPersonController = GameObject.Find("FPPController").GetComponent<FirstPersonController>();
         m_BuildPanel = GameObject.Find("Canvas/BuildPanel");
         m_BuildPanel.SetActive(false);
-        //m_GunStar = GameObject.Find("Canvas/Crosshair");
     }
 
     private void InventoryPanelKey(){
         if (Input.GetKeyDown(GameConst.InventoryPanelKey)){
-            //非表示
+            //インベントリが開いている
             if (inventoryState){ 
                 inventoryState = false;
                 InventoryPanelController.Instance.UIPanelHide();
                 m_FirstPersonController.enabled = true;
-                //m_GunStar.SetActive(true);
+
                 if (GearBarController.Instance.CurrentActiveModel != null)
                     GearBarController.Instance.CurrentActiveModel.SetActive(true);
-            }else{ //表示
+
+            }else{ //インベントリが閉まっています
                 inventoryState = true;
                 InventoryPanelController.Instance.UIPanelShow();
                 m_FirstPersonController.enabled = false;
-                //m_GunStar.SetActive(false);
 
                 if (GearBarController.Instance.CurrentActiveModel != null)
                     GearBarController.Instance.CurrentActiveModel.SetActive(false);
-
+                
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                

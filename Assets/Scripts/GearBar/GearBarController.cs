@@ -11,7 +11,7 @@ public class GearBarController : MonoBehaviour{
     private List<GameObject> slotList = null;
     private GameObject currentHolding = null;   //手持ちの装備
     private GameObject currentActiveModel = null;//キャラクターの参照
-    private int currentKeyCode = -1;    //現時点のボタン                
+    private int currentKeyCode = -1;    //現時点の数字ボタン                
 
     private Dictionary<GameObject, GameObject> gearBarDic = null;   //取り入れた装備      
     public GameObject CurrentActiveModel { get { return currentActiveModel; } }
@@ -55,10 +55,11 @@ public class GearBarController : MonoBehaviour{
 
     }
 
+
+
     public void SaveActiveSlotByKey(int keyNum){
-        //if (slotList[keyNum].transform.Find("InventoryItem") == null){
-        //  return;
-        //}
+        //武器がないボタン無効
+        if (slotList[keyNum].transform.Find("InventoryItem") == null) return;
 
         if (currentHolding != null && currentHolding != slotList[keyNum]){
             currentHolding.GetComponent<GearBarSlotController>().Normal();
@@ -69,11 +70,11 @@ public class GearBarController : MonoBehaviour{
         currentHolding.GetComponent<GearBarSlotController>().ButtonClick();
 
         if (currentKeyCode == keyNum && currentActiveModel != null){
-
+            //降ろす
             currentActiveModel.SetActive(false);
             currentActiveModel = null;
         }else{
-
+            //切り替える
             FindInventoryItem();
         }
 
@@ -81,45 +82,42 @@ public class GearBarController : MonoBehaviour{
     }
 
     private void FindInventoryItem(){
-        Transform m_temp = currentHolding.transform.Find("InventoryItem");
-        //StartCoroutine("CallGunFactory", m_temp);
+        Transform currentInventoryItem = currentHolding.transform.Find("InventoryItem");
+        StartCoroutine("CallGunFactory", currentInventoryItem);
     }
 
-    private IEnumerator CallGunFactory(Transform m_temp){
-        Debug.Log("CallGunFactory");
-        if (m_temp != null){
-            Debug.Log("CallGunFactory1");
-
+    private IEnumerator CallGunFactory(Transform currentInventoryItem){
+        if (currentInventoryItem != null){
             //画面にある->隠す
             if (currentActiveModel != null){
-                Debug.Log("CallGunFactory2");
+               
                 if (currentActiveModel.tag != "Build" && currentActiveModel.tag != "Hand"){
                     currentActiveModel.GetComponent<GunControllerBase>().SetAnimation();
                     yield return new WaitForSeconds(1);
                 }
 
-                /*if(currentActiveModel.tag == "Hand"){
-                  currentActiveModel.GetComponent<StoneHatchet>().Holster();
-                 yield return new WaitForSeconds(1);
-              }
-
-              currentActiveModel.SetActive(false);*/
+                if (currentActiveModel.tag == "Hand"){
+                    currentActiveModel.GetComponent<StoneHatchet>().Holster();
+                    yield return new WaitForSeconds(1);
+                }
+              
+              currentActiveModel.SetActive(false);
             }
 
             //画面にない場合
-            GameObject temp = null;
-            gearBarDic.TryGetValue(m_temp.gameObject, out temp);
+            GameObject tempWeapon = null;
+            gearBarDic.TryGetValue(currentInventoryItem.gameObject, out tempWeapon);
 
-            if (temp == null){
+            if (tempWeapon == null){
                 //武器を生成
-                temp = GunFactory.Instance.CreateGun(m_temp.GetComponent<Image>().sprite.name, m_temp.gameObject);
+                tempWeapon = GunFactory.Instance.CreateGun(currentInventoryItem.GetComponent<Image>().sprite.name, currentInventoryItem.gameObject);
 
-                gearBarDic.Add(m_temp.gameObject, temp);
+                gearBarDic.Add(currentInventoryItem.gameObject, tempWeapon);
             }else if (currentHolding.GetComponent<GearBarSlotController>().SelfState){
                 //武器を表示
-                temp.SetActive(true);
+                tempWeapon.SetActive(true);
             }
-            currentActiveModel = temp;
+            currentActiveModel = tempWeapon;
 
 
         }
